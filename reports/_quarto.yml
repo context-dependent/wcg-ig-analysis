@@ -9,6 +9,7 @@ book:
   date: "2024-07-26"
   chapters:
     - index.qmd
+    - exploratory.qmd
     - references.qmd
   favicon: favicon.png
   sidebar:
