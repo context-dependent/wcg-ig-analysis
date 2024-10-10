@@ -1,0 +1,30 @@
+project:
+  type: book
+  output-dir: ../docs
+  execute-dir: project
+
+book:
+  title: "WCG Inclusion Group Analysis"
+  author: "Thomas McManus"
+  date: "2024-07-26"
+  chapters:
+    - index.qmd
+    - references.qmd
+  favicon: favicon.png
+  sidebar:
+    logo: blueprint-logo.png
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: 
+      - cosmo
+      - custom.scss
+    code-fold: true
+    code-summary: "Show code"
+
+execute: 
+  cache: true
+
+
