@@ -32,6 +32,10 @@ d_client <- d |>
 ```{r xp-igo-client-survey}
 #| label: tbl-xp-igo-client-survey
 #| tbl-cap: "Inclusion Group Representation in Client Survey"
+#| warning: false
+
+d_client |> select(matches("demo_benefi")) |> 
+  var_label()
 
 race_labels <- d_client |> 
   select(matches("^igs_race_([0-9]$|10)")) |> 
@@ -49,6 +53,14 @@ race_renamer <- names(race_labels) |>
   set_names(race_labels)
 
 d_client_01 <- d_client |> 
+  rename(
+    demo_benefits_ever_ei = demo_benefits_ever_1, 
+    demo_benefits_ever_ow = demo_benefits_ever_2, 
+    demo_benefits_ever_odsp = demo_benefits_ever_3,
+    demo_benefits_now_ei = demo_benefits_now_1,
+    demo_benefits_now_ow = demo_benefits_now_2,
+    demo_benefits_now_odsp = demo_benefits_now_3
+  ) |> 
   mutate(
     demo_age = lubridate::ymd(glue::glue("{igs_dob_year}-{igs_dob_month}-15")) |> 
       lubridate::interval(lubridate::as_date(EndDate)) |> 
@@ -60,7 +72,7 @@ d_client_01 <- d_client |>
       igs_year_landed %in% "2019 or later" ~ TRUE, 
       TRUE ~ FALSE
     ), 
-    ig_disability = igs_disability == "Yes", 
+    ig_disability = igs_disability == "Yes" | (demo_benefits_ever_odsp %in% "Yes"), 
     ig_francophone = case_when(
       is.na(igs_lang_first) ~ NA, 
       igs_lang_first == "English" ~ FALSE,
@@ -125,6 +137,9 @@ dplt_client_ig <- d_client_01 |>
       d_client_01 |> select(matches("^ig_"))
     )[inclusion_group]
   )) 
+
+d_client_01 |> 
+  count(igs_disability, demo_benefits_ever_odsp, demo_benefits_now_odsp)
 
 dplt_client_ig |> 
   select(inclusion_group, sample_representation = d) |> 

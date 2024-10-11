@@ -262,114 +262,159 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>race_labels <span class="ot">&lt;-</span> d_client <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"^igs_race_([0-9]$|10)"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  labelled<span class="sc">::</span><span class="fu">var_label</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_c</span>(</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"igs_race_"</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_extract</span>(.x, <span class="st">"(?&lt;=</span><span class="sc">\\</span><span class="st">? ).*?(?=</span><span class="sc">\\</span><span class="st">s</span><span class="sc">\\</span><span class="st">()"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    snakecase<span class="sc">::</span><span class="fu">to_snake_case</span>()</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  ) </span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>race_renamer <span class="ot">&lt;-</span> <span class="fu">names</span>(race_labels) <span class="sc">|&gt;</span> </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(race_labels)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>d_client_01 <span class="ot">&lt;-</span> d_client <span class="sc">|&gt;</span> </span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">demo_age =</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"{igs_dob_year}-{igs_dob_month}-15"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>      lubridate<span class="sc">::</span><span class="fu">interval</span>(lubridate<span class="sc">::</span><span class="fu">as_date</span>(EndDate)) <span class="sc">|&gt;</span> </span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>      lubridate<span class="sc">::</span><span class="fu">as.period</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>      lubridate<span class="sc">::</span><span class="fu">year</span>(),</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig_youth =</span> demo_age <span class="sc">&lt;</span> <span class="dv">30</span>,</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig_newcomer =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">is.na</span>(igs_immigrant) <span class="sc">~</span> <span class="cn">NA</span>, </span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>      igs_year_landed <span class="sc">%in%</span> <span class="st">"2019 or later"</span> <span class="sc">~</span> <span class="cn">TRUE</span>, </span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">FALSE</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig_disability =</span> igs_disability <span class="sc">==</span> <span class="st">"Yes"</span>, </span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig_francophone =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">is.na</span>(igs_lang_first) <span class="sc">~</span> <span class="cn">NA</span>, </span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>      igs_lang_first <span class="sc">==</span> <span class="st">"English"</span> <span class="sc">~</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>      igs_lang_first <span class="sc">==</span> <span class="st">"French"</span> <span class="sc">~</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>      igs_lang_english <span class="sc">%in%</span> <span class="st">"Yes"</span> <span class="sc">&amp;</span> igs_lang_fols <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"English"</span>, <span class="st">"Both"</span>) <span class="sc">~</span> <span class="cn">FALSE</span>, </span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">TRUE</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig_indigenous =</span> igs_indigenous <span class="sc">==</span> <span class="st">"Yes"</span>, </span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">igs_race_nsel =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">c_across</span>(<span class="fu">matches</span>(<span class="st">"igs_race"</span>))))</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig_racialized =</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>      igs_race_nsel <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="cn">FALSE</span>, </span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>      igs_race_nsel <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">~</span> <span class="cn">TRUE</span>, </span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!</span><span class="fu">is.na</span>(igs_race_10) <span class="sc">~</span> <span class="cn">FALSE</span>, </span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">TRUE</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>      <span class="fu">matches</span>(<span class="st">"^igs_race_([0-9]$|10)"</span>), </span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>        igs_race_nsel <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="cn">NA</span>, </span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span> <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.x)</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!!!</span>race_renamer</span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>  )  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d_client <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"demo_benefi"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">var_label</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: There was 1 warning in `mutate()`.
-ℹ In argument: `demo_age = lubridate::year(...)`.
-Caused by warning:
-!  17 failed to parse.</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>$demo_benefits_ever_1
+[1] "Have you received payments through any of the following programs? - Employment Insurance (EI)"
+
+$demo_benefits_ever_2
+[1] "Have you received payments through any of the following programs? - Ontario Works (OW)"
+
+$demo_benefits_ever_3
+[1] "Have you received payments through any of the following programs? - Ontario Disability Support Program (ODSP)"
+
+$demo_benefits_now_1
+[1] "In the past two months, have you received payments through any of the following programs? - Employment Insurance (EI)"
+
+$demo_benefits_now_2
+[1] "In the past two months, have you received payments through any of the following programs? - Ontario Works (OW)"
+
+$demo_benefits_now_3
+[1] "In the past two months, have you received payments through any of the following programs? - Ontario Disability Support Program (ODSP)"</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(d_client_01) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">ig_youth =</span> <span class="st">"Youth (&lt; 30) with Higher Support Needs"</span>, </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ig_newcomer =</span> <span class="st">"Newcomer (2019 or later)"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ig_disability =</span> <span class="st">"Experiencing Disability"</span>, </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ig_francophone =</span> <span class="st">"Francophone"</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ig_indigenous =</span> <span class="st">"Indigenous"</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ig_racialized =</span> <span class="st">"Racialized"</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>dplt_client_ig <span class="ot">&lt;-</span> d_client_01 <span class="sc">|&gt;</span> </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">matches</span>(<span class="st">"^ig_"</span>), </span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"inclusion_group"</span>, </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"val"</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(val)) <span class="sc">|&gt;</span> </span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(inclusion_group) <span class="sc">|&gt;</span> </span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(), </span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">sum</span>(val), </span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> n <span class="sc">/</span> N</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">d =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"{scales::percent(p, accuracy = 1)} ({n}/{N})"</span>)</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(p)) <span class="sc">|&gt;</span>  </span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inclusion_group =</span> <span class="fu">unlist</span>(</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">var_label</span>(</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>      d_client_01 <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"^ig_"</span>))</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    )[inclusion_group]</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  )) </span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>dplt_client_ig <span class="sc">|&gt;</span> </span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(inclusion_group, <span class="at">sample_representation =</span> d) <span class="sc">|&gt;</span> </span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  gtExtras<span class="sc">::</span><span class="fu">gt_theme_538</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_source_note</span>(</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_note =</span> <span class="fu">dl_button</span>(dplt_client_ig, <span class="st">"xp-client-igo"</span>)</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>race_labels <span class="ot">&lt;-</span> d_client <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"^igs_race_([0-9]$|10)"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  labelled<span class="sc">::</span><span class="fu">var_label</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="sc">~</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_c</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"igs_race_"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_extract</span>(.x, <span class="st">"(?&lt;=</span><span class="sc">\\</span><span class="st">? ).*?(?=</span><span class="sc">\\</span><span class="st">s</span><span class="sc">\\</span><span class="st">()"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    snakecase<span class="sc">::</span><span class="fu">to_snake_case</span>()</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>race_renamer <span class="ot">&lt;-</span> <span class="fu">names</span>(race_labels) <span class="sc">|&gt;</span> </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.list</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_names</span>(race_labels)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>d_client_01 <span class="ot">&lt;-</span> d_client <span class="sc">|&gt;</span> </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">demo_benefits_ever_ei =</span> demo_benefits_ever_1, </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">demo_benefits_ever_ow =</span> demo_benefits_ever_2, </span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">demo_benefits_ever_odsp =</span> demo_benefits_ever_3,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">demo_benefits_now_ei =</span> demo_benefits_now_1,</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">demo_benefits_now_ow =</span> demo_benefits_now_2,</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">demo_benefits_now_odsp =</span> demo_benefits_now_3</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">demo_age =</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"{igs_dob_year}-{igs_dob_month}-15"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>      lubridate<span class="sc">::</span><span class="fu">interval</span>(lubridate<span class="sc">::</span><span class="fu">as_date</span>(EndDate)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>      lubridate<span class="sc">::</span><span class="fu">as.period</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>      lubridate<span class="sc">::</span><span class="fu">year</span>(),</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig_youth =</span> demo_age <span class="sc">&lt;</span> <span class="dv">30</span>,</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig_newcomer =</span> <span class="fu">case_when</span>(</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">is.na</span>(igs_immigrant) <span class="sc">~</span> <span class="cn">NA</span>, </span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>      igs_year_landed <span class="sc">%in%</span> <span class="st">"2019 or later"</span> <span class="sc">~</span> <span class="cn">TRUE</span>, </span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">FALSE</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig_disability =</span> igs_disability <span class="sc">==</span> <span class="st">"Yes"</span> <span class="sc">|</span> (demo_benefits_ever_odsp <span class="sc">%in%</span> <span class="st">"Yes"</span>), </span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig_francophone =</span> <span class="fu">case_when</span>(</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">is.na</span>(igs_lang_first) <span class="sc">~</span> <span class="cn">NA</span>, </span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>      igs_lang_first <span class="sc">==</span> <span class="st">"English"</span> <span class="sc">~</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>      igs_lang_first <span class="sc">==</span> <span class="st">"French"</span> <span class="sc">~</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>      igs_lang_english <span class="sc">%in%</span> <span class="st">"Yes"</span> <span class="sc">&amp;</span> igs_lang_fols <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"English"</span>, <span class="st">"Both"</span>) <span class="sc">~</span> <span class="cn">FALSE</span>, </span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">TRUE</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig_indigenous =</span> igs_indigenous <span class="sc">==</span> <span class="st">"Yes"</span>, </span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">igs_race_nsel =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">c_across</span>(<span class="fu">matches</span>(<span class="st">"igs_race"</span>))))</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig_racialized =</span> <span class="fu">case_when</span>(</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>      igs_race_nsel <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="cn">FALSE</span>, </span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>      igs_race_nsel <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">~</span> <span class="cn">TRUE</span>, </span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!</span><span class="fu">is.na</span>(igs_race_10) <span class="sc">~</span> <span class="cn">FALSE</span>, </span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">TRUE</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>      <span class="fu">matches</span>(<span class="st">"^igs_race_([0-9]$|10)"</span>), </span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> <span class="fu">case_when</span>(</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>        igs_race_nsel <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="cn">NA</span>, </span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>        <span class="cn">TRUE</span> <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.x)</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!!!</span>race_renamer</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>  )  </span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(d_client_01) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>  <span class="at">ig_youth =</span> <span class="st">"Youth (&lt; 30) with Higher Support Needs"</span>, </span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>  <span class="at">ig_newcomer =</span> <span class="st">"Newcomer (2019 or later)"</span>,</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>  <span class="at">ig_disability =</span> <span class="st">"Experiencing Disability"</span>, </span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>  <span class="at">ig_francophone =</span> <span class="st">"Francophone"</span>,</span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>  <span class="at">ig_indigenous =</span> <span class="st">"Indigenous"</span>,</span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>  <span class="at">ig_racialized =</span> <span class="st">"Racialized"</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>dplt_client_ig <span class="ot">&lt;-</span> d_client_01 <span class="sc">|&gt;</span> </span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>    <span class="fu">matches</span>(<span class="st">"^ig_"</span>), </span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"inclusion_group"</span>, </span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"val"</span></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(val)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(inclusion_group) <span class="sc">|&gt;</span> </span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(), </span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">sum</span>(val), </span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> n <span class="sc">/</span> N</span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>    <span class="at">d =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"{scales::percent(p, accuracy = 1)} ({n}/{N})"</span>)</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(p)) <span class="sc">|&gt;</span>  </span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inclusion_group =</span> <span class="fu">unlist</span>(</span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>    <span class="fu">var_label</span>(</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>      d_client_01 <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"^ig_"</span>))</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>    )[inclusion_group]</span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>  )) </span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>d_client_01 <span class="sc">|&gt;</span> </span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(igs_disability, demo_benefits_ever_odsp, demo_benefits_now_odsp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 4
+   igs_disability demo_benefits_ever_odsp demo_benefits_now_odsp     n
+   &lt;fct&gt;          &lt;fct&gt;                   &lt;fct&gt;                  &lt;int&gt;
+ 1 Yes            Yes                     Yes                      109
+ 2 Yes            Yes                     No                        14
+ 3 Yes            No                      &lt;NA&gt;                      80
+ 4 Yes            &lt;NA&gt;                    &lt;NA&gt;                       4
+ 5 No             Yes                     Yes                      117
+ 6 No             Yes                     No                        40
+ 7 No             Yes                     &lt;NA&gt;                       2
+ 8 No             No                      &lt;NA&gt;                    1127
+ 9 No             &lt;NA&gt;                    &lt;NA&gt;                      18
+10 &lt;NA&gt;           No                      &lt;NA&gt;                       1
+11 &lt;NA&gt;           &lt;NA&gt;                    &lt;NA&gt;                       4</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dplt_client_ig <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(inclusion_group, <span class="at">sample_representation =</span> d) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  gtExtras<span class="sc">::</span><span class="fu">gt_theme_538</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_source_note</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_note =</span> <span class="fu">dl_button</span>(dplt_client_ig, <span class="st">"xp-client-igo"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-xp-igo-client-survey" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -379,27 +424,27 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
 <div aria-describedby="tbl-xp-igo-client-survey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <div>
-<div id="uzgcosyomi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="htgvcwglpu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cairo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#uzgcosyomi table {
+#htgvcwglpu table {
   font-family: Cairo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#uzgcosyomi thead, #uzgcosyomi tbody, #uzgcosyomi tfoot, #uzgcosyomi tr, #uzgcosyomi td, #uzgcosyomi th {
+#htgvcwglpu thead, #htgvcwglpu tbody, #htgvcwglpu tfoot, #htgvcwglpu tr, #htgvcwglpu td, #htgvcwglpu th {
   border-style: none;
 }
 
-#uzgcosyomi p {
+#htgvcwglpu p {
   margin: 0;
   padding: 0;
 }
 
-#uzgcosyomi .gt_table {
+#htgvcwglpu .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -425,12 +470,12 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-left-color: #D3D3D3;
 }
 
-#uzgcosyomi .gt_caption {
+#htgvcwglpu .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#uzgcosyomi .gt_title {
+#htgvcwglpu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -442,7 +487,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-bottom-width: 0;
 }
 
-#uzgcosyomi .gt_subtitle {
+#htgvcwglpu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -454,7 +499,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-top-width: 0;
 }
 
-#uzgcosyomi .gt_heading {
+#htgvcwglpu .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -466,13 +511,13 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-right-color: #D3D3D3;
 }
 
-#uzgcosyomi .gt_bottom_border {
+#htgvcwglpu .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#uzgcosyomi .gt_col_headings {
+#htgvcwglpu .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -487,7 +532,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-right-color: #D3D3D3;
 }
 
-#uzgcosyomi .gt_col_heading {
+#htgvcwglpu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -507,7 +552,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   overflow-x: hidden;
 }
 
-#uzgcosyomi .gt_column_spanner_outer {
+#htgvcwglpu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -519,15 +564,15 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   padding-right: 4px;
 }
 
-#uzgcosyomi .gt_column_spanner_outer:first-child {
+#htgvcwglpu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#uzgcosyomi .gt_column_spanner_outer:last-child {
+#htgvcwglpu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#uzgcosyomi .gt_column_spanner {
+#htgvcwglpu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -539,11 +584,11 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   width: 100%;
 }
 
-#uzgcosyomi .gt_spanner_row {
+#htgvcwglpu .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#uzgcosyomi .gt_group_heading {
+#htgvcwglpu .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -569,7 +614,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   text-align: left;
 }
 
-#uzgcosyomi .gt_empty_group_heading {
+#htgvcwglpu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -584,15 +629,15 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   vertical-align: middle;
 }
 
-#uzgcosyomi .gt_from_md > :first-child {
+#htgvcwglpu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#uzgcosyomi .gt_from_md > :last-child {
+#htgvcwglpu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#uzgcosyomi .gt_row {
+#htgvcwglpu .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -611,7 +656,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   overflow-x: hidden;
 }
 
-#uzgcosyomi .gt_stub {
+#htgvcwglpu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -624,7 +669,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   padding-right: 5px;
 }
 
-#uzgcosyomi .gt_stub_row_group {
+#htgvcwglpu .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -638,15 +683,15 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   vertical-align: top;
 }
 
-#uzgcosyomi .gt_row_group_first td {
+#htgvcwglpu .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#uzgcosyomi .gt_row_group_first th {
+#htgvcwglpu .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#uzgcosyomi .gt_summary_row {
+#htgvcwglpu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -656,16 +701,16 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   padding-right: 5px;
 }
 
-#uzgcosyomi .gt_first_summary_row {
+#htgvcwglpu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#uzgcosyomi .gt_first_summary_row.thick {
+#htgvcwglpu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#uzgcosyomi .gt_last_summary_row {
+#htgvcwglpu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -675,7 +720,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-bottom-color: #D3D3D3;
 }
 
-#uzgcosyomi .gt_grand_summary_row {
+#htgvcwglpu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -685,7 +730,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   padding-right: 5px;
 }
 
-#uzgcosyomi .gt_first_grand_summary_row {
+#htgvcwglpu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -695,7 +740,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-top-color: #D3D3D3;
 }
 
-#uzgcosyomi .gt_last_grand_summary_row_top {
+#htgvcwglpu .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -705,11 +750,11 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-bottom-color: #D3D3D3;
 }
 
-#uzgcosyomi .gt_striped {
+#htgvcwglpu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#uzgcosyomi .gt_table_body {
+#htgvcwglpu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -718,7 +763,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-bottom-color: #D3D3D3;
 }
 
-#uzgcosyomi .gt_footnotes {
+#htgvcwglpu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -732,7 +777,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-right-color: #D3D3D3;
 }
 
-#uzgcosyomi .gt_footnote {
+#htgvcwglpu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -741,7 +786,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   padding-right: 5px;
 }
 
-#uzgcosyomi .gt_sourcenotes {
+#htgvcwglpu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -755,7 +800,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-right-color: #D3D3D3;
 }
 
-#uzgcosyomi .gt_sourcenote {
+#htgvcwglpu .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -763,72 +808,72 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   padding-right: 5px;
 }
 
-#uzgcosyomi .gt_left {
+#htgvcwglpu .gt_left {
   text-align: left;
 }
 
-#uzgcosyomi .gt_center {
+#htgvcwglpu .gt_center {
   text-align: center;
 }
 
-#uzgcosyomi .gt_right {
+#htgvcwglpu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#uzgcosyomi .gt_font_normal {
+#htgvcwglpu .gt_font_normal {
   font-weight: normal;
 }
 
-#uzgcosyomi .gt_font_bold {
+#htgvcwglpu .gt_font_bold {
   font-weight: bold;
 }
 
-#uzgcosyomi .gt_font_italic {
+#htgvcwglpu .gt_font_italic {
   font-style: italic;
 }
 
-#uzgcosyomi .gt_super {
+#htgvcwglpu .gt_super {
   font-size: 65%;
 }
 
-#uzgcosyomi .gt_footnote_marks {
+#htgvcwglpu .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#uzgcosyomi .gt_asterisk {
+#htgvcwglpu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#uzgcosyomi .gt_indent_1 {
+#htgvcwglpu .gt_indent_1 {
   text-indent: 5px;
 }
 
-#uzgcosyomi .gt_indent_2 {
+#htgvcwglpu .gt_indent_2 {
   text-indent: 10px;
 }
 
-#uzgcosyomi .gt_indent_3 {
+#htgvcwglpu .gt_indent_3 {
   text-indent: 15px;
 }
 
-#uzgcosyomi .gt_indent_4 {
+#htgvcwglpu .gt_indent_4 {
   text-indent: 20px;
 }
 
-#uzgcosyomi .gt_indent_5 {
+#htgvcwglpu .gt_indent_5 {
   text-indent: 25px;
 }
 
-#uzgcosyomi .katex-display {
+#htgvcwglpu .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#uzgcosyomi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#htgvcwglpu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
@@ -866,12 +911,12 @@ tbody tr:last-child {
 <td class="gt_row gt_center" headers="sample_representation">27% (411/1511)</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="inclusion_group">Indigenous</td>
-<td class="gt_row gt_center" headers="sample_representation">19% (285/1512)</td>
+<td class="gt_row gt_left" headers="inclusion_group">Experiencing Disability</td>
+<td class="gt_row gt_center" headers="sample_representation">24% (366/1511)</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="inclusion_group">Experiencing Disability</td>
-<td class="gt_row gt_center" headers="sample_representation">14% (207/1511)</td>
+<td class="gt_row gt_left" headers="inclusion_group">Indigenous</td>
+<td class="gt_row gt_center" headers="sample_representation">19% (285/1512)</td>
 </tr>
 </tbody><tfoot class="gt_sourcenotes">
 <tr class="odd">
@@ -879,7 +924,7 @@ tbody tr:last-child {
     async function downloadFile(event) {
       event.preventDefault();
       try {
-        const response = await fetch('data:text/csv;base64,aW5jbHVzaW9uX2dyb3VwO047bjtwO2QKTmV3Y29tZXIgKDIwMTkgb3IgbGF0ZXIpOzE1MTI7OTM3OzAsNjE5NzA4OTk0NzA4OTk1OzYyJSAoOTM3LzE1MTIpClJhY2lhbGl6ZWQ7MTUxNjs3OTg7MCw1MjYzODUyMjQyNzQ0MDY7NTMlICg3OTgvMTUxNikKWW91dGggKDwgMzApIHdpdGggSGlnaGVyIFN1cHBvcnQgTmVlZHM7MTQ5OTs0MTA7MCwyNzM1MTU2NzcxMTgwNzk7MjclICg0MTAvMTQ5OSkKRnJhbmNvcGhvbmU7MTUxMTs0MTE7MCwyNzIwMDUyOTQ1MDY5NDk7MjclICg0MTEvMTUxMSkKSW5kaWdlbm91czsxNTEyOzI4NTswLDE4ODQ5MjA2MzQ5MjA2MzsxOSUgKDI4NS8xNTEyKQpFeHBlcmllbmNpbmcgRGlzYWJpbGl0eTsxNTExOzIwNzswLDEzNjk5NTM2NzMwNjQyMDsxNCUgKDIwNy8xNTExKQo=');
+        const response = await fetch('data:text/csv;base64,aW5jbHVzaW9uX2dyb3VwO047bjtwO2QKTmV3Y29tZXIgKDIwMTkgb3IgbGF0ZXIpOzE1MTI7OTM3OzAsNjE5NzA4OTk0NzA4OTk1OzYyJSAoOTM3LzE1MTIpClJhY2lhbGl6ZWQ7MTUxNjs3OTg7MCw1MjYzODUyMjQyNzQ0MDY7NTMlICg3OTgvMTUxNikKWW91dGggKDwgMzApIHdpdGggSGlnaGVyIFN1cHBvcnQgTmVlZHM7MTQ5OTs0MTA7MCwyNzM1MTU2NzcxMTgwNzk7MjclICg0MTAvMTQ5OSkKRnJhbmNvcGhvbmU7MTUxMTs0MTE7MCwyNzIwMDUyOTQ1MDY5NDk7MjclICg0MTEvMTUxMSkKRXhwZXJpZW5jaW5nIERpc2FiaWxpdHk7MTUxMTszNjY7MCwyNDIyMjM2OTI5MTg1OTc7MjQlICgzNjYvMTUxMSkKSW5kaWdlbm91czsxNTEyOzI4NTswLDE4ODQ5MjA2MzQ5MjA2MzsxOSUgKDI4NS8xNTEyKQo=');
         if (!response.ok) throw new Error('Network response failed');
         const blob = await response.blob();
         const blobUrl = window.URL.createObjectURL(blob);
