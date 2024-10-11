@@ -1,4 +1,4 @@
-# Exploration
+# Client Survey
 
 ```{r xp-setup}
 library(tidyverse)
@@ -119,16 +119,14 @@ dplt_client_ig <- d_client_01 |>
   mutate(
     d = glue::glue("{scales::percent(p, accuracy = 1)} ({n}/{N})")
   ) |> 
-  arrange(desc(p)) 
-
-var_label(d_client_01 |> select(matches("^ig_")))[dplt_client_ig$inclusion_group] |> unlist()
-
-dplt_client_ig |> 
+  arrange(desc(p)) |>  
   mutate(inclusion_group = unlist(
     var_label(
       d_client_01 |> select(matches("^ig_"))
     )[inclusion_group]
-  )) |>
+  )) 
+
+dplt_client_ig |> 
   select(inclusion_group, sample_representation = d) |> 
   gt() |> 
   gtExtras::gt_theme_538() |> 

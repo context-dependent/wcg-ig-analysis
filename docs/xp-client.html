@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>WCG Inclusion Group Analysis - 1&nbsp; Exploration</title>
+<title>WCG Inclusion Group Analysis - 1&nbsp; Client Survey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -116,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./xp-abstract.html">Exploratory Analysis</a></li><li class="breadcrumb-item"><a href="./xp-client.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Exploration</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./xp-abstract.html">Exploratory Analysis</a></li><li class="breadcrumb-item"><a href="./xp-client.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Client Survey</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -162,7 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./xp-client.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Exploration</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Client Survey</span></span></a>
   </div>
 </li>
       </ul>
@@ -193,9 +193,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./xp-abstract.html">Exploratory Analysis</a></li><li class="breadcrumb-item"><a href="./xp-client.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Exploration</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./xp-abstract.html">Exploratory Analysis</a></li><li class="breadcrumb-item"><a href="./xp-client.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Client Survey</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Exploration</span></h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Client Survey</span></h1>
 </div>
 
 
@@ -356,38 +356,20 @@ Caused by warning:
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">d =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"{scales::percent(p, accuracy = 1)} ({n}/{N})"</span>)</span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(p)) </span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(d_client_01 <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"^ig_"</span>)))[dplt_client_ig<span class="sc">$</span>inclusion_group] <span class="sc">|&gt;</span> <span class="fu">unlist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>                             ig_newcomer 
-              "Newcomer (2019 or later)" 
-                           ig_racialized 
-                            "Racialized" 
-                                ig_youth 
-"Youth (&lt; 30) with Higher Support Needs" 
-                          ig_francophone 
-                           "Francophone" 
-                           ig_indigenous 
-                            "Indigenous" 
-                           ig_disability 
-               "Experiencing Disability" </code></pre>
-</div>
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dplt_client_ig <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inclusion_group =</span> <span class="fu">unlist</span>(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">var_label</span>(</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>      d_client_01 <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"^ig_"</span>))</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    )[inclusion_group]</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(inclusion_group, <span class="at">sample_representation =</span> d) <span class="sc">|&gt;</span> </span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  gtExtras<span class="sc">::</span><span class="fu">gt_theme_538</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_source_note</span>(</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_note =</span> <span class="fu">dl_button</span>(dplt_client_ig, <span class="st">"xp-client-igo"</span>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(p)) <span class="sc">|&gt;</span>  </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inclusion_group =</span> <span class="fu">unlist</span>(</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">var_label</span>(</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>      d_client_01 <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"^ig_"</span>))</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    )[inclusion_group]</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  )) </span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>dplt_client_ig <span class="sc">|&gt;</span> </span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(inclusion_group, <span class="at">sample_representation =</span> d) <span class="sc">|&gt;</span> </span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  gtExtras<span class="sc">::</span><span class="fu">gt_theme_538</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_source_note</span>(</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_note =</span> <span class="fu">dl_button</span>(dplt_client_ig, <span class="st">"xp-client-igo"</span>)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-xp-igo-client-survey" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -397,27 +379,27 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
 <div aria-describedby="tbl-xp-igo-client-survey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <div>
-<div id="qjxrisemym" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="uzgcosyomi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cairo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#qjxrisemym table {
+#uzgcosyomi table {
   font-family: Cairo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#qjxrisemym thead, #qjxrisemym tbody, #qjxrisemym tfoot, #qjxrisemym tr, #qjxrisemym td, #qjxrisemym th {
+#uzgcosyomi thead, #uzgcosyomi tbody, #uzgcosyomi tfoot, #uzgcosyomi tr, #uzgcosyomi td, #uzgcosyomi th {
   border-style: none;
 }
 
-#qjxrisemym p {
+#uzgcosyomi p {
   margin: 0;
   padding: 0;
 }
 
-#qjxrisemym .gt_table {
+#uzgcosyomi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -443,12 +425,12 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-left-color: #D3D3D3;
 }
 
-#qjxrisemym .gt_caption {
+#uzgcosyomi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#qjxrisemym .gt_title {
+#uzgcosyomi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -460,7 +442,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-bottom-width: 0;
 }
 
-#qjxrisemym .gt_subtitle {
+#uzgcosyomi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -472,7 +454,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-top-width: 0;
 }
 
-#qjxrisemym .gt_heading {
+#uzgcosyomi .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -484,13 +466,13 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-right-color: #D3D3D3;
 }
 
-#qjxrisemym .gt_bottom_border {
+#uzgcosyomi .gt_bottom_border {
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qjxrisemym .gt_col_headings {
+#uzgcosyomi .gt_col_headings {
   border-top-style: none;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -505,7 +487,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-right-color: #D3D3D3;
 }
 
-#qjxrisemym .gt_col_heading {
+#uzgcosyomi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -525,7 +507,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   overflow-x: hidden;
 }
 
-#qjxrisemym .gt_column_spanner_outer {
+#uzgcosyomi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -537,15 +519,15 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   padding-right: 4px;
 }
 
-#qjxrisemym .gt_column_spanner_outer:first-child {
+#uzgcosyomi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qjxrisemym .gt_column_spanner_outer:last-child {
+#uzgcosyomi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qjxrisemym .gt_column_spanner {
+#uzgcosyomi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -557,11 +539,11 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   width: 100%;
 }
 
-#qjxrisemym .gt_spanner_row {
+#uzgcosyomi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#qjxrisemym .gt_group_heading {
+#uzgcosyomi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -587,7 +569,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   text-align: left;
 }
 
-#qjxrisemym .gt_empty_group_heading {
+#uzgcosyomi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -602,15 +584,15 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   vertical-align: middle;
 }
 
-#qjxrisemym .gt_from_md > :first-child {
+#uzgcosyomi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qjxrisemym .gt_from_md > :last-child {
+#uzgcosyomi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qjxrisemym .gt_row {
+#uzgcosyomi .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -629,7 +611,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   overflow-x: hidden;
 }
 
-#qjxrisemym .gt_stub {
+#uzgcosyomi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -642,7 +624,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   padding-right: 5px;
 }
 
-#qjxrisemym .gt_stub_row_group {
+#uzgcosyomi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -656,15 +638,15 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   vertical-align: top;
 }
 
-#qjxrisemym .gt_row_group_first td {
+#uzgcosyomi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#qjxrisemym .gt_row_group_first th {
+#uzgcosyomi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#qjxrisemym .gt_summary_row {
+#uzgcosyomi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -674,16 +656,16 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   padding-right: 5px;
 }
 
-#qjxrisemym .gt_first_summary_row {
+#uzgcosyomi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#qjxrisemym .gt_first_summary_row.thick {
+#uzgcosyomi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#qjxrisemym .gt_last_summary_row {
+#uzgcosyomi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -693,7 +675,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-bottom-color: #D3D3D3;
 }
 
-#qjxrisemym .gt_grand_summary_row {
+#uzgcosyomi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -703,7 +685,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   padding-right: 5px;
 }
 
-#qjxrisemym .gt_first_grand_summary_row {
+#uzgcosyomi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -713,7 +695,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-top-color: #D3D3D3;
 }
 
-#qjxrisemym .gt_last_grand_summary_row_top {
+#uzgcosyomi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -723,11 +705,11 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-bottom-color: #D3D3D3;
 }
 
-#qjxrisemym .gt_striped {
+#uzgcosyomi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qjxrisemym .gt_table_body {
+#uzgcosyomi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -736,7 +718,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-bottom-color: #D3D3D3;
 }
 
-#qjxrisemym .gt_footnotes {
+#uzgcosyomi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -750,7 +732,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-right-color: #D3D3D3;
 }
 
-#qjxrisemym .gt_footnote {
+#uzgcosyomi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -759,7 +741,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   padding-right: 5px;
 }
 
-#qjxrisemym .gt_sourcenotes {
+#uzgcosyomi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -773,7 +755,7 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   border-right-color: #D3D3D3;
 }
 
-#qjxrisemym .gt_sourcenote {
+#uzgcosyomi .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -781,72 +763,72 @@ Table&nbsp;1.1: Inclusion Group Representation in Client Survey
   padding-right: 5px;
 }
 
-#qjxrisemym .gt_left {
+#uzgcosyomi .gt_left {
   text-align: left;
 }
 
-#qjxrisemym .gt_center {
+#uzgcosyomi .gt_center {
   text-align: center;
 }
 
-#qjxrisemym .gt_right {
+#uzgcosyomi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qjxrisemym .gt_font_normal {
+#uzgcosyomi .gt_font_normal {
   font-weight: normal;
 }
 
-#qjxrisemym .gt_font_bold {
+#uzgcosyomi .gt_font_bold {
   font-weight: bold;
 }
 
-#qjxrisemym .gt_font_italic {
+#uzgcosyomi .gt_font_italic {
   font-style: italic;
 }
 
-#qjxrisemym .gt_super {
+#uzgcosyomi .gt_super {
   font-size: 65%;
 }
 
-#qjxrisemym .gt_footnote_marks {
+#uzgcosyomi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#qjxrisemym .gt_asterisk {
+#uzgcosyomi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#qjxrisemym .gt_indent_1 {
+#uzgcosyomi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#qjxrisemym .gt_indent_2 {
+#uzgcosyomi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#qjxrisemym .gt_indent_3 {
+#uzgcosyomi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#qjxrisemym .gt_indent_4 {
+#uzgcosyomi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#qjxrisemym .gt_indent_5 {
+#uzgcosyomi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#qjxrisemym .katex-display {
+#uzgcosyomi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#qjxrisemym div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#uzgcosyomi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 
@@ -897,7 +879,7 @@ tbody tr:last-child {
     async function downloadFile(event) {
       event.preventDefault();
       try {
-        const response = await fetch('data:text/csv;base64,aW5jbHVzaW9uX2dyb3VwO047bjtwO2QKaWdfbmV3Y29tZXI7MTUxMjs5Mzc7MCw2MTk3MDg5OTQ3MDg5OTU7NjIlICg5MzcvMTUxMikKaWdfcmFjaWFsaXplZDsxNTE2Ozc5ODswLDUyNjM4NTIyNDI3NDQwNjs1MyUgKDc5OC8xNTE2KQppZ195b3V0aDsxNDk5OzQxMDswLDI3MzUxNTY3NzExODA3OTsyNyUgKDQxMC8xNDk5KQppZ19mcmFuY29waG9uZTsxNTExOzQxMTswLDI3MjAwNTI5NDUwNjk0OTsyNyUgKDQxMS8xNTExKQppZ19pbmRpZ2Vub3VzOzE1MTI7Mjg1OzAsMTg4NDkyMDYzNDkyMDYzOzE5JSAoMjg1LzE1MTIpCmlnX2Rpc2FiaWxpdHk7MTUxMTsyMDc7MCwxMzY5OTUzNjczMDY0MjA7MTQlICgyMDcvMTUxMSkK');
+        const response = await fetch('data:text/csv;base64,aW5jbHVzaW9uX2dyb3VwO047bjtwO2QKTmV3Y29tZXIgKDIwMTkgb3IgbGF0ZXIpOzE1MTI7OTM3OzAsNjE5NzA4OTk0NzA4OTk1OzYyJSAoOTM3LzE1MTIpClJhY2lhbGl6ZWQ7MTUxNjs3OTg7MCw1MjYzODUyMjQyNzQ0MDY7NTMlICg3OTgvMTUxNikKWW91dGggKDwgMzApIHdpdGggSGlnaGVyIFN1cHBvcnQgTmVlZHM7MTQ5OTs0MTA7MCwyNzM1MTU2NzcxMTgwNzk7MjclICg0MTAvMTQ5OSkKRnJhbmNvcGhvbmU7MTUxMTs0MTE7MCwyNzIwMDUyOTQ1MDY5NDk7MjclICg0MTEvMTUxMSkKSW5kaWdlbm91czsxNTEyOzI4NTswLDE4ODQ5MjA2MzQ5MjA2MzsxOSUgKDI4NS8xNTEyKQpFeHBlcmllbmNpbmcgRGlzYWJpbGl0eTsxNTExOzIwNzswLDEzNjk5NTM2NzMwNjQyMDsxNCUgKDIwNy8xNTExKQo=');
         if (!response.ok) throw new Error('Network response failed');
         const blob = await response.blob();
         const blobUrl = window.URL.createObjectURL(blob);
