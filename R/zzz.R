@@ -37,7 +37,7 @@ new_cache_file <- function(obj_id, extension = ".rds") {
 dl_button <- function(x, name) {
   x |> 
     downloadthis::download_this(
-      output_name = glue::glue("sk-overview_{name}"), 
+      output_name = name, 
       output_extension = ".csv", 
       button_label = "Download data as CSV", 
       button_type = "default", 
