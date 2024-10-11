@@ -1,0 +1,138 @@
+# Exploration
+
+```{r xp-setup}
+library(tidyverse)
+library(labelled)
+library(gt)
+source(here::here("R/zzz.R"))
+source(here::here("R/extract.R"))
+
+d <- load_qx_surveys()
+```
+
+## Inclusion Group Overviews
+
+```{r xp-client-data}
+d_client <- d |> 
+  filter(name |> str_detect("Client")) |> 
+  unnest(data) |> 
+  filter(
+    is.na(Q_RecaptchaScore) | (Q_RecaptchaScore >= .9), 
+    Q_BallotBoxStuffing == "", 
+    DistributionChannel != "preview", 
+    gta_screener_1 %in% c("", "Toronto, ON, Canada"), 
+    Progress == 100
+  )
+```
+
+### Client Survey
+
+@tbl-xp-igo-client-survey shows the representation of inclusion groups among client survey respondents. 
+
+```{r xp-igo-client-survey}
+#| label: tbl-xp-igo-client-survey
+#| tbl-cap: "Inclusion Group Representation in Client Survey"
+
+race_labels <- d_client |> 
+  select(matches("^igs_race_([0-9]$|10)")) |> 
+  labelled::var_label() |> 
+  map(~ 
+    str_c(
+      "igs_race_",
+      str_extract(.x, "(?<=\\? ).*?(?=\\s\\()") |> 
+    snakecase::to_snake_case()
+    )
+  ) 
+
+race_renamer <- names(race_labels) |> 
+  as.list() |> 
+  set_names(race_labels)
+
+d_client_01 <- d_client |> 
+  mutate(
+    demo_age = lubridate::ymd(glue::glue("{igs_dob_year}-{igs_dob_month}-15")) |> 
+      lubridate::interval(lubridate::as_date(EndDate)) |> 
+      lubridate::as.period() |> 
+      lubridate::year(),
+    ig_youth = demo_age < 30,
+    ig_newcomer = case_when(
+      is.na(igs_immigrant) ~ NA, 
+      igs_year_landed %in% "2019 or later" ~ TRUE, 
+      TRUE ~ FALSE
+    ), 
+    ig_disability = igs_disability == "Yes", 
+    ig_francophone = case_when(
+      is.na(igs_lang_first) ~ NA, 
+      igs_lang_first == "English" ~ FALSE,
+      igs_lang_first == "French" ~ TRUE,
+      igs_lang_english %in% "Yes" & igs_lang_fols %in% c("English", "Both") ~ FALSE, 
+      TRUE ~ TRUE
+    ), 
+    ig_indigenous = igs_indigenous == "Yes", 
+  ) |> 
+  rowwise() |> 
+  mutate(
+    igs_race_nsel = sum(!is.na(c_across(matches("igs_race"))))
+  ) |> 
+  ungroup() |> 
+  mutate(
+    ig_racialized = case_when(
+      igs_race_nsel == 0 ~ FALSE, 
+      igs_race_nsel > 1 ~ TRUE, 
+      !is.na(igs_race_10) ~ FALSE, 
+      TRUE ~ TRUE
+    ), 
+    across(
+      matches("^igs_race_([0-9]$|10)"), 
+      ~ case_when(
+        igs_race_nsel == 0 ~ NA, 
+        TRUE ~ !is.na(.x)
+      )
+    )
+  ) |> 
+  rename(
+    !!!race_renamer
+  )  
+
+var_label(d_client_01) <- list(
+  ig_youth = "Youth (< 30) with Higher Support Needs", 
+  ig_newcomer = "Newcomer (2019 or later)",
+  ig_disability = "Experiencing Disability", 
+  ig_francophone = "Francophone",
+  ig_indigenous = "Indigenous",
+  ig_racialized = "Racialized"
+)
+
+dplt_client_ig <- d_client_01 |> 
+  pivot_longer(
+    matches("^ig_"), 
+    names_to = "inclusion_group", 
+    values_to = "val"
+  ) |> 
+  filter(!is.na(val)) |> 
+  group_by(inclusion_group) |> 
+  summarize(
+    N = n(), 
+    n = sum(val), 
+    p = n / N
+  ) |> 
+  mutate(
+    d = glue::glue("{scales::percent(p, accuracy = 1)} ({n}/{N})")
+  ) |> 
+  arrange(desc(p)) 
+
+var_label(d_client_01 |> select(matches("^ig_")))[dplt_client_ig$inclusion_group] |> unlist()
+
+dplt_client_ig |> 
+  mutate(inclusion_group = unlist(
+    var_label(
+      d_client_01 |> select(matches("^ig_"))
+    )[inclusion_group]
+  )) |>
+  select(inclusion_group, sample_representation = d) |> 
+  gt() |> 
+  gtExtras::gt_theme_538() |> 
+  tab_source_note(
+    source_note = dl_button(dplt_client_ig, "xp-client-igo")
+  )
+```

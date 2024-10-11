@@ -16,7 +16,7 @@ load_survey <- function(qx_survey_id, fetch = FALSE, date = "latest") {
 }
 
 load_qx_surveys <- function(fetch = FALSE, date = "latest") {
-  survey_info <- readr::read_rds("data/survey_info.rds")
+  survey_info <- readr::read_rds(here::here("data/survey_info.rds"))
   survey_info |> 
     mutate(data = purrr::map(id, ~load_survey(.x, fetch = fetch, date = date))) 
 }

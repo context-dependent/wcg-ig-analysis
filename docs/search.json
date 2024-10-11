@@ -8,5 +8,37 @@
     "crumbs": [
       "Preface"
     ]
+  },
+  {
+    "objectID": "xp-abstract.html",
+    "href": "xp-abstract.html",
+    "title": "Exploratory Analysis",
+    "section": "",
+    "text": "This section documents the exploratory analysis of survey data. The purpose of this analysis is to understand the data, identify potential issues to address in the main analysis, and generate insights that may inform the research questions and hypotheses. Findings presented in this section are preliminary, and are subject to change as the data pipeline and analysis methodology are refined.",
+    "crumbs": [
+      "Exploratory Analysis"
+    ]
+  },
+  {
+    "objectID": "xp-client.html",
+    "href": "xp-client.html",
+    "title": "1  Exploration",
+    "section": "",
+    "text": "1.1 Inclusion Group Overviews\nShow code\nd_client &lt;- d |&gt; \n  filter(name |&gt; str_detect(\"Client\")) |&gt; \n  unnest(data) |&gt; \n  filter(\n    is.na(Q_RecaptchaScore) | (Q_RecaptchaScore &gt;= .9), \n    Q_BallotBoxStuffing == \"\", \n    DistributionChannel != \"preview\", \n    gta_screener_1 %in% c(\"\", \"Toronto, ON, Canada\"), \n    Progress == 100\n  )",
+    "crumbs": [
+      "Exploratory Analysis",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Exploration</span>"
+    ]
+  },
+  {
+    "objectID": "xp-client.html#inclusion-group-overviews",
+    "href": "xp-client.html#inclusion-group-overviews",
+    "title": "1  Exploration",
+    "section": "",
+    "text": "1.1.1 Client Survey\nTable 1.1 shows the representation of inclusion groups among client survey respondents.\n\n\nShow code\nrace_labels &lt;- d_client |&gt; \n  select(matches(\"^igs_race_([0-9]$|10)\")) |&gt; \n  labelled::var_label() |&gt; \n  map(~ \n    str_c(\n      \"igs_race_\",\n      str_extract(.x, \"(?&lt;=\\\\? ).*?(?=\\\\s\\\\()\") |&gt; \n    snakecase::to_snake_case()\n    )\n  ) \n\nrace_renamer &lt;- names(race_labels) |&gt; \n  as.list() |&gt; \n  set_names(race_labels)\n\nd_client_01 &lt;- d_client |&gt; \n  mutate(\n    demo_age = lubridate::ymd(glue::glue(\"{igs_dob_year}-{igs_dob_month}-15\")) |&gt; \n      lubridate::interval(lubridate::as_date(EndDate)) |&gt; \n      lubridate::as.period() |&gt; \n      lubridate::year(),\n    ig_youth = demo_age &lt; 30,\n    ig_newcomer = case_when(\n      is.na(igs_immigrant) ~ NA, \n      igs_year_landed %in% \"2019 or later\" ~ TRUE, \n      TRUE ~ FALSE\n    ), \n    ig_disability = igs_disability == \"Yes\", \n    ig_francophone = case_when(\n      is.na(igs_lang_first) ~ NA, \n      igs_lang_first == \"English\" ~ FALSE,\n      igs_lang_first == \"French\" ~ TRUE,\n      igs_lang_english %in% \"Yes\" & igs_lang_fols %in% c(\"English\", \"Both\") ~ FALSE, \n      TRUE ~ TRUE\n    ), \n    ig_indigenous = igs_indigenous == \"Yes\", \n  ) |&gt; \n  rowwise() |&gt; \n  mutate(\n    igs_race_nsel = sum(!is.na(c_across(matches(\"igs_race\"))))\n  ) |&gt; \n  ungroup() |&gt; \n  mutate(\n    ig_racialized = case_when(\n      igs_race_nsel == 0 ~ FALSE, \n      igs_race_nsel &gt; 1 ~ TRUE, \n      !is.na(igs_race_10) ~ FALSE, \n      TRUE ~ TRUE\n    ), \n    across(\n      matches(\"^igs_race_([0-9]$|10)\"), \n      ~ case_when(\n        igs_race_nsel == 0 ~ NA, \n        TRUE ~ !is.na(.x)\n      )\n    )\n  ) |&gt; \n  rename(\n    !!!race_renamer\n  )  \n\n\nWarning: There was 1 warning in `mutate()`.\nℹ In argument: `demo_age = lubridate::year(...)`.\nCaused by warning:\n!  17 failed to parse.\n\n\nShow code\nvar_label(d_client_01) &lt;- list(\n  ig_youth = \"Youth (&lt; 30) with Higher Support Needs\", \n  ig_newcomer = \"Newcomer (2019 or later)\",\n  ig_disability = \"Experiencing Disability\", \n  ig_francophone = \"Francophone\",\n  ig_indigenous = \"Indigenous\",\n  ig_racialized = \"Racialized\"\n)\n\ndplt_client_ig &lt;- d_client_01 |&gt; \n  pivot_longer(\n    matches(\"^ig_\"), \n    names_to = \"inclusion_group\", \n    values_to = \"val\"\n  ) |&gt; \n  filter(!is.na(val)) |&gt; \n  group_by(inclusion_group) |&gt; \n  summarize(\n    N = n(), \n    n = sum(val), \n    p = n / N\n  ) |&gt; \n  mutate(\n    d = glue::glue(\"{scales::percent(p, accuracy = 1)} ({n}/{N})\")\n  ) |&gt; \n  arrange(desc(p)) \n\nvar_label(d_client_01 |&gt; select(matches(\"^ig_\")))[dplt_client_ig$inclusion_group] |&gt; unlist()\n\n\n                             ig_newcomer \n              \"Newcomer (2019 or later)\" \n                           ig_racialized \n                            \"Racialized\" \n                                ig_youth \n\"Youth (&lt; 30) with Higher Support Needs\" \n                          ig_francophone \n                           \"Francophone\" \n                           ig_indigenous \n                            \"Indigenous\" \n                           ig_disability \n               \"Experiencing Disability\" \n\n\nShow code\ndplt_client_ig |&gt; \n  mutate(inclusion_group = unlist(\n    var_label(\n      d_client_01 |&gt; select(matches(\"^ig_\"))\n    )[inclusion_group]\n  )) |&gt;\n  select(inclusion_group, sample_representation = d) |&gt; \n  gt() |&gt; \n  gtExtras::gt_theme_538() |&gt; \n  tab_source_note(\n    source_note = dl_button(dplt_client_ig, \"xp-client-igo\")\n  )\n\n\n\n\nTable 1.1: Inclusion Group Representation in Client Survey\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ninclusion_group\nsample_representation\n\n\n\n\nNewcomer (2019 or later)\n62% (937/1512)\n\n\nRacialized\n53% (798/1516)\n\n\nYouth (&lt; 30) with Higher Support Needs\n27% (410/1499)\n\n\nFrancophone\n27% (411/1511)\n\n\nIndigenous\n19% (285/1512)\n\n\nExperiencing Disability\n14% (207/1511)\n\n\n\n\n Download data as CSV",
+    "crumbs": [
+      "Exploratory Analysis",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Exploration</span>"
+    ]
   }
 ]

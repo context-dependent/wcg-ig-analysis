@@ -1,0 +1,3 @@
+# Exploratory Analysis
+
+This section documents the exploratory analysis of survey data. The purpose of this analysis is to understand the data, identify potential issues to address in the main analysis, and generate insights that may inform the research questions and hypotheses. Findings presented in this section are preliminary, and are subject to change as the data pipeline and analysis methodology are refined. 
