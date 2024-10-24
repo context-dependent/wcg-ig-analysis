@@ -21,5 +21,6 @@ load_qx_surveys <- function(fetch = FALSE, date = "latest") {
     mutate(data = purrr::map(id, ~load_survey(.x, fetch = fetch, date = date))) 
 }
 
-
-
+load_panel_data <- function() {
+  haven::read_sav(z_path("surveys", "panel", "lw31077_001a_18-OCT-24.sav"))
+}
