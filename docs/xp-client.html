@@ -4994,6 +4994,7 @@ tbody tr:last-child {
 </section>
 <section id="reflections-on-career-exploration" class="level3" data-number="1.2.4">
 <h3 data-number="1.2.4" class="anchored" data-anchor-id="reflections-on-career-exploration"><span class="header-section-number">1.2.4</span> Reflections on Career Exploration</h3>
+<p><a href="#tbl-xp-client-explore" class="quarto-xref">Table&nbsp;<span>1.7</span></a> summarizes the distribution of responses to questions about respondent experiences of career exploration as part of their employment services journies. Here, we see evidence that newcomers, youth, and <em>especially</em> Indigenous clients are less likely to feel that their goals and needs are understood by the employment services system.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
@@ -6382,11 +6383,12 @@ tbody tr:last-child {
 </section>
 <section id="reflections-on-making-progress" class="level3" data-number="1.2.5">
 <h3 data-number="1.2.5" class="anchored" data-anchor-id="reflections-on-making-progress"><span class="header-section-number">1.2.5</span> Reflections on Making Progress</h3>
+<p><a href="#tbl-xp-client-progress" class="quarto-xref">Table&nbsp;<span>1.8</span></a> summarizes the distribution of responses to questions about respondent experiences of codesigning and making progress in their plans for employment. These figures echo the trends observed above: newcomers, youth, and Indigenous clients disproprotionately feel that the employment services system does not communicate with them effectively, nor does it understand the goals and needs they express. Naturally, members of the same set of groups are less likely to report confidence in the effectiveness of the plan, and less likely to feel that it is responsive to their needs.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>tbl_explore <span class="ot">&lt;-</span> d_long <span class="sc">|&gt;</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(explore_reached) <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>tbl_progress <span class="ot">&lt;-</span> d_long <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(progress_reached) <span class="sc">|&gt;</span> </span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">matches</span>(<span class="st">"^progress_reflections"</span>), </span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"var"</span>,</span>
@@ -6405,7 +6407,7 @@ tbody tr:last-child {
 <span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)</span>
 <span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>tbl_explore <span class="sc">|&gt;</span> </span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>tbl_progress <span class="sc">|&gt;</span> </span>
 <span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n) <span class="sc">|&gt;</span> </span>
 <span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
 <span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> val, </span>
@@ -6919,8 +6921,8 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_1 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FF956D33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FF956D;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FF987133;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FF9871;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -6929,18 +6931,18 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_1 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #C8ACF933;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #C8ACF9;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #CEB4F833;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #CEB4F8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-20%
+22%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_1 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #653CFE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #653CFE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #6038FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #6038FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -6949,8 +6951,8 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_1 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #3A1CFF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #3A1CFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #371AFF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #371AFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -6962,48 +6964,101 @@ tbody tr:last-child {
 <tr class="odd">
 <td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Francophone</td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_2 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FAE3DB33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FAE3DB;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #F8E7E233;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #F8E7E2;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-33%
+32%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_2 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FF805233;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FF8052;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FF8D6233;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FF8D62;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-51%
+49%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_2 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #966AFD33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #966AFD;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #9F74FD33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #9F74FD;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-11%
+13%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_2 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #3D1EFF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #3D1EFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #4725FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #4725FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-2%
+3%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_2 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #4B28FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #4B28FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #5831FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #5831FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+4%
+</div>
+</div>
+</div></td>
+</tr>
+<tr class="even">
+<td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Indigenous</td>
+<td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_3 Strongly Agree"><div>
+<div style="height: 20px;width:70px; background-color: #B590FB33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #B590FB;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+16%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_3 Agree"><div>
+<div style="height: 20px;width:70px; background-color: #FFCCB933;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFCCB9;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+37%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_3 Neutral"><div>
+<div style="height: 20px;width:70px; background-color: #FFCCB933;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFCCB9;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+37%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_3 Disagree"><div>
+<div style="height: 20px;width:70px; background-color: #6D42FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #6D42FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+6%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_3 Strongly Disagree"><div>
+<div style="height: 20px;width:70px; background-color: #502BFF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #502BFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7012,64 +7067,11 @@ tbody tr:last-child {
 </div>
 </div></td>
 </tr>
-<tr class="even">
-<td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Indigenous</td>
-<td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_3 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #AE87FC33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #AE87FC;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-15%
-</div>
-</div>
-</div></td>
-<td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_3 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFC6B033;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFC6B0;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-38%
-</div>
-</div>
-</div></td>
-<td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_3 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #FFBCA333;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFBCA3;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-40%
-</div>
-</div>
-</div></td>
-<td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_3 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #5630FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #5630FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-4%
-</div>
-</div>
-</div></td>
-<td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_3 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #4624FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #4624FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-2%
-</div>
-</div>
-</div></td>
-</tr>
 <tr class="odd">
 <td id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Newcomer (2019 or later)</td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_4 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #E8E0F433;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #E8E0F4;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #E5D9F533;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #E5D9F5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7078,18 +7080,18 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_4 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFCBB833;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFCBB8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FFD4C533;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFD4C5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-37%
+36%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_4 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #E2D5F533;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #E2D5F5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #E3D7F533;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #E3D7F5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7098,22 +7100,22 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_4 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #6A3FFE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #6A3FFE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #7449FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #7449FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-6%
+7%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_4 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #542EFF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #542EFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #6037FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #6037FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-4%
+5%
 </div>
 </div>
 </div></td>
@@ -7121,52 +7123,52 @@ tbody tr:last-child {
 <tr class="even">
 <td id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Racialized</td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_5 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FBE1D833;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FBE1D8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #F8E6DF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #F8E6DF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-33%
+32%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_5 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFAE8E33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFAE8E;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FFB69933;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFB699;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-43%
+41%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_5 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #BB99FA33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #BB99FA;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #C1A1FA33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #C1A1FA;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-18%
+19%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_5 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #562FFF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #562FFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #6037FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #6037FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-4%
+5%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_5 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #4523FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #4523FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #4B27FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #4B27FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-2%
+3%
 </div>
 </div>
 </div></td>
@@ -7174,8 +7176,8 @@ tbody tr:last-child {
 <tr class="odd">
 <td id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Receiving Social Assistance</td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_6 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #ECE6F333;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #ECE6F3;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #E9E1F433;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #E9E1F4;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7184,38 +7186,38 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_6 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFC9B533;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFC9B5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FFCFBD33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFCFBD;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-38%
+37%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_6 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #E4D8F533;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #E4D8F5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #E3D7F533;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #E3D7F5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-27%
+26%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_6 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #6038FE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #6038FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #6E43FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #6E43FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-5%
+6%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_6 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #4926FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #4926FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #4F2BFF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #4F2BFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7227,8 +7229,8 @@ tbody tr:last-child {
 <tr class="even">
 <td id="stub_1_7" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Youth (&lt; 30) with Higher Support Needs</td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_7 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #D3BCF833;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #D3BCF8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #D4BDF833;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #D4BDF8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7237,38 +7239,38 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_7 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FF805133;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FF8051;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FF855733;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FF8557;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-51%
+50%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_7 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #BC9AFA33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #BC9AFA;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #C0A0FA33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #C0A0FA;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-18%
+19%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_7 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #7146FE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #7146FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #7247FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #7247FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-6%
+7%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_7 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #3A1CFF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #3A1CFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #391BFF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #391BFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7280,8 +7282,8 @@ tbody tr:last-child {
 <tr class="odd">
 <td id="stub_1_8" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Z) Total</td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_8 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #ECE7F333;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #ECE7F3;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #E9E2F433;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #E9E2F4;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7290,18 +7292,18 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_8 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFBBA133;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFBBA1;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FFC2AB33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFC2AB;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-40%
+39%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_8 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #D5BFF833;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #D5BFF8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #D6C1F733;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #D6C1F7;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7310,18 +7312,18 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_8 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #683EFE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #683EFE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #7045FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #7045FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-5%
+6%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="Each step in the plan for my employment services journey was clearly communicated to me stub_1_8 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #4A27FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #4A27FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #532EFF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #532EFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7336,48 +7338,48 @@ tbody tr:last-child {
 <tr class="odd gt_row_group_first">
 <td id="stub_1_9" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Experiencing Disability</td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_9 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #EAE3F433;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #EAE3F4;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #E2D6F533;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #E2D6F5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-28%
+26%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_9 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFB19333;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFB193;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FFBA9F33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFBA9F;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-42%
+41%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_9 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #C09FFA33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #C09FFA;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #CAAFF933;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #CAAFF9;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-19%
+21%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_9 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #6D43FE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #6D43FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #7C50FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #7C50FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-6%
+8%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_9 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #653CFE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #653CFE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #6038FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #6038FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7389,48 +7391,48 @@ tbody tr:last-child {
 <tr class="even">
 <td id="stub_1_10" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Francophone</td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_10 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #E9E1F433;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #E9E1F4;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #E6DCF533;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #E6DCF5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-28%
+27%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_10 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FF7B4B33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FF7B4B;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FF8D6233;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FF8D62;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-52%
+49%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_10 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #B490FB33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #B490FB;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #BD9CFA33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #BD9CFA;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-16%
+18%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_10 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #4523FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #4523FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #6138FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #6138FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-2%
+5%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_10 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #3519FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #3519FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #3217FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #3217FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7442,61 +7444,8 @@ tbody tr:last-child {
 <tr class="odd">
 <td id="stub_1_11" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Indigenous</td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_11 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #D3BCF833;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #D3BCF8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-23%
-</div>
-</div>
-</div></td>
-<td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_11 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #F7E9E433;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #F7E9E4;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-32%
-</div>
-</div>
-</div></td>
-<td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_11 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #FFC6B033;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFC6B0;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-38%
-</div>
-</div>
-</div></td>
-<td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_11 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #693FFE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #693FFE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-5%
-</div>
-</div>
-</div></td>
-<td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_11 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #3C1EFF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #3C1EFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-2%
-</div>
-</div>
-</div></td>
-</tr>
-<tr class="even">
-<td id="stub_1_12" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Newcomer (2019 or later)</td>
-<td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_12 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #CFB6F833;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #CFB6F8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #D2BAF833;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #D2BAF8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7504,19 +7453,72 @@ tbody tr:last-child {
 </div>
 </div>
 </div></td>
-<td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_12 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFB89D33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFB89D;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_11 Agree"><div>
+<div style="height: 20px;width:70px; background-color: #EFECF333;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #EFECF3;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-41%
+29%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_11 Neutral"><div>
+<div style="height: 20px;width:70px; background-color: #FFD2C233;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFD2C2;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+36%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_11 Disagree"><div>
+<div style="height: 20px;width:70px; background-color: #865AFE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #865AFE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+9%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_11 Strongly Disagree"><div>
+<div style="height: 20px;width:70px; background-color: #502BFF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #502BFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+3%
+</div>
+</div>
+</div></td>
+</tr>
+<tr class="even">
+<td id="stub_1_12" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Newcomer (2019 or later)</td>
+<td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_12 Strongly Agree"><div>
+<div style="height: 20px;width:70px; background-color: #CAAFF933;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #CAAFF9;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+21%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_12 Agree"><div>
+<div style="height: 20px;width:70px; background-color: #FFC0A833;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFC0A8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+40%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_12 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #ECE7F333;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #ECE7F3;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #EAE2F433;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #EAE2F4;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7525,22 +7527,22 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_12 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #784CFE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #784CFE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #8659FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #8659FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-7%
+9%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_12 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #3619FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #3619FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #4C28FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #4C28FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-1%
+3%
 </div>
 </div>
 </div></td>
@@ -7548,28 +7550,28 @@ tbody tr:last-child {
 <tr class="odd">
 <td id="stub_1_13" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Racialized</td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_13 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #E8DFF433;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #E8DFF4;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #E4D8F533;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #E4D8F5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-27%
+26%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_13 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFAF8F33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFAF8F;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FFB79A33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFB79A;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-43%
+41%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_13 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #D0B8F833;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #D0B8F8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #D2BBF833;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #D2BBF8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7578,18 +7580,18 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_13 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #6E43FE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #6E43FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #7B4FFE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #7B4FFE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-6%
+8%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_13 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #3A1CFF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #3A1CFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #4222FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #4222FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7601,28 +7603,28 @@ tbody tr:last-child {
 <tr class="even">
 <td id="stub_1_14" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Receiving Social Assistance</td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_14 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #E3D7F533;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #E3D7F5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #DFD0F633;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #DFD0F6;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-26%
+25%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_14 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFC5AF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFC5AF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FFCEBC33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFCEBC;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-39%
+37%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_14 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #E2D5F533;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #E2D5F5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #E4D8F533;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #E4D8F5;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7631,22 +7633,22 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_14 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #6E43FE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #6E43FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #7D51FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #7D51FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-6%
+8%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_14 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #4C29FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #4C29FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #552FFF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #552FFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-3%
+4%
 </div>
 </div>
 </div></td>
@@ -7654,8 +7656,8 @@ tbody tr:last-child {
 <tr class="odd">
 <td id="stub_1_15" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Youth (&lt; 30) with Higher Support Needs</td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_15 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #CBB0F933;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #CBB0F9;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #CAAEF933;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #CAAEF9;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7664,18 +7666,18 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_15 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FF8A5D33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FF8A5D;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FF936933;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FF9369;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-50%
+48%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_15 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #C9ADF933;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #C9ADF9;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #CCB1F933;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #CCB1F9;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7684,18 +7686,18 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_15 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #794DFE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #794DFE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #8053FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #8053FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-7%
+8%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_15 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #3A1CFF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #3A1CFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #4020FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #4020FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7707,22 +7709,22 @@ tbody tr:last-child {
 <tr class="even">
 <td id="stub_1_16" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Z) Total</td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_16 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #DFCFF633;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #DFCFF6;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #DBC9F733;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #DBC9F7;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-25%
+24%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_16 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFBCA133;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFBCA1;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FFC3AC33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFC3AC;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-40%
+39%
 </div>
 </div>
 </div></td>
@@ -7737,18 +7739,18 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_16 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #7448FE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #7448FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #7F53FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #7F53FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-7%
+8%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="I was confident that the execution of the plan would bring me closer to my employment goals stub_1_16 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #4A27FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #4A27FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #532EFF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #532EFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7763,6 +7765,16 @@ tbody tr:last-child {
 <tr class="even gt_row_group_first">
 <td id="stub_1_17" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Experiencing Disability</td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_17 Strongly Agree"><div>
+<div style="height: 20px;width:70px; background-color: #F6EAE633;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #F6EAE6;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+32%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_17 Agree"><div>
 <div style="height: 20px;width:70px; background-color: #FAE2DA33;border-radius:5px;)">
 <div style="height: 13px;width: 13px;background-color: #FAE2DA;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
@@ -7772,23 +7784,13 @@ tbody tr:last-child {
 </div>
 </div>
 </div></td>
-<td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_17 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FCDED333;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FCDED3;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-34%
-</div>
-</div>
-</div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_17 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #CCB2F933;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #CCB2F9;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #D5BFF733;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #D5BFF7;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-21%
+23%
 </div>
 </div>
 </div></td>
@@ -7803,6 +7805,49 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_17 Strongly Disagree"><div>
+<div style="height: 20px;width:70px; background-color: #5831FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #5831FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+4%
+</div>
+</div>
+</div></td>
+</tr>
+<tr class="odd">
+<td id="stub_1_18" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Francophone</td>
+<td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_18 Strongly Agree"><div>
+<div style="height: 20px;width:70px; background-color: #FDDCD033;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FDDCD0;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+34%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_18 Agree"><div>
+<div style="height: 20px;width:70px; background-color: #FF9F7933;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FF9F79;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+46%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_18 Neutral"><div>
+<div style="height: 20px;width:70px; background-color: #A77EFC33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #A77EFC;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+14%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_18 Disagree"><div>
 <div style="height: 20px;width:70px; background-color: #532DFF33;border-radius:5px;)">
 <div style="height: 13px;width: 13px;background-color: #532DFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
@@ -7812,56 +7857,13 @@ tbody tr:last-child {
 </div>
 </div>
 </div></td>
-</tr>
-<tr class="odd">
-<td id="stub_1_18" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Francophone</td>
-<td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_18 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFD1C133;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFD1C1;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-36%
-</div>
-</div>
-</div></td>
-<td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_18 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FF8C6133;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FF8C61;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-49%
-</div>
-</div>
-</div></td>
-<td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_18 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #9C72FD33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #9C72FD;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-12%
-</div>
-</div>
-</div></td>
-<td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_18 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #3519FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #3519FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-1%
-</div>
-</div>
-</div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_18 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #2A12FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #2A12FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #4825FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #4825FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-1%
+3%
 </div>
 </div>
 </div></td>
@@ -7869,28 +7871,28 @@ tbody tr:last-child {
 <tr class="even">
 <td id="stub_1_19" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Indigenous</td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_19 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #D5C0F733;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #D5C0F7;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #CFB6F833;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #CFB6F8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-23%
+22%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_19 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FF6E3A33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FF6E3A;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FF7B4A33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FF7B4A;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-54%
+52%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_19 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #AA83FC33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #AA83FC;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #AF88FC33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #AF88FC;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7899,8 +7901,18 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_19 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #693FFE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #693FFE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #6D42FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #6D42FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+
+</div>
+<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
+6%
+</div>
+</div>
+</div></td>
+<td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_19 Strongly Disagree"><div>
+<div style="height: 20px;width:70px; background-color: #6239FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #6239FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7908,22 +7920,12 @@ tbody tr:last-child {
 </div>
 </div>
 </div></td>
-<td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_19 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #4624FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #4624FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
-
-</div>
-<div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-2%
-</div>
-</div>
-</div></td>
 </tr>
 <tr class="odd">
 <td id="stub_1_20" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Newcomer (2019 or later)</td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_20 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #ECE7F333;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #ECE7F3;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #EAE2F433;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #EAE2F4;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7932,18 +7934,18 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_20 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFA78533;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFA785;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FFAF9033;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFAF90;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-44%
+43%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_20 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #B794FB33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #B794FB;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #B894FB33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #B894FB;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7952,8 +7954,8 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_20 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #8458FE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #8458FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #895DFD33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #895DFD;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -7962,12 +7964,12 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_20 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #391CFF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #391CFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #4C28FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #4C28FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-2%
+3%
 </div>
 </div>
 </div></td>
@@ -7975,28 +7977,28 @@ tbody tr:last-child {
 <tr class="even">
 <td id="stub_1_21" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Racialized</td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_21 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFD6C833;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFD6C8;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FDDBCF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FDDBCF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-35%
+34%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_21 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFC9B433;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFC9B4;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FFD1C033;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFD1C0;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-38%
+36%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_21 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #C09FFA33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #C09FFA;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #C3A4FA33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #C3A4FA;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -8005,22 +8007,22 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_21 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #7348FE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #7348FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #7D51FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #7D51FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-7%
+8%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_21 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #361AFF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #361AFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #4222FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #4222FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-1%
+2%
 </div>
 </div>
 </div></td>
@@ -8028,8 +8030,8 @@ tbody tr:last-child {
 <tr class="odd">
 <td id="stub_1_22" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Receiving Social Assistance</td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_22 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #EAE3F433;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #EAE3F4;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #E9E1F433;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #E9E1F4;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -8038,18 +8040,18 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_22 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FF987033;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FF9870;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FF9F7A33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FF9F7A;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-47%
+46%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_22 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #B591FB33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #B591FB;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #B996FB33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #B996FB;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -8058,22 +8060,22 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_22 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #7045FE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #7045FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #7448FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #7448FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-6%
+7%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_22 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #4221FF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #4221FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #4926FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #4926FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-2%
+3%
 </div>
 </div>
 </div></td>
@@ -8091,12 +8093,12 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_23 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFA07B33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFA07B;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FFA68333;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFA683;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-45%
+44%
 </div>
 </div>
 </div></td>
@@ -8111,18 +8113,18 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_23 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #9266FD33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #9266FD;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #996FFD33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #996FFD;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-11%
+12%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_23 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #3A1CFF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #3A1CFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #391BFF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #391BFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -8134,38 +8136,38 @@ tbody tr:last-child {
 <tr class="odd">
 <td id="stub_1_24" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Z) Total</td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_24 Strongly Agree"><div>
-<div style="height: 20px;width:70px; background-color: #F1F0F233;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #F1F0F2;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #EFECF333;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #EFECF3;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-30%
+29%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_24 Agree"><div>
-<div style="height: 20px;width:70px; background-color: #FFB19233;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #FFB192;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #FFB89C33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #FFB89C;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-42%
+41%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_24 Neutral"><div>
-<div style="height: 20px;width:70px; background-color: #BE9DFA33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #BE9DFA;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #C0A0FA33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #C0A0FA;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-18%
+19%
 </div>
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_24 Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #7B4FFE33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #7B4FFE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #8054FE33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #8054FE;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
@@ -8174,12 +8176,12 @@ tbody tr:last-child {
 </div>
 </div></td>
 <td class="gt_row gt_right" headers="The plan for my employment services journey was responsive to my needs stub_1_24 Strongly Disagree"><div>
-<div style="height: 20px;width:70px; background-color: #3D1EFF33;border-radius:5px;)">
-<div style="height: 13px;width: 13px;background-color: #3D1EFF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
+<div style="height: 20px;width:70px; background-color: #4A27FF33;border-radius:5px;)">
+<div style="height: 13px;width: 13px;background-color: #4A27FF;display: inline-block;border-radius:4px;float:left;position:relative;top:17%;left:6%;">
 
 </div>
 <div style="display: inline-block;float:right;line-height:20px; font-weight: bold;padding: 0px 2.5px;">
-2%
+3%
 </div>
 </div>
 </div></td>
@@ -8197,6 +8199,7 @@ tbody tr:last-child {
 </section>
 <section id="reflections-on-starting-employment" class="level3" data-number="1.2.6">
 <h3 data-number="1.2.6" class="anchored" data-anchor-id="reflections-on-starting-employment"><span class="header-section-number">1.2.6</span> Reflections on Starting Employment</h3>
+<p><a href="#tbl-xp-client-start" class="quarto-xref">Table&nbsp;<span>1.9</span></a> summarizes the distribution of responses to questions about respondent experiences of starting employment as part of their employment services journies. Kind of seeing the same old saw at this point: newcomers, youth, and Indigenous clients are unsurprisingly less confident in their ability to succeed and less likely to attribute their attainment of employment to the employment services they received.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
@@ -10439,6 +10442,7 @@ tbody tr:last-child {
 </section>
 <section id="reflections-on-support-in-employment" class="level3" data-number="1.2.7">
 <h3 data-number="1.2.7" class="anchored" data-anchor-id="reflections-on-support-in-employment"><span class="header-section-number">1.2.7</span> Reflections on Support in Employment</h3>
+<p><a href="#tbl-xp-client-support" class="quarto-xref">Table&nbsp;<span>1.10</span></a> summarizes the distribution of responses to questions about respondent experiences of support from employment services once they secured employment.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>

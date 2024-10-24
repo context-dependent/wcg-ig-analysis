@@ -460,6 +460,9 @@ tbl_holistic |>
 
 ### Reflections on Career Exploration
 
+@tbl-xp-client-explore summarizes the distribution of responses to questions about respondent experiences of career exploration as part of their employment services journies.
+Here, we see evidence that newcomers, youth, and _especially_ Indigenous clients are less likely to feel that their goals and needs are understood by the employment services system. 
+
 ```{r}
 #| label: tbl-xp-client-explore
 #| tbl-cap: "Client Reflections on Career Exploration"
@@ -508,12 +511,16 @@ tbl_explore |>
 
 ### Reflections on Making Progress
 
+@tbl-xp-client-progress summarizes the distribution of responses to questions about respondent experiences of codesigning and making progress in their plans for employment. 
+These figures echo the trends observed above: newcomers, youth, and Indigenous clients disproprotionately feel that the employment services system does not communicate with them effectively, nor does it understand the goals and needs they express.
+Naturally, members of the same set of groups are less likely to report confidence in the effectiveness of the plan, and less likely to feel that it is responsive to their needs. 
+
 ```{r}
 #| label: tbl-xp-client-progress
 #| tbl-cap: "Client Reflections on Making Progress"
 
-tbl_explore <- d_long |> 
-  filter(explore_reached) |> 
+tbl_progress <- d_long |> 
+  filter(progress_reached) |> 
   pivot_longer(
     matches("^progress_reflections"), 
     names_to = "var",
@@ -532,7 +539,7 @@ tbl_explore <- d_long |>
     p = n / sum(n)
   )
 
-tbl_explore |> 
+tbl_progress |> 
   select(-n) |> 
   pivot_wider(
     names_from = val, 
@@ -556,6 +563,8 @@ tbl_explore |>
 
 ### Reflections on Starting Employment
 
+@tbl-xp-client-start summarizes the distribution of responses to questions about respondent experiences of starting employment as part of their employment services journies.
+Kind of seeing the same old saw at this point: newcomers, youth, and Indigenous clients are unsurprisingly less confident in their ability to succeed and less likely to attribute their attainment of employment to the employment services they received. 
 
 ```{r}
 #| label: tbl-xp-client-start
@@ -605,6 +614,7 @@ tbl_start |>
 
 ### Reflections on Support in Employment
 
+@tbl-xp-client-support summarizes the distribution of responses to questions about respondent experiences of support from employment services once they secured employment.
 
 ```{r}
 #| label: tbl-xp-client-support
