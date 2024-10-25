@@ -1,8 +1,16 @@
 # Client Survey
 
-```{r xp-setup}
+:::{.callout-note}
+## #TODO
+
+- Add condensed summarise of satisfaction / reflection indicators
+- Experiment with dimensionality reduction techniques to distill variatoin in satisfaction / reflection indicators
+:::
+
+```{r xp-client-setup}
 #| warn: false
 #| message: false
+#| echo: false
 library(tidyverse)
 library(labelled)
 library(gt)
@@ -14,26 +22,45 @@ source(here::here("R/zzz.R"))
 source(here::here("R/extract.R"))
 source(here::here("R/transform.R"))
 
-d0 <- load_qx_surveys() 
+d0 <- load_qx_surveys()
 d <- d0 |> clean_client()
 labs <- d |> var_label()
 
-d_long <- d |> 
-  mutate(
-    across(matches("reached$"), ~ .x == "Yes"),
-    engage_reached = eng_received_es != "I have never received employment services"
-  ) |> 
-  pivot_longer(
-    matches("^ig_"), 
-    names_to = "inclusion_group",
-    values_to = "val"
-  ) |> 
-  filter(val) |> 
-  mutate(
-    inclusion_group_label = unlist(labs[inclusion_group])
-  ) |> 
-  select(-val)
+d_long_raw <- d |>
+    mutate(
+        across(matches("reached$"), ~ .x == "Yes"),
+        engage_reached = eng_received_es != "I have never received employment services"
+    ) |>
+    pivot_longer(
+        matches("^ig_"),
+        names_to = "inclusion_group",
+        values_to = "ig_member"
+    ) |>
+    filter(
+        !is.na(ig_member)
+    ) |>
+    mutate(
+        inclusion_group_label = unlist(labs[inclusion_group])
+    )
+
+d_long <- d_long_raw |>
+    filter(ig_member) |>
+    select(-ig_member)
 ```
+
+## Preliminary Notes
+
+:::{.callout-warning}
+## Data Quality Issues
+
+We observe some suspicious patterns in the data that are currently pending a more detailed investigation. 
+These findings should be taken with more grains of salt than advised in the section introduction. 
+:::
+
+- What we see in the data is a broad pattern of low satisfaction with employment services
+- If we take the responses at face value, they paint a picture of a system that troubling portions of its clients neither understand, feel understood by, trust, nor find effective
+- At a glance, we see that newcomers, youth, and Indigenous clients have particularly less positive experiences 
+- 
 
 ## Respondent Characteristics
 
@@ -45,34 +72,34 @@ d_long <- d |>
 #| label: tbl-xp-client-ig-rep
 #| tbl-cap: "Inclusion Group Representation in Client Survey"
 #| warning: false
-dplt_client_ig <- d |> 
-  pivot_longer(
-    matches("^ig_"), 
-    names_to = "inclusion_group", 
-    values_to = "val"
-  ) |> 
-  filter(!is.na(val)) |> 
-  group_by(inclusion_group) |> 
-  summarize(
-    N = n(), 
-    n = sum(val), 
-    p = n / N
-  ) |> 
-  mutate(
-    pn = glue::glue("{scales::percent(p, accuracy = 1)} ({n}/{N})")
-  ) |> 
-  arrange(desc(p)) |>  
-  mutate(inclusion_group = unlist(
-    labs[inclusion_group]
-  )) 
+dplt_client_ig <- d |>
+    pivot_longer(
+        matches("^ig_"),
+        names_to = "inclusion_group",
+        values_to = "val"
+    ) |>
+    filter(!is.na(val)) |>
+    group_by(inclusion_group) |>
+    summarize(
+        N = n(),
+        n = sum(val),
+        p = n / N
+    ) |>
+    mutate(
+        pn = glue::glue("{scales::percent(p, accuracy = 1)} ({n}/{N})")
+    ) |>
+    arrange(desc(p)) |>
+    mutate(inclusion_group = unlist(
+        labs[inclusion_group]
+    ))
 
-dplt_client_ig |> 
-  select(inclusion_group, sample_representation = pn) |> 
-  gt() |> 
-  gtExtras::gt_theme_538() |> 
-  tab_source_note(
-    source_note = dl_button(dplt_client_ig, "xp-client-igo")
-  )
+dplt_client_ig |>
+    select(inclusion_group, sample_representation = pn) |>
+    gt() |>
+    gtExtras::gt_theme_538() |>
+    tab_source_note(
+        source_note = dl_button(dplt_client_ig, "xp-client-igo")
+    )
 ```
 
 @fig-xp-client-intersections shows the representation of each pair of inclusion groups among client survey respondents. Pairwise, the most common intersections we see are racialized newcomers, newcomers receiving social assistance, racialized francopohones, and francophone newcomers. 
@@ -80,33 +107,33 @@ dplt_client_ig |>
 ```{r}
 #| label: fig-xp-client-intersections
 #| fig-cap: "Inclusion Group Intersections in Client Survey"
-dplt_ig_int <- d |> 
-  select(response_id, matches("^ig_")) |>
-  select(-ig_total) |>  
-  pivot_longer(
-    matches("^ig_"), 
-    names_to = "inclusion_group_x", 
-    values_to = "val_x"
-  ) |> 
-  filter(!is.na(val_x)) %>%
-  left_join(
-    rename(., inclusion_group_y = inclusion_group_x, val_y = val_x), 
-    by = "response_id",
-    relationship = "many-to-many"
-  ) |> 
-  group_by(inclusion_group_x, inclusion_group_y) |> 
-  summarize(
-    N = n(), 
-    n = sum(val_x * val_y),
-    p = mean(val_x * val_y)
-  )
+dplt_ig_int <- d |>
+    select(response_id, matches("^ig_")) |>
+    select(-ig_total) |>
+    pivot_longer(
+        matches("^ig_"),
+        names_to = "inclusion_group_x",
+        values_to = "val_x"
+    ) |>
+    filter(!is.na(val_x)) %>%
+    left_join(
+        rename(., inclusion_group_y = inclusion_group_x, val_y = val_x),
+        by = "response_id",
+        relationship = "many-to-many"
+    ) |>
+    group_by(inclusion_group_x, inclusion_group_y) |>
+    summarize(
+        N = n(),
+        n = sum(val_x * val_y),
+        p = mean(val_x * val_y)
+    )
 
-dplt_ig_int |> 
-  ggplot(aes(inclusion_group_x, inclusion_group_y, fill = p)) + 
-  geom_tile() + 
-  geom_label(aes(label = scales::percent(p, accuracy = 1)), color = "black", fill = "grey90") + 
-  scale_fill_viridis_c() + 
-  theme_blueprint(base_size = 12)
+dplt_ig_int |>
+    ggplot(aes(inclusion_group_x, inclusion_group_y, fill = p)) +
+    geom_tile() +
+    geom_label(aes(label = scales::percent(p, accuracy = 1)), color = "black", fill = "grey90") +
+    scale_fill_viridis_c() +
+    theme_blueprint(base_size = 12)
 
 ```
 
@@ -117,52 +144,52 @@ dplt_ig_int |>
 ```{r}
 #| label: tbl-key-demos
 #| tbl-cap: "Age Distribution of Client Survey Respondents by Inclusion Group"
-tbl_key_demos <- d |> 
-  select(response_id, matches("^ig_"), demo_gender, demo_age, demo_parent) |> 
-  pivot_longer(
-    matches("^ig_"),
-    names_to = "inclusion_group",
-    values_to = "val"
-  ) |> 
-  filter(val %in% TRUE) |> 
-  mutate(inclusion_group = unlist(labs[inclusion_group])) |>
-  group_by(inclusion_group) |> 
-  summarize(
-    p_woman_plus = mean(demo_gender != "Man", na.rm = TRUE),
-    p_parent = mean(demo_parent, na.rm = TRUE),
-    mean_age = mean(demo_age, na.rm = TRUE), 
-    age_dist = list(demo_age), 
-  )
+tbl_key_demos <- d |>
+    select(response_id, matches("^ig_"), demo_gender, demo_age, demo_parent) |>
+    pivot_longer(
+        matches("^ig_"),
+        names_to = "inclusion_group",
+        values_to = "val"
+    ) |>
+    filter(val %in% TRUE) |>
+    mutate(inclusion_group = unlist(labs[inclusion_group])) |>
+    group_by(inclusion_group) |>
+    summarize(
+        p_woman_plus = mean(demo_gender != "Man", na.rm = TRUE),
+        p_parent = mean(demo_parent, na.rm = TRUE),
+        mean_age = mean(demo_age, na.rm = TRUE),
+        age_dist = list(demo_age),
+    )
 
 reactable(
-  tbl_key_demos, 
-  columns = list(
-    p_woman_plus = colDef(
-      cell = function(value) {
-        scales::percent(value, accuracy = 1)
-      }
-    ), 
-    p_parent = colDef(
-      cell = function(value) {
-        scales::percent(value, accuracy = 1)
-      }
-    ),
-    mean_age = colDef(
-      cell = function(value) {
-        round(value, 1)
-      }
-    ), 
-    age_dist = colDef(
-      cell = function(values) {
-        sparkline(
-          values, 
-          type = "box", 
-          chartRangeMin = min(d$demo_age, na.rm = TRUE), 
-          chartRangeMax = max(d$demo_age, na.rm = TRUE)
+    tbl_key_demos,
+    columns = list(
+        p_woman_plus = colDef(
+            cell = function(value) {
+                scales::percent(value, accuracy = 1)
+            }
+        ),
+        p_parent = colDef(
+            cell = function(value) {
+                scales::percent(value, accuracy = 1)
+            }
+        ),
+        mean_age = colDef(
+            cell = function(value) {
+                round(value, 1)
+            }
+        ),
+        age_dist = colDef(
+            cell = function(values) {
+                sparkline(
+                    values,
+                    type = "box",
+                    chartRangeMin = min(d$demo_age, na.rm = TRUE),
+                    chartRangeMax = max(d$demo_age, na.rm = TRUE)
+                )
+            }
         )
-      }
     )
-  )
 )
 ```
 
@@ -175,40 +202,40 @@ At each level of education, the split between domestic and international educati
 #| label: fig-xp-client-edu
 #| fig-cap: "Education Level of Client Survey Respondents by Inclusion Group"
 
-tbl_educ <- d |> 
-  select(response_id, matches("^ig_"), demo_education, demo_educ_domestic) |> 
-  filter(!is.na(demo_education), !is.na(demo_educ_domestic)) |>
-  mutate(
-    demo_educ_domestic = fct_rev(demo_educ_domestic)
-  ) |> 
-  pivot_longer(
-    matches("^ig_"),
-    names_to = "inclusion_group",
-    values_to = "val"
-  ) |>
-  filter(val %in% TRUE) |>
-  mutate(inclusion_group = unlist(labs[inclusion_group])) |>
-  group_by(inclusion_group, demo_education, demo_educ_domestic) |> 
-  summarize(
-    n = n(), 
-    .groups = "drop_last"
-  ) |> 
-  group_by(inclusion_group) |> 
-  mutate(
-    p = n / sum(n)
-  )
+tbl_educ <- d |>
+    select(response_id, matches("^ig_"), demo_education, demo_educ_domestic) |>
+    filter(!is.na(demo_education), !is.na(demo_educ_domestic)) |>
+    mutate(
+        demo_educ_domestic = fct_rev(demo_educ_domestic)
+    ) |>
+    pivot_longer(
+        matches("^ig_"),
+        names_to = "inclusion_group",
+        values_to = "val"
+    ) |>
+    filter(val %in% TRUE) |>
+    mutate(inclusion_group = unlist(labs[inclusion_group])) |>
+    group_by(inclusion_group, demo_education, demo_educ_domestic) |>
+    summarize(
+        n = n(),
+        .groups = "drop_last"
+    ) |>
+    group_by(inclusion_group) |>
+    mutate(
+        p = n / sum(n)
+    )
 
-tbl_educ |> 
-  ggplot(aes(p, demo_education, fill = demo_educ_domestic)) + 
-  geom_col(position = "stack") + 
-  facet_wrap(~inclusion_group, nrow = 2) + 
-  scale_fill_blueprint(discrete = TRUE, type = "bipolar", option = "blue_green") +
-  theme_blueprint(base_size = 12, grid = "Xx") + 
-  scale_x_continuous(
-    labels = scales::percent_format(accuracy = 1), 
-    limits = c(0, .5), 
-    expand = c(0, 0)
-  )
+tbl_educ |>
+    ggplot(aes(p, demo_education, fill = demo_educ_domestic)) +
+    geom_col(position = "stack") +
+    facet_wrap(~inclusion_group, nrow = 2) +
+    scale_fill_blueprint(discrete = TRUE, type = "bipolar", option = "blue_green") +
+    theme_blueprint(base_size = 12, grid = "Xx") +
+    scale_x_continuous(
+        labels = scales::percent_format(accuracy = 1),
+        limits = c(0, .5),
+        expand = c(0, 0)
+    )
 ```
 
 @fig-xp-client-edu-ecdf is based on the same data as @fig-xp-client-edu, but rather than showing the proportion of respondents _at_ each level of education, it shows the proportion of respondents who have achieved _at least_ each level of education. 
@@ -218,24 +245,24 @@ tbl_educ |>
 #| fig-cap: "Education Achievement of Client Survey Respondents by Inclusion Group"
 
 tbl_educ_ecdf <- tbl_educ |>
-  arrange(desc(demo_education)) |> 
-  group_by(inclusion_group, demo_educ_domestic) |> 
-  mutate(
-    ecdf = cumsum(p)
-  )
+    arrange(desc(demo_education)) |>
+    group_by(inclusion_group, demo_educ_domestic) |>
+    mutate(
+        ecdf = cumsum(p)
+    )
 
 
-tbl_educ_ecdf |> 
-  ggplot(aes(ecdf, demo_education, fill = demo_educ_domestic)) + 
-  geom_col(position = "stack") + 
-  facet_wrap(~inclusion_group, nrow = 2) + 
-  scale_fill_blueprint(discrete = TRUE, type = "bipolar", option = "blue_green") +
-  theme_blueprint(base_size = 12, grid = "Xx") + 
-  scale_x_continuous(
-    labels = scales::percent_format(accuracy = 1), 
-    limits = c(0, 1), 
-    expand = c(0, 0)
-  )
+tbl_educ_ecdf |>
+    ggplot(aes(ecdf, demo_education, fill = demo_educ_domestic)) +
+    geom_col(position = "stack") +
+    facet_wrap(~inclusion_group, nrow = 2) +
+    scale_fill_blueprint(discrete = TRUE, type = "bipolar", option = "blue_green") +
+    theme_blueprint(base_size = 12, grid = "Xx") +
+    scale_x_continuous(
+        labels = scales::percent_format(accuracy = 1),
+        limits = c(0, 1),
+        expand = c(0, 0)
+    )
 ```
 
 ### Labour Force Status
@@ -254,57 +281,292 @@ Self-reported employment rates and annualized earnings are _shockingly_ high for
 #| label: tbl-xp-client-lfs
 #| tbl-cap: "Labour Force Status of Client Survey Respondents by Inclusion Group"
 
-tbl_emp <- d |> 
-  mutate(lfs_neet = !(lfs_employed | lfs_educ_enrolled)) |> 
-  pivot_longer(
-    matches("^ig_"), 
-    names_to = "inclusion_group", 
-    values_to = "val"
-  ) |> 
-  filter(val) |> 
-  mutate(inclusion_group = unlist(labs[inclusion_group])) |>
-  group_by(inclusion_group) |> 
-  summarize(
-    employment_rate = mean(lfs_employed, na.rm = TRUE), 
-    enrollment_rate = mean(lfs_educ_enrolled, na.rm = TRUE), 
-    neet_rate = mean(lfs_neet, na.rm = TRUE), 
-    median_annualized_earnings = median(job_annualized_earnings_total, na.rm = TRUE),
-    annualized_earnings = list(na.omit(job_annualized_earnings_total))
-  )
-
-tbl_emp |> 
-  reactable(
-    columns = list(
-      employment_rate = colDef(
-        cell = function(value) {
-          scales::percent(value, accuracy = 1)
-        }
-      ), 
-      enrollment_rate = colDef(
-        cell = function(value) {
-          scales::percent(value, accuracy = 1)
-        }
-      ), 
-      neet_rate = colDef(
-        cell = function(value) {
-          scales::percent(value, accuracy = 1)
-        }
-      ), 
-      median_annualized_earnings = colDef(
-        format = colFormat(currency = "USD", separators = TRUE)
-      ),
-      annualized_earnings = colDef(
-        cell = function(values) {
-          sparkline(
-            values, 
-            type = "box", 
-            chartRangeMin = 0, 
-            chartRangeMax = 2.5e5
-          )
-        }
-      )
+tbl_emp <- d |>
+    mutate(lfs_neet = !(lfs_employed | lfs_educ_enrolled)) |>
+    pivot_longer(
+        matches("^ig_"),
+        names_to = "inclusion_group",
+        values_to = "val"
+    ) |>
+    filter(val) |>
+    mutate(inclusion_group = unlist(labs[inclusion_group])) |>
+    group_by(inclusion_group) |>
+    summarize(
+        employment_rate = mean(lfs_employed, na.rm = TRUE),
+        enrollment_rate = mean(lfs_educ_enrolled, na.rm = TRUE),
+        neet_rate = mean(lfs_neet, na.rm = TRUE),
+        median_annualized_earnings = median(job_annualized_earnings_total, na.rm = TRUE),
+        annualized_earnings = list(na.omit(job_annualized_earnings_total))
     )
-  )
+
+tbl_emp |>
+    reactable(
+        columns = list(
+            employment_rate = colDef(
+                cell = function(value) {
+                    scales::percent(value, accuracy = 1)
+                }
+            ),
+            enrollment_rate = colDef(
+                cell = function(value) {
+                    scales::percent(value, accuracy = 1)
+                }
+            ),
+            neet_rate = colDef(
+                cell = function(value) {
+                    scales::percent(value, accuracy = 1)
+                }
+            ),
+            median_annualized_earnings = colDef(
+                format = colFormat(currency = "USD", separators = TRUE)
+            ),
+            annualized_earnings = colDef(
+                cell = function(values) {
+                    sparkline(
+                        values,
+                        type = "box",
+                        chartRangeMin = 0,
+                        chartRangeMax = 2.5e5
+                    )
+                }
+            )
+        )
+    )
+```
+
+## Employment Services Client Characteristics
+
+### Inclusion Group Representation
+
+@tbl-xp-client-es-ig-rep shows the representation of inclusion groups among client survey respondents. 
+
+```{r xp-igo-client-survey}
+#| label: tbl-xp-client-es-ig-rep
+#| tbl-cap: "Inclusion Group Representation Among ES Recipients in Client Survey"
+#| warning: false
+dplt_client_ig <- d_long_raw |>
+    filter(engage_reached) |>
+    group_by(inclusion_group_label) |>
+    summarize(
+        N = n(),
+        n = sum(ig_member),
+        p = n / N
+    ) |>
+    mutate(
+        pn = glue::glue("{scales::percent(p, accuracy = 1)} ({n}/{N})")
+    ) |>
+    arrange(desc(p))
+
+dplt_client_ig |>
+    select(inclusion_group_label, sample_representation = pn) |>
+    gt() |>
+    gtExtras::gt_theme_538() |>
+    tab_source_note(
+        source_note = dl_button(dplt_client_ig, "xp-client-igo")
+    )
+```
+
+@fig-xp-client-es-intersections shows the representation of each pair of inclusion groups among client survey respondents. Pairwise, the most common intersections we see are racialized newcomers, newcomers receiving social assistance, racialized francopohones, and francophone newcomers. 
+
+```{r}
+#| label: fig-xp-client-es-intersections
+#| fig-cap: "Inclusion Group Intersections in Client Survey"
+dplt_ig_int <- d_long_raw |>
+    filter(engage_reached) |>
+    select(response_id, inclusion_group_x = inclusion_group_label, ig_member_x = ig_member) |>
+    left_join(
+        d_long_raw |>
+            filter(engage_reached) |>
+            select(response_id, inclusion_group_y = inclusion_group_label, ig_member_y = ig_member),
+        by = "response_id",
+        relationship = "many-to-many"
+    ) |>
+    group_by(inclusion_group_x, inclusion_group_y) |>
+    summarize(
+        N = n(),
+        n = sum(ig_member_x * ig_member_y),
+        p = mean(ig_member_x * ig_member_y)
+    )
+
+dplt_ig_int |>
+    ggplot(aes(inclusion_group_x, inclusion_group_y, fill = p)) +
+    geom_tile() +
+    geom_label(aes(label = scales::percent(p, accuracy = 1)), color = "black", fill = "grey90") +
+    scale_fill_viridis_c() +
+    theme_blueprint(base_size = 12)
+```
+
+### Demographics
+
+@tbl-xp-client-key-demos summarizes gender, parenthood, and age: the demographic characteristics included in the client survey but not reflected in the inclusion group indicator variables. 
+
+```{r}
+#| label: tbl-xp-client-key-demos
+#| tbl-cap: "Age Distribution of Client Survey Respondents by Inclusion Group"
+tbl_key_demos <- d_long |>
+    filter(engage_reached) |>
+    group_by(inclusion_group) |>
+    summarize(
+        p_woman_plus = mean(demo_gender != "Man", na.rm = TRUE),
+        p_parent = mean(demo_parent, na.rm = TRUE),
+        mean_age = mean(demo_age, na.rm = TRUE),
+        age_dist = list(demo_age),
+    )
+
+reactable(
+    tbl_key_demos,
+    columns = list(
+        p_woman_plus = colDef(
+            cell = function(value) {
+                scales::percent(value, accuracy = 1)
+            }
+        ),
+        p_parent = colDef(
+            cell = function(value) {
+                scales::percent(value, accuracy = 1)
+            }
+        ),
+        mean_age = colDef(
+            cell = function(value) {
+                round(value, 1)
+            }
+        ),
+        age_dist = colDef(
+            cell = function(values) {
+                sparkline(
+                    values,
+                    type = "box",
+                    chartRangeMin = min(d$demo_age, na.rm = TRUE),
+                    chartRangeMax = max(d$demo_age, na.rm = TRUE)
+                )
+            }
+        )
+    )
+)
+```
+
+### Education
+
+@fig-xp-client-es-edu shows the education level of client survey respondents by inclusion group.
+At each level of education, the split between domestic and international education is shown in the fill colour. 
+
+```{r}
+#| label: fig-xp-client-es-edu
+#| fig-cap: "Education Level of Client Survey Respondents by Inclusion Group"
+tbl_educ <- d_long |>
+    filter(
+        !is.na(demo_education),
+        !is.na(demo_educ_domestic),
+        engage_reached
+    ) |>
+    mutate(
+        demo_educ_domestic = fct_rev(demo_educ_domestic)
+    ) |>
+    group_by(inclusion_group_label, demo_education, demo_educ_domestic) |>
+    summarize(
+        n = n(),
+        .groups = "drop_last"
+    ) |>
+    group_by(inclusion_group_label) |>
+    mutate(
+        p = n / sum(n)
+    )
+
+tbl_educ |>
+    ggplot(aes(p, demo_education, fill = demo_educ_domestic)) +
+    geom_col(position = "stack") +
+    facet_wrap(~inclusion_group_label, ncol = 2) +
+    scale_fill_blueprint(discrete = TRUE, type = "bipolar", option = "blue_green") +
+    theme_blueprint(base_size = 12, grid = "Xx") +
+    scale_x_continuous(
+        labels = scales::percent_format(accuracy = 1),
+        limits = c(0, .5),
+        expand = c(0, 0)
+    )
+```
+
+@fig-xp-client-es-edu-ecdf is based on the same data as @fig-xp-client-es-edu, but rather than showing the proportion of respondents _at_ each level of education, it shows the proportion of respondents who have achieved _at least_ each level of education. 
+
+```{r}
+#| label: fig-xp-client-es-edu-ecdf
+#| fig-cap: "Education Achievement of Client Survey Respondents by Inclusion Group"
+
+tbl_educ_ecdf <- tbl_educ |>
+    arrange(desc(demo_education)) |>
+    group_by(inclusion_group_label, demo_educ_domestic) |>
+    mutate(
+        ecdf = cumsum(p)
+    )
+
+
+tbl_educ_ecdf |>
+    ggplot(aes(ecdf, demo_education, fill = demo_educ_domestic)) +
+    geom_col(position = "stack") +
+    facet_wrap(~inclusion_group_label, ncol = 2) +
+    scale_fill_blueprint(discrete = TRUE, type = "bipolar", option = "blue_green") +
+    theme_blueprint(base_size = 12, grid = "Xx") +
+    scale_x_continuous(
+        labels = scales::percent_format(accuracy = 1),
+        limits = c(0, 1),
+        expand = c(0, 0)
+    )
+```
+
+### Labour Force Status
+
+@tbl-xp-client-es-lfs shows the labour force status of client survey respondents by inclusion group.
+The employment rate is the proportion of respondents who are employed, the enrollment rate is the proportion of respondents who are enrolled in education, and the NEET rate is the proportion of respondents who are not in employment, education, or training.
+The median annualized earnings are shown alongside the distribution of annualized earnings, visualized as a box plot for each inclusion group. 
+
+```{r}
+#| label: tbl-xp-client-es-lfs
+#| tbl-cap: "Labour Force Status of Client Survey Respondents by Inclusion Group"
+
+tbl_emp <- d_long |>
+    mutate(lfs_neet = !(lfs_employed | lfs_educ_enrolled)) |>
+    filter(engage_reached) |>
+    group_by(inclusion_group_label) |>
+    summarize(
+        employment_rate = mean(lfs_employed, na.rm = TRUE),
+        enrollment_rate = mean(lfs_educ_enrolled, na.rm = TRUE),
+        neet_rate = mean(lfs_neet, na.rm = TRUE),
+        median_annualized_earnings = median(job_annualized_earnings_total, na.rm = TRUE),
+        annualized_earnings = list(na.omit(job_annualized_earnings_total))
+    )
+
+tbl_emp |>
+    reactable(
+        columns = list(
+            employment_rate = colDef(
+                cell = function(value) {
+                    scales::percent(value, accuracy = 1)
+                }
+            ),
+            enrollment_rate = colDef(
+                cell = function(value) {
+                    scales::percent(value, accuracy = 1)
+                }
+            ),
+            neet_rate = colDef(
+                cell = function(value) {
+                    scales::percent(value, accuracy = 1)
+                }
+            ),
+            median_annualized_earnings = colDef(
+                format = colFormat(currency = "USD", separators = TRUE)
+            ),
+            annualized_earnings = colDef(
+                cell = function(values) {
+                    sparkline(
+                        values,
+                        type = "box",
+                        chartRangeMin = 0,
+                        chartRangeMax = 2.5e5
+                    )
+                }
+            )
+        )
+    )
 ```
 
 ## Experiences of Employment Services 
@@ -314,50 +576,43 @@ tbl_emp |>
 ```{r}
 #| label: tbl-xp-client-pathways
 #| tbl-cap: "Client Progress in Employment Services"
-tbl_pathways <- d |> 
-  select(response_id, matches("^ig_"), matches("^eng_received|reached")) |> 
-  pivot_longer(
-    matches("^ig"), 
-    names_to = "inclusion_group", 
-    values_to = "val"
-  ) |>
-  filter(val) |> 
-  pivot_longer(
-    matches("reached$"), 
-    names_pattern = "(.*)_reached$",
-    names_to = "pathway_stage", 
-    values_to = "reached"
-  ) |> 
-  mutate(
-    pathway_stage = fct_relevel(
-      pathway_stage, 
-      "engage", 
-      "explore", 
-      "progress", 
-      "start", 
-      "succeed"
+tbl_pathways <- d_long |>
+    pivot_longer(
+        matches("reached$"),
+        names_pattern = "(.*)_reached$",
+        names_to = "pathway_stage",
+        values_to = "reached"
+    ) |>
+    mutate(
+        pathway_stage = fct_relevel(
+            pathway_stage,
+            "engage",
+            "explore",
+            "progress",
+            "start",
+            "succeed"
+        )
+    ) |>
+    arrange(
+        pathway_stage
+    ) |>
+    group_by(inclusion_group, pathway_stage) |>
+    summarize(
+        p = mean(reached, na.rm = TRUE)
+    ) |>
+    mutate(
+        inclusion_group = unlist(labs[inclusion_group])
     )
-  ) |> 
-  arrange(
-    pathway_stage
-  ) |> 
-  group_by(inclusion_group, pathway_stage) |> 
-  summarize(
-    p = mean(reached, na.rm = TRUE)
-  ) |> 
-  mutate(
-    inclusion_group = unlist(labs[inclusion_group])
-  ) 
-  
-  
-tbl_pathways |> 
-  pivot_wider(names_from = pathway_stage, values_from = p) |> 
-  arrange(inclusion_group) |> 
-  reactable(
-    defaultColDef = colDef(
-      format = colFormat(percent = T, digits = 0)
+
+
+tbl_pathways |>
+    pivot_wider(names_from = pathway_stage, values_from = p) |>
+    arrange(inclusion_group) |>
+    reactable(
+        defaultColDef = colDef(
+            format = colFormat(percent = T, digits = 0)
+        )
     )
-  )
 
 ```
 
@@ -374,25 +629,25 @@ Individuals experiencing disability follow a similar pattern, though the differe
 #| tbl-cap: "Client Net Promoter Score by Inclusion Group"
 
 tbl_nps <- d_long |>
-  filter(engage_reached, !is.na(ux_nps_nps_group)) |> 
-  group_by(inclusion_group_label, ux_nps_nps_group) |> 
-  summarize(
-    n = n(), 
-    .groups = "drop_last"
-  ) |> 
-  mutate(
-    p = n / sum(n)
-  ) |> 
-  select(-n) |> 
-  pivot_wider(names_from = ux_nps_nps_group, values_from = p) 
+    filter(engage_reached, !is.na(ux_nps_nps_group)) |>
+    group_by(inclusion_group_label, ux_nps_nps_group) |>
+    summarize(
+        n = n(),
+        .groups = "drop_last"
+    ) |>
+    mutate(
+        p = n / sum(n)
+    ) |>
+    select(-n) |>
+    pivot_wider(names_from = ux_nps_nps_group, values_from = p)
 
 
-tbl_nps |> 
-  reactable(
-    defaultColDef = colDef(
-      format = colFormat(percent = T, digits = 0)
+tbl_nps |>
+    reactable(
+        defaultColDef = colDef(
+            format = colFormat(percent = T, digits = 0)
+        )
     )
-  )
 ```
 
 ### Holistic Reflections
@@ -408,53 +663,53 @@ However, among the respondents in this sample, these experiences unfortunately c
 #| label: tbl-xp-client-holistic
 #| tbl-cap: "Client Holistic Reflections on Employment Services"
 
-tbl_holistic <- d_long |> 
-  filter(engage_reached) |> 
-  pivot_longer(
-    matches("^ux_journey"), 
-    names_to = "var", 
-    values_to = "val"
-  ) |> 
-  mutate(
-    lab = unlist(labs[var]) |> str_remove("^.*? - ")
-  ) |> 
-  filter(
-    !is.na(val)
-  ) |> 
-  group_by(
-    inclusion_group_label, 
-    lab, 
-    val
-  ) |> 
-  summarize(
-    n = n(), 
-    .groups = "drop_last"
-  ) |> 
-  mutate(
-    p = n / sum(n)
-  )
+tbl_holistic <- d_long |>
+    filter(engage_reached) |>
+    pivot_longer(
+        matches("^ux_journey"),
+        names_to = "var",
+        values_to = "val"
+    ) |>
+    mutate(
+        lab = unlist(labs[var]) |> str_remove("^.*? - ")
+    ) |>
+    filter(
+        !is.na(val)
+    ) |>
+    group_by(
+        inclusion_group_label,
+        lab,
+        val
+    ) |>
+    summarize(
+        n = n(),
+        .groups = "drop_last"
+    ) |>
+    mutate(
+        p = n / sum(n)
+    )
 
-tbl_holistic |> 
-  select(-n) |> 
-  pivot_wider(
-    names_from = val, 
-    values_from = p
-  ) |> 
-  group_by(lab) |> 
-  gt(groupname_col = "lab", rowname_col = "inclusion_group_label") |> 
-  gtExtras::gt_theme_538() |> 
-  #fmt_percent(columns = 2:6, decimals = 0) |> 
-  gt::tab_style(
-    style = gt::cell_text(weight = "bold"),
-    locations = gt::cells_row_groups(groups = everything())
-  ) |> 
-  gtExtras::gt_color_box(
-    columns = 2:6, 
-    domain = c(0, .6),
-    scale = 100, 
-    suffix = "%",
-    palette = c("#0000FF", "#f2f2f2", "#ff4500")
-  )
+tbl_holistic |>
+    select(-n) |>
+    pivot_wider(
+        names_from = val,
+        values_from = p
+    ) |>
+    group_by(lab) |>
+    gt(groupname_col = "lab", rowname_col = "inclusion_group_label") |>
+    gtExtras::gt_theme_538() |>
+    # fmt_percent(columns = 2:6, decimals = 0) |>
+    gt::tab_style(
+        style = gt::cell_text(weight = "bold"),
+        locations = gt::cells_row_groups(groups = everything())
+    ) |>
+    gtExtras::gt_color_box(
+        columns = 2:6,
+        domain = c(0, .6),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    )
 
 ```
 
@@ -467,46 +722,46 @@ Here, we see evidence that newcomers, youth, and _especially_ Indigenous clients
 #| label: tbl-xp-client-explore
 #| tbl-cap: "Client Reflections on Career Exploration"
 
-tbl_explore <- d_long |> 
-  filter(explore_reached) |> 
-  pivot_longer(
-    matches("^explore_reflections"), 
-    names_to = "var",
-    values_to = "val"
-  ) |> 
-  mutate(
-    lab = unlist(labs[var]) |> str_remove("^.*? - ")
-  ) |>
-  filter(!is.na(val)) |>
-  group_by(inclusion_group_label, lab, val) |>
-  summarize(
-    n = n(), 
-    .groups = "drop_last"
-  ) |>
-  mutate(
-    p = n / sum(n)
-  )
+tbl_explore <- d_long |>
+    filter(explore_reached) |>
+    pivot_longer(
+        matches("^explore_reflections"),
+        names_to = "var",
+        values_to = "val"
+    ) |>
+    mutate(
+        lab = unlist(labs[var]) |> str_remove("^.*? - ")
+    ) |>
+    filter(!is.na(val)) |>
+    group_by(inclusion_group_label, lab, val) |>
+    summarize(
+        n = n(),
+        .groups = "drop_last"
+    ) |>
+    mutate(
+        p = n / sum(n)
+    )
 
-tbl_explore |> 
-  select(-n) |> 
-  pivot_wider(
-    names_from = val, 
-    values_from = p
-  ) |> 
-  group_by(lab) |> 
-  gt(groupname_col = "lab", rowname_col = "inclusion_group_label") |> 
-  gtExtras::gt_theme_538() |> 
-  gt::tab_style(
-    style = gt::cell_text(weight = "bold"),
-    locations = gt::cells_row_groups(groups = everything())
-  ) |> 
-  gtExtras::gt_color_box(
-    columns = 2:7, 
-    domain = c(0, .6),
-    scale = 100, 
-    suffix = "%",
-    palette = c("#0000FF", "#f2f2f2", "#ff4500")
-  )
+tbl_explore |>
+    select(-n) |>
+    pivot_wider(
+        names_from = val,
+        values_from = p
+    ) |>
+    group_by(lab) |>
+    gt(groupname_col = "lab", rowname_col = "inclusion_group_label") |>
+    gtExtras::gt_theme_538() |>
+    gt::tab_style(
+        style = gt::cell_text(weight = "bold"),
+        locations = gt::cells_row_groups(groups = everything())
+    ) |>
+    gtExtras::gt_color_box(
+        columns = 2:7,
+        domain = c(0, .6),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    )
 ```
 
 ### Reflections on Making Progress
@@ -519,46 +774,46 @@ Naturally, members of the same set of groups are less likely to report confidenc
 #| label: tbl-xp-client-progress
 #| tbl-cap: "Client Reflections on Making Progress"
 
-tbl_progress <- d_long |> 
-  filter(progress_reached) |> 
-  pivot_longer(
-    matches("^progress_reflections"), 
-    names_to = "var",
-    values_to = "val"
-  ) |> 
-  mutate(
-    lab = unlist(labs[var]) |> str_remove("^.*? - ")
-  ) |>
-  filter(!is.na(val)) |>
-  group_by(inclusion_group_label, lab, val) |>
-  summarize(
-    n = n(), 
-    .groups = "drop_last"
-  ) |>
-  mutate(
-    p = n / sum(n)
-  )
+tbl_progress <- d_long |>
+    filter(progress_reached) |>
+    pivot_longer(
+        matches("^progress_reflections"),
+        names_to = "var",
+        values_to = "val"
+    ) |>
+    mutate(
+        lab = unlist(labs[var]) |> str_remove("^.*? - ")
+    ) |>
+    filter(!is.na(val)) |>
+    group_by(inclusion_group_label, lab, val) |>
+    summarize(
+        n = n(),
+        .groups = "drop_last"
+    ) |>
+    mutate(
+        p = n / sum(n)
+    )
 
-tbl_progress |> 
-  select(-n) |> 
-  pivot_wider(
-    names_from = val, 
-    values_from = p
-  ) |> 
-  group_by(lab) |> 
-  gt(groupname_col = "lab", rowname_col = "inclusion_group_label") |> 
-  gtExtras::gt_theme_538() |> 
-  gt::tab_style(
-    style = gt::cell_text(weight = "bold"),
-    locations = gt::cells_row_groups(groups = everything())
-  ) |> 
-  gtExtras::gt_color_box(
-    columns = 2:7, 
-    domain = c(0, .6),
-    scale = 100, 
-    suffix = "%",
-    palette = c("#0000FF", "#f2f2f2", "#ff4500")
-  )
+tbl_progress |>
+    select(-n) |>
+    pivot_wider(
+        names_from = val,
+        values_from = p
+    ) |>
+    group_by(lab) |>
+    gt(groupname_col = "lab", rowname_col = "inclusion_group_label") |>
+    gtExtras::gt_theme_538() |>
+    gt::tab_style(
+        style = gt::cell_text(weight = "bold"),
+        locations = gt::cells_row_groups(groups = everything())
+    ) |>
+    gtExtras::gt_color_box(
+        columns = 2:7,
+        domain = c(0, .6),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    )
 ```
 
 ### Reflections on Starting Employment
@@ -570,46 +825,46 @@ Kind of seeing the same old saw at this point: newcomers, youth, and Indigenous 
 #| label: tbl-xp-client-start
 #| tbl-cap: "Client Reflections on Starting Employment"
 
-tbl_start <- d_long |> 
-  filter(start_reached) |> 
-  pivot_longer(
-    matches("^start_reflections"), 
-    names_to = "var",
-    values_to = "val"
-  ) |> 
-  mutate(
-    lab = unlist(labs[var]) |> str_remove("^.*? - ")
-  ) |>
-  filter(!is.na(val)) |>
-  group_by(inclusion_group_label, lab, val) |>
-  summarize(
-    n = n(), 
-    .groups = "drop_last"
-  ) |>
-  mutate(
-    p = n / sum(n)
-  )
+tbl_start <- d_long |>
+    filter(start_reached) |>
+    pivot_longer(
+        matches("^start_reflections"),
+        names_to = "var",
+        values_to = "val"
+    ) |>
+    mutate(
+        lab = unlist(labs[var]) |> str_remove("^.*? - ")
+    ) |>
+    filter(!is.na(val)) |>
+    group_by(inclusion_group_label, lab, val) |>
+    summarize(
+        n = n(),
+        .groups = "drop_last"
+    ) |>
+    mutate(
+        p = n / sum(n)
+    )
 
-tbl_start |> 
-  select(-n) |> 
-  pivot_wider(
-    names_from = val, 
-    values_from = p
-  ) |> 
-  group_by(lab) |> 
-  gt(groupname_col = "lab", rowname_col = "inclusion_group_label") |> 
-  gtExtras::gt_theme_538() |> 
-  gt::tab_style(
-    style = gt::cell_text(weight = "bold"),
-    locations = gt::cells_row_groups(groups = everything())
-  ) |> 
-  gtExtras::gt_color_box(
-    columns = 2:7, 
-    domain = c(0, .6),
-    scale = 100, 
-    suffix = "%",
-    palette = c("#0000FF", "#f2f2f2", "#ff4500")
-  )
+tbl_start |>
+    select(-n) |>
+    pivot_wider(
+        names_from = val,
+        values_from = p
+    ) |>
+    group_by(lab) |>
+    gt(groupname_col = "lab", rowname_col = "inclusion_group_label") |>
+    gtExtras::gt_theme_538() |>
+    gt::tab_style(
+        style = gt::cell_text(weight = "bold"),
+        locations = gt::cells_row_groups(groups = everything())
+    ) |>
+    gtExtras::gt_color_box(
+        columns = 2:7,
+        domain = c(0, .6),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    )
 ```
 
 ### Reflections on Support in Employment
@@ -620,44 +875,44 @@ tbl_start |>
 #| label: tbl-xp-client-support
 #| tbl-cap: "Client Reflections on Support in Employment"
 
-tbl_succeed <- d_long |> 
-  filter(succeed_reached) |> 
-  pivot_longer(
-    matches("^succeed_reflections"), 
-    names_to = "var",
-    values_to = "val"
-  ) |> 
-  mutate(
-    lab = unlist(labs[var]) |> str_remove("^.*? - ")
-  ) |>
-  filter(!is.na(val)) |>
-  group_by(inclusion_group_label, lab, val) |>
-  summarize(
-    n = n(), 
-    .groups = "drop_last"
-  ) |>
-  mutate(
-    p = n / sum(n)
-  )
+tbl_succeed <- d_long |>
+    filter(succeed_reached) |>
+    pivot_longer(
+        matches("^succeed_reflections"),
+        names_to = "var",
+        values_to = "val"
+    ) |>
+    mutate(
+        lab = unlist(labs[var]) |> str_remove("^.*? - ")
+    ) |>
+    filter(!is.na(val)) |>
+    group_by(inclusion_group_label, lab, val) |>
+    summarize(
+        n = n(),
+        .groups = "drop_last"
+    ) |>
+    mutate(
+        p = n / sum(n)
+    )
 
-tbl_succeed |> 
-  select(-n) |> 
-  pivot_wider(
-    names_from = val, 
-    values_from = p
-  ) |> 
-  group_by(lab) |> 
-  gt(groupname_col = "lab", rowname_col = "inclusion_group_label") |> 
-  gtExtras::gt_theme_538() |> 
-  gt::tab_style(
-    style = gt::cell_text(weight = "bold"),
-    locations = gt::cells_row_groups(groups = everything())
-  ) |> 
-  gtExtras::gt_color_box(
-    columns = 2:7, 
-    domain = c(0, .6),
-    scale = 100, 
-    suffix = "%",
-    palette = c("#0000FF", "#f2f2f2", "#ff4500")
-  )
+tbl_succeed |>
+    select(-n) |>
+    pivot_wider(
+        names_from = val,
+        values_from = p
+    ) |>
+    group_by(lab) |>
+    gt(groupname_col = "lab", rowname_col = "inclusion_group_label") |>
+    gtExtras::gt_theme_538() |>
+    gt::tab_style(
+        style = gt::cell_text(weight = "bold"),
+        locations = gt::cells_row_groups(groups = everything())
+    ) |>
+    gtExtras::gt_color_box(
+        columns = 2:7,
+        domain = c(0, .6),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    )
 ```

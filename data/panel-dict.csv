@@ -1,0 +1,163 @@
+var_leger,q_text,var_bp
+record,record: Record number,record_id
+uuid,uuid: Participant identifier,response_id
+date,date: Completion time and date,survey_completion_date
+QLANG,QLANG: Would you prefer to complete the survey in English or French? Préféreriez-vous répondre à ce questionnaire en anglais ou en français?,survey_lang
+PROV,PROV: In which province or territory do you live?,scr_province
+QON,QON: In which region of Ontario do you live?,scr_on_region
+CANREG,CANREG: Régions Canadiennes :,scr_can_region
+sexe,sexe: Which of the following best describes your gender?,demo_gender
+age,age: How old are you?,scr_age
+EMPLO,EMPLO: Which of the following best describes your current employment situation?,lfs_employment_situation
+SCOL,SCOL: What is the highest level of education you have completed?,educ_max
+AGENUM,AGENUM: How old are you?,demo_age
+ETHNr1,ETHNr1: White - Which of the following best describes you?,demo_race_white
+ETHNr2,"ETHNr2: Indigenous (First Nations, Métis, Inuk / Inuit) - Which of the following best describes you?",demo_race_indigenous
+ETHNr3,ETHNr3: Latin American - Which of the following best describes you?,demo_race_latinx
+ETHNr4,ETHNr4: Middle Eastern / North African - Which of the following best describes you?,demo_race_mid_east
+ETHNr5,ETHNr5: Black - Which of the following best describes you?,demo_race_black
+ETHNr6,ETHNr6: South Asian - Which of the following best describes you?,demo_race_south_asian
+ETHNr7,ETHNr7: Southeast Asian - Which of the following best describes you?,demo_race_southeast_asian
+ETHNr8,ETHNr8: West Asian / Central Asian - Which of the following best describes you?,demo_race_west_asian
+ETHNr9,ETHNr9: Chinese - Which of the following best describes you?,demo_race_chinese
+ETHNr10,ETHNr10: Filipino - Which of the following best describes you?,demo_race_filipino
+ETHNr11,ETHNr11: Japanese - Which of the following best describes you?,demo_race_japanese
+ETHNr12,ETHNr12: Korean - Which of the following best describes you?,demo_race_korean
+ETHNr96,ETHNr96: Self-describe : - Which of the following best describes you?,demo_race_other
+ETHNr99,ETHNr99: I prefer not to answer - Which of the following best describes you?,demo_race_decline
+ETHNr96oe,ETHNr96oe: Which of the following best describes you? - Self-describe :,demo_race_other_text
+sexer96oe,sexer96oe: Which of the following best describes your gender? - I would prefer to self-describe,demo_gender_other_text
+NEWCOMER,NEWCOMER: Which of the following best describes you?,demo_migration
+Q1Hr1,"Q1Hr1: Yes, I do identify as a person with an invisible disability - Do you self-identify as a person with a disability/impairment?",demo_disability_hidden
+Q1Hr2,"Q1Hr2: Yes, I do identify as a person with a visible disability - Do you self-identify as a person with a disability/impairment?",demo_disability_visible
+Q1Hr3,"Q1Hr3: No, I do not identify as having a disability - Do you self-identify as a person with a disability/impairment?",demo_disability_none
+Q1Hr99,Q1Hr99: Prefer not to answer - Do you self-identify as a person with a disability/impairment?,demo_disability_decline
+SCREENERr1,SCREENERr1: 18-24 - SCREENER - must fall into at least one category below to qualify.,ig_youth
+SCREENERr2,SCREENERr2: Newcomer 2-4 - SCREENER - must fall into at least one category below to qualify.,ig_newcomer
+SCREENERr3,SCREENERr3: ETHN 2-12 or 96 - SCREENER - must fall into at least one category below to qualify.,ig_racialized
+SCREENERr4,SCREENERr4: Disabled 1 or 2 - SCREENER - must fall into at least one category below to qualify.,ig_disability
+SCREENERr99,SCREENERr99: NQ - SCREENER - must fall into at least one category below to qualify.,scr_n_ig
+SCREENER2,SCREENER2: Screener disqualifier,scr_qualified
+Q9r1,Q9r1: Employment Insurance (EI) - Have you ever received payments through any of the following programs?,benefits_ei_ever
+Q9r2,Q9r2: Ontario Works (OW) - Have you ever received payments through any of the following programs?,benefits_ow_ever
+Q9r3,Q9r3: Ontario Disability Support Program (ODSP) - Have you ever received payments through any of the following programs?,benefits_odsp_ever
+Q10r1,"Q10r1: Employment Insurance (EI) - In the last two months, have you received payments through any of the following programs?",benefits_ei_now
+Q10r2,"Q10r2: Ontario Works (OW) - In the last two months, have you received payments through any of the following programs?",benefits_ow_now
+Q10r3,"Q10r3: Ontario Disability Support Program (ODSP) - In the last two months, have you received payments through any of the following programs?",benefits_odsp_now
+Q12,Q12: Did you complete your highest level of education in Canada or outside of Canada?,educ_max_domestic
+Q14,"Q14: In the past week, have you earned income by working at a job or managing a business?",lfs_employed
+Q15,"Q15: In the past week, how many jobs did you work?",lfs_n_jobs
+Job_countr1,Job_countr1: 1 - # of job(s).,lfs_n_jobs_1
+Job_countr2,Job_countr2: 2 - # of job(s).,lfs_n_jobs_2
+Job_countr3,Job_countr3: 3 or more - # of job(s).,lfs_n_jobs_3
+Q17_Lr1,Q17_Lr1: Please provide a nickname for your job. We'll use this name to make sure we know which job we're asking about.,job_1_name
+Q18_M_Lr1c1,Q18_M_Lr1c1: When did you start [pipe: Q17_Lr1]?,job_1_start_month
+Q18_Y_Lr1c1,Q18_Y_Lr1c1: When did you start [pipe: Q17_Lr1]?,job_1_start_year
+Q19_Lr1r1,"Q19_Lr1r1: Overall, I am satisfied with this job - How do you feel about [pipe: Q17_Lr1]?",job_1_satis_overall
+Q19_Lr1r2,"Q19_Lr1r2: In this job, I will be able to advance in my career - How do you feel about [pipe: Q17_Lr1]?",job_1_satis_advance
+Q19_Lr1r3,Q19_Lr1r3: I worry about losing my job - How do you feel about [pipe: Q17_Lr1]?,job_1_satis_precarity
+Q20_Lr1r1,Q20_Lr1r1: Casual (you are called into work on an as-needed basis) - How would you describe [pipe: Q17_Lr1]?,job_1_is_casual
+Q20_Lr1r2,Q20_Lr1r2: Seasonal (you only work at certain times of the year) - How would you describe [pipe: Q17_Lr1]?,job_1_is_seasonal
+Q20_Lr1r3,Q20_Lr1r3: Temporary (you know when it will end) - How would you describe [pipe: Q17_Lr1]?,job_1_is_temporary
+Q21_Lr1,"Q21_Lr1: On average, about how many hours a week do you usually work at [pipe: Q17_Lr1]?",job_1_hours
+Q22_Lr1r1,Q22_Lr1r1: Medical insurance or health plan - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr1]?,job_1_benefits_health
+Q22_Lr1r2,Q22_Lr1r2: Dental insurance - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr1]?,job_1_benefits_dental
+Q22_Lr1r3,Q22_Lr1r3: Life or disability insurance - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr1]?,job_1_benefits_disability
+Q22_Lr1r4,Q22_Lr1r4: Pension or other retirement savings program - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr1]?,job_1_benefits_pension
+Q22_Lr1r5,Q22_Lr1r5: Two or more weeks of paid vacation - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr1]?,job_1_benefits_pto
+Q23_Lr1,Q23_Lr1: Are you paid an hourly wage for working at [pipe: Q17_Lr1]?,job_1_has_hourly_wage
+Q24_Lr1,"Q24_Lr1: Before taxes, how much are you paid each hour at [pipe: Q17_Lr1]?",job_1_hourly_wage
+Q25_Lr1,"Q25_Lr1: Of the following options, what is the easiest way for you to report your salary at [pipe: Q17_Lr1]?",job_1_report_salary
+Q26_Lr1,"Q26_Lr1: What is your [pipe: Q25_Lr1 lower] salary, before taxes and other deductions at [pipe: Q17_Lr1]?",job_1_salary
+Q17_Lr2,Q17_Lr2: Please provide a nickname for your second job. We'll use this name to make sure we know which job we're asking about.,job_2_name
+Q18_M_Lr2c1,Q18_M_Lr2c1: When did you start [pipe: Q17_Lr2]?,job_2_start_month
+Q18_Y_Lr2c1,Q18_Y_Lr2c1: When did you start [pipe: Q17_Lr2]?,job_2_start_year
+Q19_Lr2r1,"Q19_Lr2r1: Overall, I am satisfied with this job - How do you feel about [pipe: Q17_Lr2]?",job_2_satis_overall
+Q19_Lr2r2,"Q19_Lr2r2: In this job, I will be able to advance in my career - How do you feel about [pipe: Q17_Lr2]?",job_2_satis_advance
+Q19_Lr2r3,Q19_Lr2r3: I worry about losing my job - How do you feel about [pipe: Q17_Lr2]?,job_2_satis_precarity
+Q20_Lr2r1,Q20_Lr2r1: Casual (you are called into work on an as-needed basis) - How would you describe [pipe: Q17_Lr2]?,job_2_is_casual
+Q20_Lr2r2,Q20_Lr2r2: Seasonal (you only work at certain times of the year) - How would you describe [pipe: Q17_Lr2]?,job_2_is_seasonal
+Q20_Lr2r3,Q20_Lr2r3: Temporary (you know when it will end) - How would you describe [pipe: Q17_Lr2]?,job_2_is_temporary
+Q21_Lr2,"Q21_Lr2: On average, about how many hours a week do you usually work at [pipe: Q17_Lr2]?",job_2_hours
+Q22_Lr2r1,Q22_Lr2r1: Medical insurance or health plan - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr2]?,job_2_benefits_health
+Q22_Lr2r2,Q22_Lr2r2: Dental insurance - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr2]?,job_2_benefits_dental
+Q22_Lr2r3,Q22_Lr2r3: Life or disability insurance - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr2]?,job_2_benefits_disability
+Q22_Lr2r4,Q22_Lr2r4: Pension or other retirement savings program - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr2]?,job_2_benefits_pension
+Q22_Lr2r5,Q22_Lr2r5: Two or more weeks of paid vacation - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr2]?,job_2_benefits_pto
+Q23_Lr2,Q23_Lr2: Are you paid an hourly wage for working at [pipe: Q17_Lr2]?,job_2_has_hourly_wage
+Q24_Lr2,"Q24_Lr2: Before taxes, how much are you paid each hour at [pipe: Q17_Lr2]?",job_2_hourly_wage
+Q25_Lr2,"Q25_Lr2: Of the following options, what is the easiest way for you to report your salary at [pipe: Q17_Lr2]?",job_2_report_salary
+Q26_Lr2,"Q26_Lr2: What is your [pipe: Q25_Lr2 lower] salary, before taxes and other deductions at [pipe: Q17_Lr2]?",job_2_salary
+Q17_Lr3,Q17_Lr3: Please provide a nickname for your third or more job(s). We'll use this name to make sure we know which job we're asking about.,job_3_name
+Q18_M_Lr3c1,Q18_M_Lr3c1: When did you start [pipe: Q17_Lr3]?,job_3_start_month
+Q18_Y_Lr3c1,Q18_Y_Lr3c1: When did you start [pipe: Q17_Lr3]?,job_3_start_year
+Q19_Lr3r1,"Q19_Lr3r1: Overall, I am satisfied with this job - How do you feel about [pipe: Q17_Lr3]?",job_3_satis_overall
+Q19_Lr3r2,"Q19_Lr3r2: In this job, I will be able to advance in my career - How do you feel about [pipe: Q17_Lr3]?",job_3_satis_advance
+Q19_Lr3r3,Q19_Lr3r3: I worry about losing my job - How do you feel about [pipe: Q17_Lr3]?,job_3_satis_precarity
+Q20_Lr3r1,Q20_Lr3r1: Casual (you are called into work on an as-needed basis) - How would you describe [pipe: Q17_Lr3]?,job_3_is_casual
+Q20_Lr3r2,Q20_Lr3r2: Seasonal (you only work at certain times of the year) - How would you describe [pipe: Q17_Lr3]?,job_3_is_seasonal
+Q20_Lr3r3,Q20_Lr3r3: Temporary (you know when it will end) - How would you describe [pipe: Q17_Lr3]?,job_3_is_temporary
+Q21_Lr3,"Q21_Lr3: On average, about how many hours a week do you usually work at [pipe: Q17_Lr3]?",job_3_hours
+Q22_Lr3r1,Q22_Lr3r1: Medical insurance or health plan - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr3]?,job_3_benefits_health
+Q22_Lr3r2,Q22_Lr3r2: Dental insurance - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr3]?,job_3_benefits_dental
+Q22_Lr3r3,Q22_Lr3r3: Life or disability insurance - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr3]?,job_3_benefits_disability
+Q22_Lr3r4,Q22_Lr3r4: Pension or other retirement savings program - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr3]?,job_3_pension
+Q22_Lr3r5,Q22_Lr3r5: Two or more weeks of paid vacation - Which of the following benefits are included as part of your compensation at [pipe: Q17_Lr3]?,job_3_benefits_pto
+Q23_Lr3,Q23_Lr3: Are you paid an hourly wage for working at [pipe: Q17_Lr3]?,job_3_has_hourly_wage
+Q24_Lr3,"Q24_Lr3: Before taxes, how much are you paid each hour at [pipe: Q17_Lr3]?",job_3_hourly_wage
+Q25_Lr3,"Q25_Lr3: Of the following options, what is the easiest way for you to report your salary at [pipe: Q17_Lr3]?",job_3_report_salary
+Q26_Lr3,"Q26_Lr3: What is your [pipe: Q25_Lr3 lower] salary, before taxes and other deductions at [pipe: Q17_Lr3]?",job_3_salary
+Q27,Q27: How long has it been since you were employed?,lfs_unemployed_duration
+Q28,Q28: Are you currently enrolled in education or training?,lfs_educ_enrolled
+Q29,Q29: Which of the following best describes the program that you're enrolled in?,lfs_educ_type
+Q29r96oe,"Q29r96oe: Which of the following best describes the program that you're enrolled in? - Other, please specify:",lfs_educ_type_other_text
+Q30,"Q30: If you could change one thing about your current employment situation, what would it be?",lfs_top_ambition
+Q33,Q33: Which of the following statements best describes your experience of employment services?,es_experience
+Q34,Q34: Were you aware of employment services in Ontario before taking this survey?,es_aware
+Q35,Q35: How did you come to enroll in employment services?,es_pathway
+Q36,Q36: How did you learn about employment services?,es_info_source
+Q36r96oe,"Q36r96oe: How did you learn about employment services? - Other, please specify:",es_info_source_other_text
+Q37,"Q37: Reflecting on your experience of employment services, how likely are you to recommend employment services to someone like yourself?",es_nps
+Q38r1,"Q38r1: I know who to talk to if I have any questions - Reflecting on your experience of employment services, how often do you remember feeling the following?",es_ux_journey_1
+Q38r2,"Q38r2: When I ask questions, I get satisfactory answers quickly - Reflecting on your experience of employment services, how often do you remember feeling the following?",es_ux_journey_2
+Q38r3,"Q38r3: I have confidence that my caseworker will support me to get a job - Reflecting on your experience of employment services, how often do you remember feeling the following?",es_ux_journey_3
+Q38r4,"Q38r4: my caseworker is encouraging and motivational - Reflecting on your experience of employment services, how often do you remember feeling the following?",es_ux_journey_4
+Q38r5,"Q38r5: I know when my next appointment is and what I have to do in preparaton for it - Reflecting on your experience of employment services, how often do you remember feeling the following?",es_ux_journey_5
+Q38r6,"Q38r6: This is a safe space for me to express myself and articulate my needs - Reflecting on your experience of employment services, how often do you remember feeling the following?",es_ux_journey_6
+Q39,Q39: What is the most important reason you didn't access employment services?,es_decline_reason
+Q40r1,"Q40r1: Family doctor's office - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_family_doc
+Q40r2,"Q40r2: Walk-in clinic - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_walkin_clinic
+Q40r3,"Q40r3: Psychotherapy clinic - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_psychotherapy
+Q40r4,"Q40r4: Physiotherapy clinic - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_physiotherapy
+Q40r5,"Q40r5: Hospital - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_hospital
+Q40r6,"Q40r6: Library - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_library
+Q40r7,"Q40r7: Food bank - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_food_bank
+Q40r8,"Q40r8: Toronto Employment and Social Services - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_tess
+Q40r9,"Q40r9: Advice services (debt management, housing placement, etc.) - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_advice
+Q40r10,"Q40r10: Service Ontario - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_service_ontario
+Q40r11,"Q40r11: Place of worship (such as a mosque, church, temple) - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_worship
+Q40r12,"Q40r12: Community center - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_community_centre
+Q40r13,"Q40r13: Skills workshop - Since the beginning of June, 2024, which of the following services or locations have you attended in person?",loc_in_person_skills_workshop
+Q41r1,Q41r1: Facebook - Which of the following digital services do you use on a regular basis?,digi_use_facebook
+Q41r2,Q41r2: Instagram - Which of the following digital services do you use on a regular basis?,digi_use_insta
+Q41r3,Q41r3: Youtube - Which of the following digital services do you use on a regular basis?,digi_use_youtube
+Q41r4,Q41r4: Google - Which of the following digital services do you use on a regular basis?,digi_use_google
+Q41r5,Q41r5: TikTok - Which of the following digital services do you use on a regular basis?,digi_use_tiktok
+Q41r6,Q41r6: Discord - Which of the following digital services do you use on a regular basis?,digi_use_discord
+Q41r7,Q41r7: Whatsapp - Which of the following digital services do you use on a regular basis?,digi_use_whatsapp
+Q41r8,Q41r8: Telegram - Which of the following digital services do you use on a regular basis?,digi_use_telegram
+Q41r9,Q41r9: Signal - Which of the following digital services do you use on a regular basis?,digi_use_signal
+Q41r96,"Q41r96: Other, please specify: - Which of the following digital services do you use on a regular basis?",digi_use_other
+Q41r96oe,"Q41r96oe: Which of the following digital services do you use on a regular basis? - Other, please specify:",digi_use_other_text
+EMPLO_Qual,"EMPLO_Qual: EMPLO Qualifier items 1,3,4,8",
+Group_Qualr1,Group_Qualr1: 18-24 - Group Qualifier,
+Group_Qualr2,Group_Qualr2: Newcomer 2-4 - Group Qualifier,
+Group_Qualr3,Group_Qualr3: ETHN 2-12 or 96 - Group Qualifier,
+Group_Qualr4,Group_Qualr4: Disabled 1 or 2 - Group Qualifier,
+Group_Qualr5,"Group_Qualr5: Selected EMPLO 1,3,4,8 - Group Qualifier",
+Group_Qualr6,"Group_Qualr6: Did not select EMPLO 1,3,4,8 - Group Qualifier",
+SCREENER2_old,SCREENER2_old: Screener disqualifier,
+SCREENER3r1,"SCREENER3r1: Newcomer 2-4 - SCREENER3 for QMS, newcomer and disabled only",
+SCREENER3r2,"SCREENER3r2: Disabled 1 or 2 - SCREENER3 for QMS, newcomer and disabled only",
+SCREENER3r99,"SCREENER3r99: NQ - SCREENER3 for QMS, newcomer and disabled only",
+SCREENER4,SCREENER4: Screener disqualifier,

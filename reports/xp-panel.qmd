@@ -1,0 +1,202 @@
+# Panel Survey
+
+```{r}
+library(tidyverse)
+library(labelled)
+library(gt)
+library(gtExtras)
+library(reactable)
+library(sparkline)
+library(bptheme)
+library(bpscales)
+source(here::here("R/zzz.R"))
+source(here::here("R/extract.R"))
+source(here::here("R/transform.R"))
+
+d0 <- load_panel_data()
+
+pr <- readr::read_csv(here::here("data/panel-dict.csv")) |>
+    filter(!is.na(var_bp)) |>
+    dplyr::mutate(var_leger = purrr::set_names(var_leger, var_bp)) |>
+    dplyr::pull(var_leger)
+
+d <- d0 |>
+    dplyr::select(!!!pr) |>
+    haven::as_factor() |>
+    dplyr::mutate(
+        dplyr::across(
+            matches("(ei|ow|odsp)_(now|ever)"),
+            ~ .x %in% "Yes"
+        ),
+        dplyr::across(
+            matches("^(demo_race|ig_)"),
+            ~ .x |> stringr::str_detect("^NO TO", negate = TRUE)
+        ),
+        ig_indigenous = demo_race_indigenous,
+        ig_social_assistance = benefits_ow_now | benefits_odsp_now,
+        ig_francophone = FALSE,
+        ig_total = TRUE
+    )
+
+labelled::var_label(d) <- list(
+    ig_youth = "Youth (< 30) with Higher Support Needs",
+    ig_newcomer = "Newcomer (2019 or later)",
+    ig_disability = "Experiencing Disability",
+    ig_francophone = "Francophone",
+    ig_indigenous = "Indigenous",
+    ig_racialized = "Racialized",
+    ig_social_assistance = "Receiving Social Assistance",
+    ig_total = "Z) Total"
+)
+
+d_long_raw <- d |>
+    tidyr::pivot_longer(
+        matches("^ig_"),
+        names_to = "inclusion_group",
+        values_to = "in_ig"
+    ) |>
+    dplyr::filter(!is.na(in_ig)) |>
+    dplyr::mutate(inclusion_group_label = unlist(labelled::var_label(d)[inclusion_group]))
+
+d_long <- d_long_raw |>
+    filter(in_ig)
+```
+
+## Demographics
+
+### Inclusion Group Representation
+
+```{r}
+#| label: tbl-xp-panel-ig-rep
+#| tbl-cap: "Inclusion group representation"
+tbl_ig_rep <- d_long_raw |>
+    group_by(inclusion_group_label) |>
+    summarize(
+        p = scales::percent(mean(in_ig), accuracy = 1),
+        n = glue::glue("({sum(in_ig)}/{n()})")
+    )
+
+tbl_ig_rep |>
+    gt() |>
+    gtExtras::gt_theme_538()
+```
+
+### Inclusion Group Intersections
+
+```{r}
+#| label: fig-ig-pairs
+#| fig-cap: "Inclusion group pairs representation"
+dplt_ig_int <- d_long_raw |>
+    select(
+        response_id,
+        inclusion_group_x = inclusion_group_label,
+        in_ig_x = in_ig
+    ) |>
+    left_join(
+        d_long_raw |>
+            select(response_id, inclusion_group_y = inclusion_group_label, in_ig_y = in_ig),
+        by = "response_id",
+        relationship = "many-to-many"
+    ) |>
+    group_by(inclusion_group_x, inclusion_group_y) |>
+    summarize(
+        N = n(),
+        n = sum(in_ig_x * in_ig_y),
+        p = mean(in_ig_x * in_ig_y)
+    )
+
+dplt_ig_int |>
+    ggplot(aes(inclusion_group_x, inclusion_group_y, fill = p)) +
+    geom_tile() +
+    geom_label(aes(label = scales::percent(p, accuracy = 1)), color = "black", fill = "grey90") +
+    scale_fill_viridis_c() +
+    theme_blueprint(base_size = 12)
+```
+
+### Supplementary Demogrpahics
+
+```{r}
+#| label: tbl-xp-panel-demo
+#| tbl-cap: "Age and gender by inclusion group"
+tbl_demos <- d_long |>
+    group_by(inclusion_group_label) |>
+    summarize(
+        p_woman_plus = mean(demo_gender != "Man", na.rm = TRUE),
+        median_age = median(demo_age, na.rm = TRUE),
+        age_dist = list(demo_age)
+    )
+
+
+tbl_demos |>
+    reactable(
+        columns = list(
+            p_woman_plus = colDef(
+                format = colFormat(
+                    percent = T,
+                    digits = 0
+                )
+            ),
+            median_age = colDef(
+                format = colFormat(
+                    digits = 0
+                )
+            ),
+            age_dist = colDef(
+                cell = function(values) {
+                    sparkline(
+                        values,
+                        type = "box",
+                        chartRangeMin = min(d$demo_age),
+                        chartRangeMax = max(d$demo_age)
+                    )
+                }
+            )
+        )
+    )
+```
+
+### Education
+
+```{r}
+#| label: fig-xp-panel-educ-1
+#| fig-cap: "Highest level of education achieved by inclusion group"
+
+tbl_educ <- d_long |>
+    group_by(
+        inclusion_group_label,
+        educ_max,
+        educ_max_domestic
+    ) |>
+    summarize(
+        n = n(),
+        .groups = "drop"
+    ) |>
+    group_by(
+        inclusion_group_label
+    ) |>
+    mutate(
+        p = n / sum(n)
+    )
+```
+
+## Labour Force Status
+
+### Employment, Enrollment, Ambition
+
+### Job Quality
+
+## Perspectives on Employment Services
+
+### Overview (CC-ish)
+
+```{r}
+# aware, positive, used, valued
+```
+
+### Reasons to Opt Out
+
+## Outreach Opportunities
+
+### Physical
+
+### Digital
