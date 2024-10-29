@@ -53,9 +53,9 @@ Job_countr3,Job_countr3: 3 or more - # of job(s).,lfs_n_jobs_3
 Q17_Lr1,Q17_Lr1: Please provide a nickname for your job. We'll use this name to make sure we know which job we're asking about.,job_1_name
 Q18_M_Lr1c1,Q18_M_Lr1c1: When did you start [pipe: Q17_Lr1]?,job_1_start_month
 Q18_Y_Lr1c1,Q18_Y_Lr1c1: When did you start [pipe: Q17_Lr1]?,job_1_start_year
-Q19_Lr1r1,"Q19_Lr1r1: Overall, I am satisfied with this job - How do you feel about [pipe: Q17_Lr1]?",job_1_satis_overall
-Q19_Lr1r2,"Q19_Lr1r2: In this job, I will be able to advance in my career - How do you feel about [pipe: Q17_Lr1]?",job_1_satis_advance
-Q19_Lr1r3,Q19_Lr1r3: I worry about losing my job - How do you feel about [pipe: Q17_Lr1]?,job_1_satis_precarity
+Q19_Lr1r1,"Q19_Lr1r1: Overall, I am satisfied with this job - How do you feel about [pipe: Q17_Lr1]?",job_1_sat_overall
+Q19_Lr1r2,"Q19_Lr1r2: In this job, I will be able to advance in my career - How do you feel about [pipe: Q17_Lr1]?",job_1_sat_advance
+Q19_Lr1r3,Q19_Lr1r3: I worry about losing my job - How do you feel about [pipe: Q17_Lr1]?,job_1_sat_precarity
 Q20_Lr1r1,Q20_Lr1r1: Casual (you are called into work on an as-needed basis) - How would you describe [pipe: Q17_Lr1]?,job_1_is_casual
 Q20_Lr1r2,Q20_Lr1r2: Seasonal (you only work at certain times of the year) - How would you describe [pipe: Q17_Lr1]?,job_1_is_seasonal
 Q20_Lr1r3,Q20_Lr1r3: Temporary (you know when it will end) - How would you describe [pipe: Q17_Lr1]?,job_1_is_temporary
@@ -72,9 +72,9 @@ Q26_Lr1,"Q26_Lr1: What is your [pipe: Q25_Lr1 lower] salary, before taxes and o
 Q17_Lr2,Q17_Lr2: Please provide a nickname for your second job. We'll use this name to make sure we know which job we're asking about.,job_2_name
 Q18_M_Lr2c1,Q18_M_Lr2c1: When did you start [pipe: Q17_Lr2]?,job_2_start_month
 Q18_Y_Lr2c1,Q18_Y_Lr2c1: When did you start [pipe: Q17_Lr2]?,job_2_start_year
-Q19_Lr2r1,"Q19_Lr2r1: Overall, I am satisfied with this job - How do you feel about [pipe: Q17_Lr2]?",job_2_satis_overall
-Q19_Lr2r2,"Q19_Lr2r2: In this job, I will be able to advance in my career - How do you feel about [pipe: Q17_Lr2]?",job_2_satis_advance
-Q19_Lr2r3,Q19_Lr2r3: I worry about losing my job - How do you feel about [pipe: Q17_Lr2]?,job_2_satis_precarity
+Q19_Lr2r1,"Q19_Lr2r1: Overall, I am satisfied with this job - How do you feel about [pipe: Q17_Lr2]?",job_2_sat_overall
+Q19_Lr2r2,"Q19_Lr2r2: In this job, I will be able to advance in my career - How do you feel about [pipe: Q17_Lr2]?",job_2_sat_advance
+Q19_Lr2r3,Q19_Lr2r3: I worry about losing my job - How do you feel about [pipe: Q17_Lr2]?,job_2_sat_precarity
 Q20_Lr2r1,Q20_Lr2r1: Casual (you are called into work on an as-needed basis) - How would you describe [pipe: Q17_Lr2]?,job_2_is_casual
 Q20_Lr2r2,Q20_Lr2r2: Seasonal (you only work at certain times of the year) - How would you describe [pipe: Q17_Lr2]?,job_2_is_seasonal
 Q20_Lr2r3,Q20_Lr2r3: Temporary (you know when it will end) - How would you describe [pipe: Q17_Lr2]?,job_2_is_temporary
@@ -91,9 +91,9 @@ Q26_Lr2,"Q26_Lr2: What is your [pipe: Q25_Lr2 lower] salary, before taxes and o
 Q17_Lr3,Q17_Lr3: Please provide a nickname for your third or more job(s). We'll use this name to make sure we know which job we're asking about.,job_3_name
 Q18_M_Lr3c1,Q18_M_Lr3c1: When did you start [pipe: Q17_Lr3]?,job_3_start_month
 Q18_Y_Lr3c1,Q18_Y_Lr3c1: When did you start [pipe: Q17_Lr3]?,job_3_start_year
-Q19_Lr3r1,"Q19_Lr3r1: Overall, I am satisfied with this job - How do you feel about [pipe: Q17_Lr3]?",job_3_satis_overall
-Q19_Lr3r2,"Q19_Lr3r2: In this job, I will be able to advance in my career - How do you feel about [pipe: Q17_Lr3]?",job_3_satis_advance
-Q19_Lr3r3,Q19_Lr3r3: I worry about losing my job - How do you feel about [pipe: Q17_Lr3]?,job_3_satis_precarity
+Q19_Lr3r1,"Q19_Lr3r1: Overall, I am satisfied with this job - How do you feel about [pipe: Q17_Lr3]?",job_3_sat_overall
+Q19_Lr3r2,"Q19_Lr3r2: In this job, I will be able to advance in my career - How do you feel about [pipe: Q17_Lr3]?",job_3_sat_advance
+Q19_Lr3r3,Q19_Lr3r3: I worry about losing my job - How do you feel about [pipe: Q17_Lr3]?,job_3_sat_precarity
 Q20_Lr3r1,Q20_Lr3r1: Casual (you are called into work on an as-needed basis) - How would you describe [pipe: Q17_Lr3]?,job_3_is_casual
 Q20_Lr3r2,Q20_Lr3r2: Seasonal (you only work at certain times of the year) - How would you describe [pipe: Q17_Lr3]?,job_3_is_seasonal
 Q20_Lr3r3,Q20_Lr3r3: Temporary (you know when it will end) - How would you describe [pipe: Q17_Lr3]?,job_3_is_temporary
@@ -107,7 +107,7 @@ Q23_Lr3,Q23_Lr3: Are you paid an hourly wage for working at [pipe: Q17_Lr3]?,job
 Q24_Lr3,"Q24_Lr3: Before taxes, how much are you paid each hour at [pipe: Q17_Lr3]?",job_3_hourly_wage
 Q25_Lr3,"Q25_Lr3: Of the following options, what is the easiest way for you to report your salary at [pipe: Q17_Lr3]?",job_3_report_salary
 Q26_Lr3,"Q26_Lr3: What is your [pipe: Q25_Lr3 lower] salary, before taxes and other deductions at [pipe: Q17_Lr3]?",job_3_salary
-Q27,Q27: How long has it been since you were employed?,lfs_unemployed_duration
+Q27,Q27: How long has it been since you were employed?,lfs_unemp_spell
 Q28,Q28: Are you currently enrolled in education or training?,lfs_educ_enrolled
 Q29,Q29: Which of the following best describes the program that you're enrolled in?,lfs_educ_type
 Q29r96oe,"Q29r96oe: Which of the following best describes the program that you're enrolled in? - Other, please specify:",lfs_educ_type_other_text

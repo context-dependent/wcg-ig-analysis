@@ -1,6 +1,7 @@
 # Panel Survey
 
 ```{r}
+#| output: false
 library(tidyverse)
 library(labelled)
 library(gt)
@@ -13,41 +14,9 @@ source(here::here("R/zzz.R"))
 source(here::here("R/extract.R"))
 source(here::here("R/transform.R"))
 
+dict <- readr::read_csv(here::here("data/panel-dict.csv"))
 d0 <- load_panel_data()
-
-pr <- readr::read_csv(here::here("data/panel-dict.csv")) |>
-    filter(!is.na(var_bp)) |>
-    dplyr::mutate(var_leger = purrr::set_names(var_leger, var_bp)) |>
-    dplyr::pull(var_leger)
-
-d <- d0 |>
-    dplyr::select(!!!pr) |>
-    haven::as_factor() |>
-    dplyr::mutate(
-        dplyr::across(
-            matches("(ei|ow|odsp)_(now|ever)"),
-            ~ .x %in% "Yes"
-        ),
-        dplyr::across(
-            matches("^(demo_race|ig_)"),
-            ~ .x |> stringr::str_detect("^NO TO", negate = TRUE)
-        ),
-        ig_indigenous = demo_race_indigenous,
-        ig_social_assistance = benefits_ow_now | benefits_odsp_now,
-        ig_francophone = FALSE,
-        ig_total = TRUE
-    )
-
-labelled::var_label(d) <- list(
-    ig_youth = "Youth (< 30) with Higher Support Needs",
-    ig_newcomer = "Newcomer (2019 or later)",
-    ig_disability = "Experiencing Disability",
-    ig_francophone = "Francophone",
-    ig_indigenous = "Indigenous",
-    ig_racialized = "Racialized",
-    ig_social_assistance = "Receiving Social Assistance",
-    ig_total = "Z) Total"
-)
+d <- d0 |> clean_panel()
 
 d_long_raw <- d |>
     tidyr::pivot_longer(
@@ -56,7 +25,11 @@ d_long_raw <- d |>
         values_to = "in_ig"
     ) |>
     dplyr::filter(!is.na(in_ig)) |>
-    dplyr::mutate(inclusion_group_label = unlist(labelled::var_label(d)[inclusion_group]))
+    dplyr::mutate(
+        inclusion_group_label = unlist(labelled::var_label(d)[inclusion_group]) |> 
+            unname(), 
+        ig = stringr::str_extract(inclusion_group_label, "\\[.\\]")
+    )
 
 d_long <- d_long_raw |>
     filter(in_ig)
@@ -87,14 +60,16 @@ tbl_ig_rep |>
 #| label: fig-ig-pairs
 #| fig-cap: "Inclusion group pairs representation"
 dplt_ig_int <- d_long_raw |>
+    filter(inclusion_group != "ig_total") |> 
     select(
         response_id,
-        inclusion_group_x = inclusion_group_label,
+        inclusion_group_x = ig,
         in_ig_x = in_ig
     ) |>
     left_join(
         d_long_raw |>
-            select(response_id, inclusion_group_y = inclusion_group_label, in_ig_y = in_ig),
+            filter(inclusion_group != "ig_total") |>
+            select(response_id, inclusion_group_y = ig, in_ig_y = in_ig),
         by = "response_id",
         relationship = "many-to-many"
     ) |>
@@ -102,8 +77,9 @@ dplt_ig_int <- d_long_raw |>
     summarize(
         N = n(),
         n = sum(in_ig_x * in_ig_y),
-        p = mean(in_ig_x * in_ig_y)
-    )
+        p = round(mean(in_ig_x * in_ig_y), 2)
+    ) |> 
+    ungroup() 
 
 dplt_ig_int |>
     ggplot(aes(inclusion_group_x, inclusion_group_y, fill = p)) +
@@ -111,9 +87,15 @@ dplt_ig_int |>
     geom_label(aes(label = scales::percent(p, accuracy = 1)), color = "black", fill = "grey90") +
     scale_fill_viridis_c() +
     theme_blueprint(base_size = 12)
+
 ```
 
-### Supplementary Demogrpahics
+
+### Supplementary Demographics
+
+@tbl-xp-panel-demo shows percentage of respondents in the woman+ category, median age, and the age distribution by inclusion group. 
+
+The observed variation in gender distribution between groups is notable. Of the full sample, a majority (58%) identified as women or preferred to self-identify. That skew is attenuated among youth respondents, of whom 70% did the same. Among social assistance recipients, it is inverted, with only 42% identifying as women or preferring to self-identify.
 
 ```{r}
 #| label: tbl-xp-panel-demo
@@ -157,6 +139,8 @@ tbl_demos |>
 
 ### Education
 
+
+
 ```{r}
 #| label: fig-xp-panel-educ-1
 #| fig-cap: "Highest level of education achieved by inclusion group"
@@ -165,38 +149,477 @@ tbl_educ <- d_long |>
     group_by(
         inclusion_group_label,
         educ_max,
-        educ_max_domestic
+        educ_max_domestic = fct_rev(educ_max_domestic), 
+        .drop = F
     ) |>
-    summarize(
-        n = n(),
-        .groups = "drop"
-    ) |>
+    tally() |>
     group_by(
         inclusion_group_label
     ) |>
     mutate(
         p = n / sum(n)
+    ) |> 
+    arrange(desc(educ_max)) |> 
+    group_by(inclusion_group_label, educ_max_domestic) |> 
+    mutate(ecdf = cumsum(p))
+
+tbl_educ |>
+    ggplot(aes(p, educ_max, fill = educ_max_domestic)) +
+    geom_col(position = "stack") +
+    facet_wrap(~inclusion_group_label, nrow = 4) +
+    scale_fill_blueprint(discrete = TRUE, type = "bipolar", option = "blue_green") +
+    theme_blueprint(base_size = 12, grid = "Xx") +
+    scale_x_continuous(
+        labels = scales::percent_format(accuracy = 1),
+        limits = c(0, .5),
+        expand = c(0, 0)
+    )
+```
+
+```{r}
+#| label: fig-xp-panel-educ-ecdf
+#| fig-cap: "Educational achievement by inclusion group"
+tbl_educ |>
+    ggplot(aes(ecdf, educ_max, fill = educ_max_domestic)) +
+    geom_col(position = "stack") +
+    facet_wrap(~inclusion_group_label, nrow = 4) +
+    scale_fill_blueprint(discrete = TRUE, type = "bipolar", option = "blue_green") +
+    theme_blueprint(base_size = 12, grid = "Xx") +
+    scale_x_continuous(
+        labels = scales::percent_format(accuracy = 1),
+        limits = c(0, 1),
+        expand = c(0, 0)
     )
 ```
 
 ## Labour Force Status
 
-### Employment, Enrollment, Ambition
+### Employment, Enrollment
 
-### Job Quality
+@tbl-xp-panel-lfs summarizes the labour force status of respondents by inclusion group. Most respondents (54%) were employed. Between inclusion groups, newcomers were the most likely to be employed (57%), while those receiving social assistance were understandably the least likely (42%). Youth respondents were the most likely to be enrolled in education (57%), more than double the rate observed in the full sample (26%). Indigenous respondents reported conspicuously a conspicuously low rate of employment (44%) and a high rate of NEET status (44%). 
+
+```{r}
+#| label: tbl-xp-panel-lfs
+#| tbl-cap: "Employment and enrollment status by inclusion group"
+
+t_lfs <- d_long |> 
+    group_by(inclusion_group_label) |> 
+    summarize(
+        across(
+            c(lfs_employed, lfs_educ_enrolled, lfs_neet),
+            ~ mean(.x)
+        ), 
+        .groups = "drop"
+    )
+
+t_lfs |> 
+    gt() |> 
+    gtExtras::gt_theme_538() |> 
+    fmt_percent(columns = c(matches("lfs_")), decimals = 0) 
+```
+
+### Job Satisfaction
+
+@tbl-xp-panel-job-sat summarizes net agreement[^net-agreement] with three statements concerning primary job[^primary-job] satisfaction among employed respondents by inclusion group. We see evidence of higher overall job satisfaction among social assistance recipients and youth. Social assistance recipients are particularly interesting here, as they were both the most optimistic group with respect to advancement opportunities whilst also being the most concerned about job precarity. Indigenous respondents reported roughly average levels of overall satisfaction, but were by quite a wide margin the least optimistic about advancement opportunities.
+
+[^net-agreement]: Respondents were asked to indicate their level of agreement with each prompt on a five point scale ranging from "Strongly Disagree" to "Strongly Agree". Net agreement is calculated as the difference between the proportion of respondents who agreed or strongly agreed with the statement and the proportion who disagreed or strongly disagreed.
+[^primary-job]: Respondents were asked to consider their primary job, meaning the job at which they typically spend the most time working, when responding to these questions.
+
+```{r}
+#| label: tbl-xp-panel-job-sat
+#| tbl-cap: "Primary job satisfaction among employed respondents by inclusion group"
+t_job_sat <- d_long |> 
+    filter(lfs_employed) |> 
+    pivot_longer(matches("^job_sat_.*_primary"), names_to = "var", values_to = "val") |>
+    group_by(ig, var) |> 
+    summarize(
+        net_agree = mean(as.integer(val) < 3) - mean(as.integer(val) > 3)
+    )
+
+t_job_sat |> 
+    pivot_wider(names_from = ig, values_from = net_agree) |> 
+    mutate(
+        lab = case_when(
+            var |> str_detect("advance") ~ "I have opportunities to advance", 
+            var |> str_detect("overall") ~ "I am satisfied with my job", 
+            var |> str_detect("precarity") ~ "I worry about losing my job"
+        )
+    ) |> 
+    select(-var) |> 
+    select(lab, everything()) |>  
+    gt() |> 
+    gtExtras::gt_theme_538() |> 
+    gtExtras::gt_color_box(
+        columns = c(matches("\\[")),
+        domain = c(-.7, .7),
+        scale = 100,
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    )
+```
+
+### Job Precarity
+
+@tbl-xp-panel-job-precarity summarizes the proportion of employed respondents who reported that their primary job was casual, seasonal, or temporary by inclusion group. The most common form of precarity reported is casual employment, making up 45% of primary jobs across the sample. Across each measure of precarity, social assistance recipients reported the highest rates.
+
+```{r}
+#| label: tbl-xp-panel-job-precarity
+#| tbl-cap: "Primary job precarity among employed respondents by inclusion group"
+
+t_job_sat <- d_long |> 
+    filter(lfs_employed) |> 
+    pivot_longer(matches("^job_is_.*_primary"), names_to = "var", values_to = "val") |>
+    group_by(ig, var) |> 
+    summarize(
+        p = mean(val)
+    )
+
+t_job_sat |> 
+    pivot_wider(names_from = ig, values_from = p) |> 
+    mutate(
+        lab = case_when(
+            var |> str_detect("casual") ~ "Casual", 
+            var |> str_detect("seasonal") ~ "Seasonal", 
+            var |> str_detect("temporary") ~ "Temporary"
+        )
+    ) |> 
+    select(-var) |> 
+    select(lab, everything()) |>  
+    gt() |> 
+    gtExtras::gt_theme_538() |> 
+    gtExtras::gt_color_box(
+        columns = c(matches("\\[")),
+        domain = c(0, .9),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    )
+```
+
+### Employment Benefits
+
+
+
+```{r}
+#| label: tbl-xp-panel-job-benefits
+#| tbl-cap: "Access to benefits among employed respondents by inclusion group"
+
+t_job_ben <- d_long |> 
+    filter(lfs_employed) |>
+    pivot_longer(matches("^job_benefits_.*_any"), names_to = "var", values_to = "val") |> 
+    group_by(ig, var) |> 
+    summarize(p = mean(val)) 
+
+
+t_job_ben |> 
+    pivot_wider(names_from = ig, values_from = p) |> 
+    mutate(
+        lab = var |> 
+            str_remove("job_benefits_") |> 
+            str_remove("_any") |> 
+            str_replace_all("_", " ") |> 
+            str_replace("pto", "Paid Time Off") |> 
+            str_replace("pension", "Retirement Savings Plan") |> 
+            str_replace("disability", "Disability or Life Insurance") |> 
+            str_to_title() 
+    ) |> 
+    select(-var) |> 
+    select(lab, everything()) |>  
+    gt() |> 
+    gtExtras::gt_theme_538() |> 
+    gtExtras::gt_color_box(
+        columns = c(matches("\\[")),
+        domain = c(0, .9),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    )
+```
+
+### Employment Earnings
+
+```{r}
+#| label: tbl-xp-panel-earnings
+#| tbl-cap: "Job characteristics among employed respondents by inclusion group"
+
+t_job_earnings <- d_long |> 
+    filter(lfs_employed) |> 
+    group_by(ig) |> 
+    summarize(
+        p_multiple = mean(lfs_n_jobs > 1),
+        median_months_employed = median(job_tenure_months_total),
+        median_annualized_earnings = median(job_annualized_earnings_total, na.rm = TRUE),
+        annualized_earnings = list(job_annualized_earnings_total), 
+        median_weekly_hours = median(job_hours_total, na.rm = TRUE),
+        median_effective_hourly = median(job_effective_hourly_total, na.rm = TRUE),
+        effective_hourly = list(job_effective_hourly_total)
+    )
+
+t_job_earnings |> 
+    reactable(
+        defaultColDef = colDef(
+            header = function(h) {
+                h |> 
+                    str_replace_all("_", " ") |> 
+                    str_to_title()
+            }
+        ),
+        columns = list(
+            p_multiple = colDef(format = colFormat(percent = T, digits = 0)),
+            median_annualized_earnings = colDef(format = colFormat(currency = "USD", separators = TRUE, digits = 0)),
+            median_effective_hourly = colDef(format = colFormat(currency = "USD", digits = 0)),
+            annualized_earnings = colDef(
+                cell = function(v) {
+                sparkline(
+                    v, 
+                    type = "box", 
+                    chartRangeMin = 0, 
+                    chartRangeMax = 2.5e5
+                )}), 
+            effective_hourly = colDef(
+                cell = function(v) {
+                sparkline(
+                    v, 
+                    type = "box", 
+                    chartRangeMin = 0, 
+                    chartRangeMax = 60
+                )})
+
+        )
+    )
+
+```
 
 ## Perspectives on Employment Services
 
 ### Overview (CC-ish)
 
+@tbl-xp-panel-es-ovr summarizes respondent awareness of, engagement with, and overall reflection on employment services by inclusion group. 
+Awareness of employment services was lowest among youth respondents (67%) and newcomers (68%), and highest among social assistance recipients (93%) and Indigenous respondents (92%). 
+Echoing our analysis of the client survey, we see that employment services has an overall reputation that could charitably be described as 'mediocre', and a reputation among Indigenous clients that cannot be charitably described at all. 
+The only inclusion group with a positive NPS (+2) is social assistance reccipients, the same group with the highest rates of awareness and engagement. 
+
+Considering this from an outreach perspective, these results suggest the following: 
+
+- The 'market' for employment services among social assistance recipients is saturated. An overwhelming majority of this group's members are aware of and have engaged with employment services.
+- A similar majority of Indigenous respondents (92%) are aware of employment services. A smaller proportion, though still a majority (64%), have engaged with them. The implication here is that simply raising awareness of the existence of employment services won't engage more Indigenous clients. Instead, a deeper reflection on and transformation of the approach to serving Indigenous clients is needed. 
+- Respondents with disabilities follow a similar pattern, though with a somewhat lower level of awareness, and a much less acutely negative NPS. 
+- Youth, newcomers, and racialized individuals represent the largest untapped 'markets' for employment services. Raising awareness within these groups is likely to result in increased engagement, though their uniformly negative NPS scores point to opportunities for improvement in the quality of services offered.  
+
 ```{r}
-# aware, positive, used, valued
+#| label: tbl-xp-panel-es-ovr
+#| tbl-cap: "Relationship to ES by inclusion group"
+
+t_es_ovr <- d_long |> 
+    mutate(
+        es_promoter = es_nps_group %in% "Promoter", 
+        es_detractor = es_nps_group %in% "Detractor",
+        es_nps_marginal = 100 * (es_promoter - es_detractor),
+    ) |> 
+    select(
+        ig, 
+        es_is_aware, 
+        es_client, 
+        es_nps_marginal,
+        es_promoter,
+        es_detractor
+    ) |> 
+    pivot_longer(c(-ig), names_to = "var", values_to = "val") |>
+    group_by(ig, var) |> 
+    summarize(p = mean(val))
+
+
+t_es_ovr |> 
+    mutate(
+        lab = c(
+            "es_is_aware" = "aware",
+            "es_client" = "client",
+            "es_nps_marginal" = "nps",
+            "es_promoter" = "promoter", 
+            "es_detractor" = "detractor"
+        )[var] 
+    ) |> 
+    select(-var) |> 
+    pivot_wider(names_from = lab, values_from = p) |> 
+    select(ig, aware, client, nps, promoter, detractor) |> 
+    ungroup() |>  
+    gt() |> 
+    gtExtras::gt_theme_538() |> 
+    gtExtras::gt_color_box(
+        columns = c(aware, client, promoter, detractor),
+        domain = c(0, 1),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    ) |> 
+    tab_style(
+        style = cell_fill(color = "gray95"), 
+        locations = cells_body(
+            columns = nps
+        )
+    ) |> 
+    fmt_number(columns = nps, decimals = 0) |> 
+    tab_footnote(
+        "NPS is calculated as the difference between the proportion of respondents who are promoters and the proportion who are detractors. Survey respondents were only shown the NPS question if they reported having used employment services, but the NPS calculation presented here includes all respondents, with those who did not use services coded as 'Passive' for the purposes of the calculation."
+    )
+
+
+```
+
+### Client Experience
+
+- issues connecting and communicating with Indigenous clients
+- SA recipients systematically report somewhat better experiences than other groups
+- Youth tend in a similar direction, but with a slightly lower premium than SA recipients
+
+```{r}
+#| label: tbl-xp-panel-es-client
+#| tbl-cap: "Client experience with ES by inclusion group"
+
+t_es_client <- d_long |> 
+    filter(es_client) |> 
+    select(ig, matches("^es_ux_journey")) |> 
+    pivot_longer(
+        cols = c(-ig), 
+        names_to = "var", 
+        values_to = "val"
+    ) |>  
+    group_by(ig, var) |> 
+    summarize(p = mean(as.integer(val) <= 2)) |> 
+    left_join(dict, by = c("var" = "var_bp")) |> 
+    mutate(
+        lab = q_text |> 
+            str_remove("^Q38r") |> 
+            str_remove(" - Reflecting.*$")
+    )
+
+t_es_client |> 
+    select(lab, ig, p) |> 
+    pivot_wider(names_from = ig, values_from = p) |> 
+    group_by(lab) |> 
+    gt() |> 
+    gtExtras::gt_theme_538() |>
+    gtExtras::gt_color_box(
+        columns = c(matches("\\[")),
+        domain = c(0, 1),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    )
 ```
 
 ### Reasons to Opt Out
+
+
+
+```{r}
+#| label: tbl-xp-panel-es-opt-out
+#| tbl-cap: "Reasons for not using ES by inclusion group"
+
+t_es_opt_out <- d_long |> 
+    filter(!is.na(es_decline_reason)) |> 
+    group_by(ig, es_decline_reason) |> 
+    summarize(n = n(), .groups = "drop_last") |> 
+    mutate(
+        p = n / sum(n)
+    )
+
+t_es_opt_out |> 
+    select(-n) |> 
+    pivot_wider(names_from = ig, values_from = p, values_fill = 0) |>
+    gt() |> 
+    gtExtras::gt_theme_538() |>
+    gtExtras::gt_color_box(
+        columns = c(matches("\\[")),
+        domain = c(0, 1),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    )
+
+```
 
 ## Outreach Opportunities
 
 ### Physical
 
+- medical services, particularly family doctor's offices, are the most common physical outreach opportunities
+- For youth, newcomers, and Indigenous respondents, libraries represent a significant opportunity as well
+
+```{r}
+#| label: tbl-xp-panel-outreach-physical
+#| tbl-cap: "Physical outreach opportunities by inclusion group"
+
+t_phys <- d_long |> 
+    select(ig, matches("^loc")) |> 
+    pivot_longer(
+        cols = c(-ig), 
+        names_to = "var", 
+        values_to = "val"
+    ) |>
+    group_by(ig, var) |> 
+    summarize(p = mean(val)) |> 
+    left_join(dict, by = c("var" = "var_bp")) |>
+    mutate(
+        lab = q_text |> 
+            str_remove("^Q\\d\\dr\\d+: ") |> 
+            str_remove(" - .*$")
+    ) |> 
+    select(lab, ig, p)
+
+t_phys |> 
+    pivot_wider(names_from = ig, values_from = p) |> 
+    arrange(desc(`[Z]`)) |> 
+    gt(rowname_col = "lab") |> 
+    gtExtras::gt_theme_538() |>
+    gtExtras::gt_color_box(
+        columns = c(matches("\\[")),
+        domain = c(0, 1),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    )
+
+```
+
 ### Digital
+
+- Time to pivot to video? Youtube tops the charts for the full sample.
+- Most respondents use google search regularly
+- Among youth, instagram is the most popular platform
+- High proportions of newcomers and racialized individuals regularly use Whatsapp
+
+```{r}
+#| label: tbl-xp-panel-outreach-digital
+#| tbl-cap: "Digital outreach opportunities by inclusion group"
+
+t_digi <- d_long |> 
+    select(ig, matches("^digi")) |> 
+    select(-matches("text")) |> 
+    pivot_longer(
+        cols = c(-ig), 
+        names_to = "var", 
+        values_to = "val"
+    ) |>
+    group_by(ig, var) |> 
+    summarize(p = mean(val)) |> 
+    left_join(dict, by = c("var" = "var_bp")) |>
+    mutate(
+        lab = q_text |> 
+            str_remove("^Q\\d+r\\d+: ") |> 
+            str_remove(" - .*$")
+    ) |> 
+    select(lab, ig, p)
+
+t_digi |> 
+    pivot_wider(names_from = ig, values_from = p) |> 
+    arrange(desc(`[Z]`)) |> 
+    gt(rowname_col = "lab") |> 
+    gtExtras::gt_theme_538() |>
+    gtExtras::gt_color_box(
+        columns = c(matches("\\[")),
+        domain = c(0, 1),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    )
+```

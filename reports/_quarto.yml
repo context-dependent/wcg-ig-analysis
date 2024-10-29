@@ -12,6 +12,7 @@ book:
     - part: xp-abstract.qmd
       chapters:
         - xp-client.qmd
+        - xp-panel.qmd
     - references.qmd
   favicon: favicon.png
   sidebar:

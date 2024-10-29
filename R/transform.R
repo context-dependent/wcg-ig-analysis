@@ -3,7 +3,7 @@ clean_client <- function(d, bot_threshold = .9) {
 
   index <- dc |> dplyr::select(response_id)
   demos <- client_demos(dc)
-  lfs <- client_lfs(dc)
+  lfs <- clean_lfs(dc, dist = "client")
   es <- client_es(dc)
 
   index |>
@@ -123,11 +123,13 @@ client_demos <- function(dc) {
     )
 }
 
-client_lfs <- function(dc) {
-  res <- dc |>
+clean_lfs <- function(d, dist = c("client", "panel"), browse = FALSE) {
+  if (browse) browser()
+  d_ <- d |>
     dplyr::mutate(
       lfs_employed = lfs_employed == "Yes",
       lfs_educ_enrolled = lfs_educ_enrolled == "Yes",
+      lfs_neet = !(lfs_employed | lfs_educ_enrolled),
       lfs_n_jobs = dplyr::case_when(
         is.na(lfs_employed) ~ NA_integer_,
         !lfs_employed ~ 0L,
@@ -140,49 +142,73 @@ client_lfs <- function(dc) {
       )
     )
 
-  job <- res |>
+  job_cols <- dist[1] |> 
+    switch(
+      client = r"(^a(\d)_job_(.*)$)",
+      panel = r"(^job_(\d)_(.*)$)",
+      {stop("Invalid distribution, please set dist='client' or dist='panel'")}
+    )
+
+  d__ <- d_ |>
     dplyr::select(
       response_id,
       lfs_n_jobs,
-      matches("a\\d_job")
+      matches(job_cols)
     ) |>
     tidyr::pivot_longer(
-      cols = matches("a\\d_job"),
-      names_pattern = "a(\\d)_job_(.*)",
+      cols = matches(job_cols),
+      names_pattern = job_cols,
       names_to = c("i", ".value")
     ) |>
     dplyr::mutate(
       i = as.integer(i)
     ) |>
-    dplyr::filter(lfs_n_jobs >= i) |>
-    dplyr::rename(
-      job_benefits_health = benefits_1,
-      job_benefits_dental = benefits_2,
-      job_benefits_disability = benefits_3,
-      job_benefits_pension = benefits_4,
-      job_benefits_pto = benefits_5,
-      job_is_casual = precarity_1,
-      job_is_temporary = precarity_2,
-      job_is_seasonal = precarity_3,
-      job_sat_overall = satisfaction_overall,
-      job_sat_advancement = satisfaction_advancement,
-      job_sat_precarity = satisfaction_precarity,
-    ) |>
+    dplyr::filter(lfs_n_jobs >= i) 
+
+  if (dist[1] == "client") {
+    d__ <- d__ |>
+      dplyr::rename(
+        benefits_health = benefits_1,
+        benefits_dental = benefits_2,
+        benefits_disability = benefits_3,
+        benefits_pension = benefits_4,
+        benefits_pto = benefits_5,
+        is_casual = precarity_1,
+        is_temporary = precarity_2,
+        is_seasonal = precarity_3,
+        sat_overall = satisfaction_overall,
+        sat_advancement = satisfaction_advancement,
+        sat_precarity = satisfaction_precarity,
+        start_month = start_date_5_1,
+        start_year = start_date_5_2,
+      ) |> 
+      dplyr::mutate(
+        dplyr::across(
+          matches("^benefits_"),
+          ~ !is.na(.x)
+        )
+      )
+  } else {
+    d__ <- d__ |> 
+      dplyr::mutate(
+        dplyr::across(
+          matches("benefits_"), 
+          ~ stringr::str_detect(.x, "NO TO:", negate = TRUE)
+        )
+      )
+  }
+
+  d__ <- d__ |> 
     dplyr::mutate(
       dplyr::across(
-        matches("^job_benefits_"),
-        ~ !is.na(.x)
-      ),
-      dplyr::across(
-        matches("^job_is_"),
+        matches("^is_"),
         ~ .x == "Yes"
       ),
-      start_year = readr::parse_number(as.character(start_date_5_2)),
-      job_start_date = lubridate::ymd(glue::glue("{start_year}-{start_date_5_1}-15")),
-      job_tenure = lubridate::interval(job_start_date, lubridate::ymd("2024-10-01")) |>
+      start_date = lubridate::ymd(glue::glue("{readr::parse_number(as.character(start_year))}-{start_month}-15")),
+      tenure = lubridate::interval(start_date, lubridate::ymd("2024-10-01")) |>
         lubridate::as.period(),
       salary = salary,
-      job_annualized_earnings = dplyr::case_when(
+      annualized_earnings = dplyr::case_when(
         has_hourly_wage == "Yes" ~ hourly_wage * hours * 52,
         report_salary == "Weekly" ~ salary * 52,
         report_salary |> stringr::str_detect("Biweekly") ~ salary * 26,
@@ -191,47 +217,56 @@ client_lfs <- function(dc) {
         report_salary == "Yearly" ~ salary,
         TRUE ~ NA_real_
       ),
-      job_effective_hourly = job_annualized_earnings / (hours * 52)
+      effective_hourly = annualized_earnings / (hours * 52)
     )
 
-  job_summary <- job |>
+  job_summary <- d__ |>
     dplyr::group_by(response_id) |>
     dplyr::summarize(
       dplyr::across(
-        matches("^job_benefits_|^job_is_"),
+        matches("^benefits_|^is_"),
         list(
           any = ~ any(.x, na.rm = TRUE),
           primary = ~ dplyr::first(.x)
         )
       ),
       dplyr::across(
-        matches("^job_sat_"),
+        matches("^sat_"),
         list(
           primary = ~ dplyr::first(.x),
           mean = ~ mean(as.integer(.x), na.rm = TRUE)
         )
       ),
-      job_annualized_earnings_total = sum(job_annualized_earnings, na.rm = TRUE),
-      job_annualized_earnings_primary = job_annualized_earnings[1],
-      job_effective_hourly_total = weighted.mean(job_effective_hourly, hours, na.rm = TRUE),
-      job_effective_hourly_primary = job_effective_hourly[1],
-      job_tenure_primary = dplyr::first(job_tenure),
-      job_tenure_total = dplyr::case_when(
-        all(is.na(job_tenure)) ~ NA,
-        TRUE ~ max(job_tenure, na.rm = TRUE)
+      annualized_earnings_total = sum(annualized_earnings, na.rm = TRUE),
+      annualized_earnings_primary = annualized_earnings[1],
+      hours_total = sum(hours, na.rm = TRUE), 
+      hours_primary = hours[1],
+      effective_hourly_total = weighted.mean(effective_hourly, hours, na.rm = TRUE),
+      effective_hourly_primary = effective_hourly[1],
+      tenure_primary = dplyr::first(tenure),
+      tenure_months_total = dplyr::case_when(
+        all(is.na(tenure)) ~ NA,
+        TRUE ~ max(lubridate::year(tenure) * 12 + lubridate::month(tenure), na.rm = TRUE)
       )
+    ) |> 
+    dplyr::rename_at(
+      vars(-response_id), 
+      ~ stringr::str_c("job_", .x)
     )
 
-  res |>
+  res <- d_ |>
     dplyr::select(
       response_id,
       lfs_employed,
       lfs_educ_enrolled,
+      lfs_neet,
       lfs_educ_type,
       lfs_unemp_spell,
       lfs_n_jobs
     ) |>
     dplyr::left_join(job_summary, by = "response_id")
+
+  res
 }
 
 client_es <- function(dc) {
@@ -240,4 +275,110 @@ client_es <- function(dc) {
       response_id,
       matches("^(eng_|ux_|explore_|progress_|start_|succeed_)")
     )
+}
+
+panel_demos <- function(d) {
+  d_ <- d |> 
+    dplyr::mutate(
+      dplyr::across(
+          matches("^benefits_(ei|ow|odsp)_(now|ever)"),
+          ~ .x %in% "Yes"
+      ),
+      dplyr::across(
+          matches("^(demo_(race|disability)|ig_)"),
+          ~ .x |> stringr::str_detect("^NO TO", negate = TRUE)
+      ),
+      ig_indigenous = demo_race_indigenous,
+      ig_social_assistance = benefits_ow_now | benefits_odsp_now,
+      ig_francophone = FALSE,
+      ig_total = TRUE
+  )
+
+  labelled::var_label(d_) <- list(
+      ig_youth = "[Y] Youth (< 30) with Higher Support Needs",
+      ig_newcomer = "[N] Newcomer (2019 or later)",
+      ig_disability = "[D] Experiencing Disability",
+      ig_francophone = "[F] Francophone",
+      ig_indigenous = "[I] Indigenous",
+      ig_racialized = "[R] Racialized",
+      ig_social_assistance = "[S] Receiving Social Assistance",
+      ig_total = "[Z] Total"
+  )
+
+  res <- d_ |> 
+    dplyr::select(
+      response_id, 
+      matches("^ig_"), 
+      matches("^demo_"),
+      matches("^educ_"), 
+      matches("^benefits_")
+    )
+
+  res
+}
+
+panel_es <- function(d) {
+  d_ <- d |> 
+    dplyr::select(
+      response_id, 
+      matches("^es_")
+    )
+
+  res <- d_ |> 
+    dplyr::mutate(
+      es_client = es_experience != "I have never received employment services", 
+      es_is_aware = es_client | es_aware %in% "Yes", 
+      es_nps_group = case_when(
+        is.na(es_nps) ~ NA_character_,
+        as.integer(es_nps) <= 7 ~ "Detractor", 
+        as.integer(es_nps) >= 10 ~ "Promoter",
+        TRUE ~ "Passive"
+      ) |> forcats::fct_relevel("Detractor", "Passive", "Promoter")
+    )
+
+  res
+}
+
+rename_panel <- function(d, dict = here::here("data/panel-dict.csv")) {
+  pr <- readr::read_csv(dict) |>
+    dplyr::filter(!is.na(var_bp)) |>
+    dplyr::mutate(var_leger = purrr::set_names(var_leger, var_bp)) |>
+    dplyr::pull(var_leger)
+
+  d |> dplyr::select(!!!pr) |>
+    haven::as_factor()
+  
+  
+}
+
+panel_outreach <- function(d) {
+  d |> 
+    dplyr::select(
+      response_id, 
+      matches("^loc|^digi")
+    ) |> 
+    dplyr::mutate(
+      dplyr::across(
+        matches("^loc|^digi"),
+        ~ str_detect(.x, "NO TO:", negate = TRUE)
+      )
+    )
+}
+
+clean_panel <- function(d, browse = FALSE) {
+  d_ <- rename_panel(d)
+
+  index <- d_ |> dplyr::select(response_id)
+  demos <- panel_demos(d_)
+  lfs <- clean_lfs(d_, dist = "panel", browse = browse)
+  es <- panel_es(d_)
+  out <- panel_outreach(d_)
+
+  res <- index |>
+    dplyr::left_join(demos, by = "response_id") |>
+    dplyr::left_join(lfs, by = "response_id") |> 
+    dplyr::left_join(es, by = "response_id") |> 
+    dplyr::left_join(out, by = "response_id")
+
+  res
 }

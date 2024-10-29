@@ -22,5 +22,6 @@ load_qx_surveys <- function(fetch = FALSE, date = "latest") {
 }
 
 load_panel_data <- function() {
-  haven::read_sav(z_path("surveys", "panel", "lw31077_001a_18-OCT-24.sav"))
+  haven::read_sav(z_path("surveys", "panel", "lw31077_001a_18-OCT-24.sav")) |> 
+    haven::as_factor()
 }
