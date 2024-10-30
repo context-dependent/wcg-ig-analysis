@@ -1,0 +1,443 @@
+# Staff Survey
+
+
+```{r}
+#| label: xp-staff-require
+#| output: false
+#| require: true
+#| cache: false
+library(tidyverse)
+library(labelled)
+library(gt)
+library(gtExtras)
+library(reactable)
+library(sparkline)
+library(bptheme)
+library(bpscales)
+source(here::here("R/zzz.R"))
+source(here::here("R/extract.R"))
+source(here::here("R/transform.R"))
+```
+
+```{r}
+#| label: xp-staff-data
+
+d0 <- load_qx_surveys() |> 
+  dplyr::filter(name == "WCG-IG_s02_Staff") |> 
+  tidyr::unnest(data) |> 
+  janitor::clean_names() 
+
+labs <- list(
+  id_role = d0 |> 
+    dplyr::select(matches("^id_role")) |> labelled::var_label() |> 
+    purrr::map_chr(
+      ~ .x |> stringr::str_remove("^.* - "), 
+    ) |> 
+    unlist(), 
+  ig_focus = d0 |> 
+    dplyr::select(matches("^ig_focus")) |> 
+    labelled::var_label() |>
+    purrr::map_chr(
+      ~ .x |> stringr::str_remove("^.*\\? "), 
+    ) |> 
+    unlist(),
+  ig_insights = d0 |> 
+    dplyr::select(matches("^a2_ig")) |> 
+    labelled::var_label() %>%
+    purrr::set_names(names(.) |> str_remove("^a2_"))
+)
+
+patch_ig_labels <- labs$ig_focus |> enframe(name = "ig_var", value = "ig_label") |> 
+  mutate(
+    ig_id = ig_var |> str_extract("\\d$") |> as.integer(), 
+    ig_short = c("[F]", "[N]", "[D]", "[R]", "[I]", "[Y]", "[S-W]", "[S-D]"), 
+    ig_label = glue::glue("{ig_short} {ig_label}")
+  ) |> 
+  select(ig_id, ig_label, ig_short) |> 
+  bind_rows(
+    tibble(ig_id = 9L, ig_label = "[Z] Total", ig_short = "[Z]")
+  )
+
+patch_id_org <- readr::read_csv(here::here("data/xp-staff-org-dict.csv"))
+
+d_ <- d0 |> 
+  dplyr::mutate(
+    id_yob = as.numeric(as.character(id_yob))
+  ) |> 
+  dplyr::filter(
+    status == "IP Address",
+    progress == 100, 
+    duration_in_seconds >= 300, 
+    !is.na(id_yob), 
+    id_yob > 1950
+  ) |> 
+  dplyr::mutate(
+    id_org = stringr::str_to_lower(id_org) |> 
+      stringr::str_replace_all("\\s+", " ")
+  ) |> 
+  dplyr::filter(id_org != "") |> 
+  dplyr::left_join(patch_id_org, by = "id_org") |> 
+  dplyr::group_by(response_id) |> 
+  dplyr::mutate(
+    id_role_nsel = sum(!is.na(dplyr::c_across(matches("^id_role_\\d$"))))
+  ) |> 
+  dplyr::filter(id_role_nsel > 0) |> 
+  dplyr::ungroup() |> 
+  dplyr::mutate(
+    dplyr::across(
+      matches("^id_role_\\d$"), 
+      ~.x %in% "Yes"
+    )
+  )
+
+d_ig_insights <- d_ |> 
+  dplyr::select(
+    response_id, 
+    matches("^a\\d_ig")
+  ) |> 
+  tidyr::pivot_longer(
+    cols = -response_id,
+    names_pattern = "^a(\\d)_(.+)$", 
+    names_to = c("ig_id", ".value"), 
+    names_transform = list(ig_id = as.integer)
+  ) |> 
+  dplyr::mutate(
+    ig_served = !is.na(ig_support_1)
+  ) |> 
+  dplyr::select(
+    response_id, 
+    ig_id, 
+    ig_served, 
+    everything()
+  )
+
+d_ig <- patch_ig_labels |> 
+  dplyr::left_join(d_ig_insights, by = c("ig_id")) |> 
+  dplyr::mutate(ig_served = !is.na(ig_support_1)) |> 
+  dplyr::group_by(response_id) |> 
+  dplyr::group_nest(.key = "ig_loop")
+
+d <- d_ |> 
+  dplyr::select(
+    response_id, 
+    id_org_clean, 
+    id_org_short,
+    matches("^id_role_\\d$")
+  ) |> 
+  dplyr::left_join(
+    d_ig, by = c("response_id")
+  )
+
+```
+
+## Respondent Information
+
+@tbl-xp-staff-org reports the number and percentage of respondents by home organization. For each organization, columns [D] to [S-D] indicate whether any of the respondents from that organization served each inclusion group. 
+
+```{r}
+#| label: tbl-xp-staff-org
+#| tbl-cap: "N by respondent organization"
+d |> 
+  unnest(ig_loop) |> 
+  group_by(ig_short, id_org_clean) |> 
+  summarize(
+    n = n(),
+    ig_served = any(ig_served), 
+    .groups = "drop_last"
+  ) |>
+  mutate(
+    p = n / sum(n)
+  ) |> 
+  pivot_wider(
+    names_from = ig_short, 
+    values_from = ig_served
+  ) |> 
+  arrange(desc(n)) |> 
+  reactable(
+    defaultColDef = colDef(
+      cell = function(v) {
+        if (is.logical(v) && v) {
+          "\u2714\ufe0f" 
+        } else if (is.logical(v)) {
+          "\u274c" 
+        } else {
+          v
+        }
+      }
+    ),
+    columns = list(
+      id_org_clean = colDef(
+        header = "Organization"
+      ),
+      p = colDef(
+        cell = function(v) {
+          scales::percent(v, accuracy = 1)
+        }
+      )
+    )
+  )
+```
+
+@tbl-xp-staff-ig reports, for each inclusion group, the number of respondents who indicated that their organization serves that group and the number of organizations that set of respondents represents. 
+
+```{r}
+#| label: tbl-xp-staff-ig
+#| tbl-cap: "N by inclusion group"
+d |> 
+  unnest(ig_loop) |> 
+  filter(ig_served) |> 
+  group_by(ig_label) |> 
+  summarize(
+    n = n(), 
+    n_org = n_distinct(id_org_short)
+  ) |> 
+  arrange(desc(n_org)) |> 
+  gt() |> 
+  gtExtras::gt_theme_538() |> 
+  cols_align(columns = 1, align = "left")
+```
+
+@tbl-xp-staff-roles reports the number of respondents who indicated that they serve each inclusion group, by role.
+
+```{r}
+#| label: tbl-xp-staff-roles
+#| tbl-cap: "N by role"
+d |> 
+  unnest(ig_loop) |> 
+  pivot_longer(matches("^id_role_\\d$"), names_to = "id_role_var", values_to = "has_role") |> 
+  filter(has_role, ig_served) |>
+  mutate(id_role_label = labs$id_role[id_role_var]) |> 
+  group_by(ig_short, id_role_label) |> 
+  summarize(
+    n = n()
+  ) |> 
+  pivot_wider(names_from = ig_short, values_from = n) |> 
+  group_by(id_role_label) |> 
+  gt() |> 
+  gt_theme_538() 
+```
+
+## Serving Inclusion Groups
+
+@tbl-xp-staff-challenge reports, for each inclusion group, the percentage of eligible respondents who selected each of the provided challenges when asked about the biggest challenge they face serving clients in that group. 
+
+```{r}
+#| label: tbl-xp-staff-challenge
+#| tbl-cap: "Biggest challenge"
+d |> 
+  unnest(ig_loop) |> 
+  filter(ig_served, !is.na(ig_challenges)) |>  
+  group_by(ig_short, ig_challenges) |> 
+  summarize(n = n(), .groups = "drop_last") |> 
+  mutate(p = n / sum(n)) |> 
+  select(-n) |> 
+  pivot_wider(names_from = ig_short, values_from = p) |> 
+  group_by(ig_challenges) |> 
+  gt() |> 
+  gt_theme_538() |>
+  tab_header(
+    title = "Based on your experiences working with [X], which aspect of your role do you find the most challenging?"
+  ) |> 
+  fmt_percent(
+    columns = c(-ig_challenges),
+    decimals = 0
+  ) |> 
+  fmt_missing()
+  
+
+```
+
+@tbl-xp-staff-support reports the net agreement with statements about the efficacy and preparedness of staff to serve each inclusion group.
+
+```{r}
+#| label: tbl-xp-staff-support
+#| tbl-cap: "Staff-rated efficacy and preparedness (net agreement)"
+
+d |> 
+  unnest(ig_loop) |> 
+  filter(ig_served) |> 
+  select(response_id, ig_short, matches("ig_support")) |> 
+  pivot_longer(
+    cols = matches("ig_support"), 
+    names_to = "var",
+    names_transform = list(
+      var = function(x) {
+        labs$ig_insights[x] |> 
+          stringr::str_extract("(?<=ers - ).*?$") |> 
+          stringr::str_replace("\\[Field-1\\]", "[X]")
+      }
+    ),
+    values_to = "val"
+  ) |>
+  mutate(
+    net = case_when(
+      as.integer(val) < 3 ~ 1, 
+      as.integer(val) > 3 ~ -1,
+      TRUE ~ 0
+    )
+  ) |> 
+  group_by(
+    ig_short, 
+    var
+  ) |> 
+  summarize(
+    net_agree = mean(net, na.rm = TRUE)
+  ) |> 
+  pivot_wider(names_from = ig_short, values_from = net_agree) |> 
+  group_by(var) |> 
+  gt() |> 
+  gt_theme_538() |> 
+  fmt_number(
+    columns = c(-var), 
+    scale_by = 100, 
+    decimals = 0, 
+    force_sign = TRUE
+  ) |> 
+  tab_header(
+    title = "Based on your experiences working with [X], how much do you agree with each of the following statements?"
+  )
+```
+
+@tbl-xp-staff-barriers reports the distribution of responses to questions about the barriers that negatively impact the employment prospects of each inclusion group.
+
+```{r}
+#| label: tbl-xp-staff-barriers
+#| tbl-cap: "Staff-rated barriers (% responding 'High Impact')"
+d |> 
+  unnest(ig_loop) |> 
+  filter(ig_served) |> 
+  select(response_id, ig_short, matches("ig_barriers")) |> 
+  pivot_longer(
+    cols = matches("ig_barriers"), 
+    names_to = "var",
+    names_transform = list(
+      var = function(x) {
+        labs$ig_insights[x] |> 
+          stringr::str_extract("(?<=ers - ).*?$") |> 
+          stringr::str_replace("\\[Field-1\\]", "[X]")
+      }
+    ),
+    values_to = "val"
+  ) |>
+  mutate(
+    high_impact = val == "High Impact"
+  ) |> 
+  group_by(
+    ig_short, 
+    var
+  ) |> 
+  summarize(
+    net_agree = mean(high_impact, na.rm = TRUE)
+  ) |> 
+  pivot_wider(names_from = ig_short, values_from = net_agree) |> 
+  group_by(var) |> 
+  gt() |> 
+  gt_theme_538() |> 
+  fmt_percent(
+    columns = c(-var), 
+    decimals = 0
+  ) |> 
+  tab_header(
+    title = "Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects?"
+  )
+```
+
+## Success Factors
+
+We asked respondents about the importance of various factors in the employment success of each inclusion group. Responses were collected on a four point scale with the following options: 
+
+1. "Absolutely Necessary"
+2. "Very Important"
+3. "Somewhat Important"
+4. "Not Important"
+
+@tbl-xp-staff-job-factors reports, for each factor and inclusion group, the percentage of respondents who rated the factor as "Absolutely Necessary" or "Very Important".
+
+```{r}
+#| label: tbl-xp-staff-job-factors
+#| tbl-cap: "Staff-rated job factors (% responding 'Absolutely Necessary' or 'Very Important')"
+d |> 
+  unnest(ig_loop) |> 
+  filter(ig_served) |> 
+  select(response_id, ig_short, matches("ig_success_factors")) |> 
+  pivot_longer(
+    cols = matches("ig_success_factors"), 
+    names_to = "var",
+    names_transform = list(
+      var = function(x) {
+        labs$ig_insights[x] |> 
+          stringr::str_extract("(?<=ers - ).*?$") |> 
+          stringr::str_replace("\\[Field-1\\]", "[X]")
+      }
+    ),
+    values_to = "val"
+  ) |>
+  mutate(
+    x = as.integer(val) < 3
+  ) |> 
+  group_by(
+    ig_short, 
+    var
+  ) |> 
+  summarize(
+    x = mean(x, na.rm = TRUE)
+  ) |> 
+  pivot_wider(names_from = ig_short, values_from = x) |> 
+  group_by(var) |> 
+  gt() |> 
+  gt_theme_538() |> 
+  fmt_percent(
+    columns = c(-var), 
+    decimals = 0
+  ) |> 
+  tab_header(
+    title = "Based on your experiences working with [X], how important are each of the following job features to their sustainable employment?"
+  )
+```
+
+Using the same scale, we also asked respondents about the importance of various social supports in the employment success of each inclusion group.
+@tbl-xp-staff-social-supports reports the percentage of respondents who rated each social support as "Absolutely Necessary" or "Very Important".
+
+```{r}
+#| label: tbl-xp-staff-social-supports
+#| tbl-cap: "Staff-rated social factors (% responding 'Absolutely Necessary' or 'Very Important')"
+
+d |> 
+  unnest(ig_loop) |> 
+  filter(ig_served) |> 
+  select(response_id, ig_short, matches("ig_social_supports")) |> 
+  pivot_longer(
+    cols = matches("ig_social_supports"), 
+    names_to = "var",
+    names_transform = list(
+      var = function(x) {
+        labs$ig_insights[x] |> 
+          stringr::str_extract("(?<=ers - ).*?$") |> 
+          stringr::str_replace("\\[Field-1\\]", "[X]")
+      }
+    ),
+    values_to = "val"
+  ) |>
+  mutate(
+    x = as.integer(val) < 3
+  ) |> 
+  group_by(
+    ig_short, 
+    var
+  ) |> 
+  summarize(
+    x = mean(x, na.rm = TRUE)
+  ) |> 
+  pivot_wider(names_from = ig_short, values_from = x) |> 
+  group_by(var) |> 
+  gt() |> 
+  gt_theme_538() |> 
+  fmt_percent(
+    columns = c(-var), 
+    decimals = 0
+  ) |> 
+  tab_header(
+    title = "Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?"
+  )
+```
+
