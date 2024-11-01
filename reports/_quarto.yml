@@ -14,6 +14,7 @@ book:
         - xp-client.qmd
         - xp-panel.qmd
         - xp-staff.qmd
+        - xp-stakeholder.qmd
     - references.qmd
   favicon: favicon.png
   sidebar:

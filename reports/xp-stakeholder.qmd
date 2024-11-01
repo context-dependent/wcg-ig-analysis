@@ -96,106 +96,29 @@ d |>
   )
 ```
 
-@tbl-xp-stakeholder-roles reports the number of respondents who indicated that they serve each inclusion group, by role.
+@tbl-xp-stakeholder-roles reports the number of respondents who indicated that their organizations serve each inclusion group, by the organization's primary role.
 
 ```{r}
 #| label: tbl-xp-stakeholder-roles
 #| tbl-cap: "N by role"
 d |> 
   unnest(ig_loop) |> 
-  pivot_longer(matches("^id_role_\\d$"), names_to = "id_role_var", values_to = "has_role") |> 
-  filter(has_role, ig_served) |>
-  mutate(id_role_label = labs$id_role[id_role_var]) |> 
-  group_by(ig_short, id_role_label) |> 
+  filter(ig_served) |> 
+  group_by(
+    ig_short, 
+    org_role_primary
+  ) |>
   summarize(
     n = n()
   ) |> 
   pivot_wider(names_from = ig_short, values_from = n) |> 
-  group_by(id_role_label) |> 
+  group_by(org_role_primary) |> 
   gt() |> 
-  gt_theme_538() 
+  gt_theme_538() |> 
+  fmt_missing()
 ```
 
 ## Serving Inclusion Groups
-
-@tbl-xp-stakeholder-challenge reports, for each inclusion group, the percentage of eligible respondents who selected each of the provided challenges when asked about the biggest challenge they face serving clients in that group. 
-
-```{r}
-#| label: tbl-xp-stakeholder-challenge
-#| tbl-cap: "Biggest challenge"
-d |> 
-  unnest(ig_loop) |> 
-  filter(ig_served, !is.na(ig_challenges)) |>  
-  group_by(ig_short, ig_challenges) |> 
-  summarize(n = n(), .groups = "drop_last") |> 
-  mutate(p = n / sum(n)) |> 
-  select(-n) |> 
-  pivot_wider(names_from = ig_short, values_from = p) |> 
-  group_by(ig_challenges) |> 
-  gt() |> 
-  gt_theme_538() |>
-  tab_header(
-    title = "Based on your experiences working with [X], which aspect of your role do you find the most challenging?"
-  ) |> 
-  fmt_percent(
-    columns = c(-ig_challenges),
-    decimals = 0
-  ) |> 
-  fmt_missing()
-  
-
-```
-
-@tbl-xp-stakeholder-support reports the net agreement with statements about the efficacy and preparedness of staff to serve each inclusion group.
-
-```{r}
-#| label: tbl-xp-stakeholder-support
-#| tbl-cap: "Staff-rated efficacy and preparedness (net agreement)"
-
-d |> 
-  unnest(ig_loop) |> 
-  filter(ig_served) |> 
-  select(response_id, ig_short, matches("ig_support")) |> 
-  pivot_longer(
-    cols = matches("ig_support"), 
-    names_to = "var",
-    names_transform = list(
-      var = function(x) {
-        labs$ig_insights[x] |> 
-          stringr::str_extract("(?<=ers - ).*?$") |> 
-          stringr::str_replace("\\[Field-1\\]", "[X]")
-      }
-    ),
-    values_to = "val"
-  ) |>
-  mutate(
-    net = case_when(
-      as.integer(val) < 3 ~ 1, 
-      as.integer(val) > 3 ~ -1,
-      TRUE ~ 0
-    )
-  ) |> 
-  group_by(
-    ig_short, 
-    var
-  ) |> 
-  summarize(
-    net_agree = mean(net, na.rm = TRUE)
-  ) |> 
-  pivot_wider(names_from = ig_short, values_from = net_agree) |> 
-  group_by(var) |> 
-  gt() |> 
-  gt_theme_538() |> 
-  fmt_number(
-    columns = c(-var), 
-    scale_by = 100, 
-    decimals = 0, 
-    force_sign = TRUE
-  ) |> 
-  tab_header(
-    title = "Based on your experiences working with [X], how much do you agree with each of the following statements?"
-  )
-```
 
 @tbl-xp-stakeholder-barriers reports the distribution of responses to questions about the barriers that negatively impact the employment prospects of each inclusion group.
 
@@ -299,7 +222,7 @@ Using the same scale, we also asked respondents about the importance of various 
 
 ```{r}
 #| label: tbl-xp-stakeholder-social-supports
-#| tbl-cap: "Staff-rated social factors (% responding 'Absolutely Necessary' or 'Very Important')"
+#| tbl-cap: "Stakeholder-rated social factors (% responding 'Absolutely Necessary' or 'Very Important')"
 
 d |> 
   unnest(ig_loop) |> 
