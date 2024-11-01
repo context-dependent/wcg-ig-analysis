@@ -5,11 +5,13 @@ clean_client <- function(d, bot_threshold = .9) {
   demos <- client_demos(dc)
   lfs <- clean_lfs(dc, dist = "client")
   es <- client_es(dc)
+  contact <- client_contact(dc)
 
   index |>
     dplyr::left_join(demos, by = "response_id") |>
     dplyr::left_join(lfs, by = "response_id") |>
-    dplyr::left_join(es, by = "response_id")
+    dplyr::left_join(es, by = "response_id") |> 
+    dplyr::left_join(contact, by = "response_id")
 }
 
 unpack_client <- function(d, bot_threshold = .9) {
@@ -120,6 +122,21 @@ client_demos <- function(dc) {
       response_id,
       matches("^ig_"),
       matches("^demo_")
+    )
+}
+
+client_contact <- function(d) {
+  d |> 
+    mutate(
+    has_contact = nchar(incentive_contact_3) > 0
+    ) |> 
+    dplyr::transmute(
+      response_id, 
+      q_recaptcha_score = dplyr::coalesce(q_recaptcha_score, 1),
+      dttm_submitted = end_date,
+      has_contact,
+      incentive_contact_name = str_to_title(incentive_contact_1), 
+      incentive_contact_email = incentive_contact_2
     )
 }
 
@@ -381,4 +398,193 @@ clean_panel <- function(d, browse = FALSE) {
     dplyr::left_join(out, by = "response_id")
 
   res
+}
+
+clean_stakeholder <- function(d) {
+  d_ <- unpack_stakeholder(d)
+  patch_ident <- org_patch("stakeholder")
+  labs <- stakeholder_var_labels(d)
+
+  ident <- stakeholder_ident(d_, patch_ident)
+  ig <- ig_insights(d_, labs)
+
+  ident |> 
+    dplyr::left_join(ig, by = "response_id")
+}
+
+unpack_stakeholder <- function(d) {
+  d |> 
+    dplyr::filter(name == "WCG-IG_s02_Stakeholder") |> 
+    tidyr::unnest(data) |> 
+    janitor::clean_names() 
+}
+
+stakeholder_ident <- function(d, p) {
+  d |>
+    dplyr::filter(
+      status == "IP Address",
+      duration_in_seconds >= 300
+    ) |> 
+    dplyr::select(
+      response_id, 
+      org_identity, 
+      matches("org_role_(primary|inbound|outbound)")
+    ) |> 
+    dplyr::mutate(
+      org_identity = stringr::str_to_lower(org_identity)
+    ) |> 
+    dplyr::left_join(p, by = "org_identity") |> 
+    dplyr::filter(
+      !is.na(id_org_clean), 
+    ) |> 
+    dplyr::mutate(
+      org_role_outbound = org_role_outbound %in% "Yes", 
+      org_role_inbound = org_role_inbound %in% "Yes"
+    )
+}
+
+clean_staff <- function(d) {
+  d_ <- d |> 
+    dplyr::filter(name == "WCG-IG_s02_Staff") |> 
+    tidyr::unnest(data) |> 
+    janitor::clean_names() 
+  
+  patch_ident <- org_patch("staff")
+
+  labs <- staff_var_labels(d)
+  ident <- staff_ident(d_, patch_ident)
+  ig <- ig_insights(d_, labs)
+  
+  ident |> 
+    dplyr::left_join(ig, by = "response_id")
+}
+
+staff_var_labels <- memoise::memoise(function(d) {
+
+  d_ <- d |> 
+    dplyr::filter(name == "WCG-IG_s02_Staff") |> 
+    tidyr::unnest(data) |> 
+    janitor::clean_names() 
+  
+  list(
+    id_role = d_ |> 
+      dplyr::select(matches("^id_role")) |> labelled::var_label() |> 
+      purrr::map_chr(
+        ~ .x |> stringr::str_remove("^.* - "), 
+      ) |> 
+      unlist(), 
+    ig_focus = d_ |> 
+      dplyr::select(matches("^ig_focus")) |> 
+      labelled::var_label() |>
+      purrr::map_chr(
+        ~ .x |> stringr::str_remove("^.*\\? "), 
+      ) |> 
+      unlist(),
+    ig_insights = d_ |> 
+      dplyr::select(matches("^a2_ig")) |> 
+      labelled::var_label() %>%
+      purrr::set_names(names(.) |> str_remove("^a2_"))
+  )
+})
+
+
+stakeholder_var_labels <- memoise::memoise(function(d) {
+
+  d_ <- d |> 
+    dplyr::filter(name == "WCG-IG_s02_Stakeholder") |> 
+    tidyr::unnest(data) |> 
+    janitor::clean_names() 
+  
+  list(
+    ig_focus = d_ |> 
+      dplyr::select(matches("^org_role_ig_focus")) |> 
+      labelled::var_label() |>
+      purrr::map_chr(
+        ~ .x |> stringr::str_remove("^.*\\? "), 
+      ) |> 
+      unlist(),
+    ig_insights = d_ |> 
+      dplyr::select(matches("^a2_ig")) |> 
+      labelled::var_label() %>%
+      purrr::set_names(names(.) |> str_remove("^a2_"))
+  )
+})
+
+org_patch <- function(svy = c("staff", "stakeholder")) {
+  path <- here::here(glue::glue("data/xp-{svy[1]}-org-dict.csv"))
+  readr::read_csv(path, show_col_types = FALSE)
+}
+
+ig_insights <- function(d, l) {
+  p <- l$ig_focus |> tibble::enframe(name = "ig_var", value = "ig_label") |> 
+    dplyr::mutate(
+      ig_id = ig_var |> str_extract("\\d$") |> as.integer(), 
+      ig_short = c("[FRA]", "[NEW]", "[DIS]", "[RAC]", "[IND]", "[YTH]", "[S-OW]", "[S-ODSP]"), 
+      ig_label = glue::glue("{ig_short} {ig_label}")
+    ) |> 
+    dplyr::select(ig_id, ig_label, ig_short)
+  
+  d_ <- d |> 
+    dplyr::select(
+      response_id, 
+      matches("^a\\d_ig")
+    ) |> 
+    tidyr::pivot_longer(
+      cols = -response_id,
+      names_pattern = "^a(\\d)_(.+)$", 
+      names_to = c("ig_id", ".value"), 
+      names_transform = list(ig_id = as.integer)
+    ) |> 
+    dplyr::mutate(
+      ig_served = !is.na(ig_barriers_1)
+    ) |> 
+    dplyr::select(
+      response_id, 
+      ig_id, 
+      ig_served, 
+      everything()
+    )
+  
+  p |> 
+    dplyr::left_join(d_, by = "ig_id") |> 
+    dplyr::group_by(response_id) |> 
+    dplyr::group_nest(.key = "ig_loop")
+}
+
+staff_ident <- function(d, p) {
+  d |> 
+    dplyr::mutate(
+      id_yob = as.numeric(as.character(id_yob))
+    ) |> 
+    dplyr::filter(
+      status == "IP Address",
+      progress == 100, 
+      duration_in_seconds >= 300, 
+      !is.na(id_yob), 
+      id_yob > 1950
+    ) |> 
+    dplyr::mutate(
+      id_org = stringr::str_to_lower(id_org) |> 
+        stringr::str_replace_all("\\s+", " ")
+    ) |> 
+    dplyr::filter(id_org != "") |> 
+    dplyr::left_join(p, by = "id_org") |> 
+    dplyr::group_by(response_id) |> 
+    dplyr::mutate(
+      id_role_nsel = sum(!is.na(dplyr::c_across(matches("^id_role_\\d$"))))
+    ) |> 
+    dplyr::filter(id_role_nsel > 0) |> 
+    dplyr::ungroup() |> 
+    dplyr::mutate(
+        dplyr::across(
+          matches("^id_role_\\d$"), 
+          ~.x %in% "Yes"
+        )
+      ) |> 
+      dplyr::select(
+      response_id, 
+      id_org_clean, 
+      id_org_short,
+      matches("^id_role_\\d$")
+    )
 }

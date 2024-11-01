@@ -23,7 +23,7 @@ source(here::here("R/extract.R"))
 source(here::here("R/transform.R"))
 
 d0 <- load_qx_surveys()
-d <- d0 |> clean_client()
+d <- d0 |> clean_client(bot_threshold = 1)
 labs <- d |> var_label()
 
 d_long_raw <- d |>
@@ -60,7 +60,6 @@ These findings should be taken with more grains of salt than advised in the sect
 - What we see in the data is a broad pattern of low satisfaction with employment services
 - If we take the responses at face value, they paint a picture of a system that troubling portions of its clients neither understand, feel understood by, trust, nor find effective
 - At a glance, we see that newcomers, youth, and Indigenous clients have particularly less positive experiences 
-- 
 
 ## Respondent Characteristics
 

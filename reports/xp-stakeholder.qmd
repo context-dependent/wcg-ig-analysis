@@ -1,10 +1,8 @@
-# Staff Survey
+# Stakeholders
 
 
 ```{r}
-#| label: xp-staff-require
-#| output: false
-#| require: true
+#| label: xp-stake-pkg
 #| cache: false
 library(tidyverse)
 library(labelled)
@@ -19,20 +17,24 @@ source(here::here("R/extract.R"))
 source(here::here("R/transform.R"))
 ```
 
-```{r}
-#| label: xp-staff-data
 
-d0 <- load_qx_surveys()
-d <- d0 |> clean_staff()
-labs <- staff_var_labels(d0)
+```{r}
+#| label: xp-stake-data
+#| cache: true
+
+d0 <- load_qx_surveys() 
+
+d <- clean_stakeholder(d0)
+labs <- stakeholder_var_labels(d0)
 ```
+
 
 ## Respondent Information
 
-@tbl-xp-staff-ig reports, for each inclusion group, the number of respondents who indicated that their organization serves that group and the number of organizations that set of respondents represents. 
+@tbl-xp-stakeholder-ig reports, for each inclusion group, the number of respondents who indicated that their organization serves that group and the number of organizations that set of respondents represents. 
 
 ```{r}
-#| label: tbl-xp-staff-ig
+#| label: tbl-xp-stakeholder-ig
 #| tbl-cap: "N by inclusion group"
 d |> 
   unnest(ig_loop) |> 
@@ -48,10 +50,10 @@ d |>
   cols_align(columns = 1, align = "left")
 ```
 
-@tbl-xp-staff-org reports the number and percentage of respondents by home organization. For each organization, columns [D] to [S-D] indicate whether any of the respondents from that organization served each inclusion group. 
+@tbl-xp-stakeholder-org reports the number and percentage of respondents by home organization. For each organization, columns [D] to [S-D] indicate whether any of the respondents from that organization served each inclusion group. 
 
 ```{r}
-#| label: tbl-xp-staff-org
+#| label: tbl-xp-stakeholder-org
 #| tbl-cap: "N by respondent organization"
 d |> 
   unnest(ig_loop) |> 
@@ -94,10 +96,10 @@ d |>
   )
 ```
 
-@tbl-xp-staff-roles reports the number of respondents who indicated that they serve each inclusion group, by role.
+@tbl-xp-stakeholder-roles reports the number of respondents who indicated that they serve each inclusion group, by role.
 
 ```{r}
-#| label: tbl-xp-staff-roles
+#| label: tbl-xp-stakeholder-roles
 #| tbl-cap: "N by role"
 d |> 
   unnest(ig_loop) |> 
@@ -116,10 +118,10 @@ d |>
 
 ## Serving Inclusion Groups
 
-@tbl-xp-staff-challenge reports, for each inclusion group, the percentage of eligible respondents who selected each of the provided challenges when asked about the biggest challenge they face serving clients in that group. 
+@tbl-xp-stakeholder-challenge reports, for each inclusion group, the percentage of eligible respondents who selected each of the provided challenges when asked about the biggest challenge they face serving clients in that group. 
 
 ```{r}
-#| label: tbl-xp-staff-challenge
+#| label: tbl-xp-stakeholder-challenge
 #| tbl-cap: "Biggest challenge"
 d |> 
   unnest(ig_loop) |> 
@@ -144,10 +146,10 @@ d |>
 
 ```
 
-@tbl-xp-staff-support reports the net agreement with statements about the efficacy and preparedness of staff to serve each inclusion group.
+@tbl-xp-stakeholder-support reports the net agreement with statements about the efficacy and preparedness of staff to serve each inclusion group.
 
 ```{r}
-#| label: tbl-xp-staff-support
+#| label: tbl-xp-stakeholder-support
 #| tbl-cap: "Staff-rated efficacy and preparedness (net agreement)"
 
 d |> 
@@ -195,10 +197,10 @@ d |>
   )
 ```
 
-@tbl-xp-staff-barriers reports the distribution of responses to questions about the barriers that negatively impact the employment prospects of each inclusion group.
+@tbl-xp-stakeholder-barriers reports the distribution of responses to questions about the barriers that negatively impact the employment prospects of each inclusion group.
 
 ```{r}
-#| label: tbl-xp-staff-barriers
+#| label: tbl-xp-stakeholder-barriers
 #| tbl-cap: "Staff-rated barriers (% responding 'High Impact')"
 d |> 
   unnest(ig_loop) |> 
@@ -248,10 +250,10 @@ We asked respondents about the importance of various factors in the employment s
 3. "Somewhat Important"
 4. "Not Important"
 
-@tbl-xp-staff-job-factors reports, for each factor and inclusion group, the percentage of respondents who rated the factor as "Absolutely Necessary" or "Very Important".
+@tbl-xp-stakeholder-job-factors reports, for each factor and inclusion group, the percentage of respondents who rated the factor as "Absolutely Necessary" or "Very Important".
 
 ```{r}
-#| label: tbl-xp-staff-job-factors
+#| label: tbl-xp-stakeholder-job-factors
 #| tbl-cap: "Staff-rated job factors (% responding 'Absolutely Necessary' or 'Very Important')"
 d |> 
   unnest(ig_loop) |> 
@@ -293,10 +295,10 @@ d |>
 ```
 
 Using the same scale, we also asked respondents about the importance of various social supports in the employment success of each inclusion group.
-@tbl-xp-staff-social-supports reports the percentage of respondents who rated each social support as "Absolutely Necessary" or "Very Important".
+@tbl-xp-stakeholder-social-supports reports the percentage of respondents who rated each social support as "Absolutely Necessary" or "Very Important".
 
 ```{r}
-#| label: tbl-xp-staff-social-supports
+#| label: tbl-xp-stakeholder-social-supports
 #| tbl-cap: "Staff-rated social factors (% responding 'Absolutely Necessary' or 'Very Important')"
 
 d |> 
