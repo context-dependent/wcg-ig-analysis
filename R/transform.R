@@ -107,14 +107,14 @@ client_demos <- function(dc) {
     dplyr::rename(!!!race_renamer)
 
   labelled::var_label(res) <- list(
-    ig_youth = "Youth (< 30) with Higher Support Needs",
-    ig_newcomer = "Newcomer (2019 or later)",
-    ig_disability = "Experiencing Disability",
-    ig_francophone = "Francophone",
-    ig_indigenous = "Indigenous",
-    ig_racialized = "Racialized",
-    ig_social_assistance = "Receiving Social Assistance",
-    ig_total = "Z) Total"
+    ig_youth = "[YTH] Youth (< 30) with Higher Support Needs",
+    ig_newcomer = "[NEW] Newcomer (2019 or later)",
+    ig_disability = "[DIS] Experiencing Disability",
+    ig_francophone = "[FRA] Francophone",
+    ig_indigenous = "[IND] Indigenous",
+    ig_racialized = "[RAC] Racialized",
+    ig_social_assistance = "[SA] Receiving Social Assistance",
+    ig_total = "[Z] Total"
   )
 
   res |>
@@ -312,13 +312,13 @@ panel_demos <- function(d) {
   )
 
   labelled::var_label(d_) <- list(
-      ig_youth = "[Y] Youth (< 30) with Higher Support Needs",
-      ig_newcomer = "[N] Newcomer (2019 or later)",
-      ig_disability = "[D] Experiencing Disability",
-      ig_francophone = "[F] Francophone",
-      ig_indigenous = "[I] Indigenous",
-      ig_racialized = "[R] Racialized",
-      ig_social_assistance = "[S] Receiving Social Assistance",
+      ig_youth = "[YTH] Youth (< 30) with Higher Support Needs",
+      ig_newcomer = "[NEW] Newcomer (2019 or later)",
+      ig_disability = "[DIS] Experiencing Disability",
+      ig_francophone = "[FRA] Francophone",
+      ig_indigenous = "[IND] Indigenous",
+      ig_racialized = "[RAC] Racialized",
+      ig_social_assistance = "[SA] Receiving Social Assistance",
       ig_total = "[Z] Total"
   )
 

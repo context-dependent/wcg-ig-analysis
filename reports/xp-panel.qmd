@@ -28,7 +28,7 @@ d_long_raw <- d |>
     dplyr::mutate(
         inclusion_group_label = unlist(labelled::var_label(d)[inclusion_group]) |> 
             unname(), 
-        ig = stringr::str_extract(inclusion_group_label, "\\[.\\]")
+        ig = stringr::str_extract(inclusion_group_label, "\\[.*\\]")
     )
 
 d_long <- d_long_raw |>
@@ -270,8 +270,9 @@ t_job_sat <- d_long |>
     pivot_longer(matches("^job_is_.*_primary"), names_to = "var", values_to = "val") |>
     group_by(ig, var) |> 
     summarize(
-        p = mean(val)
-    )
+        p = mean(val), 
+        .groups = "drop"
+    ) 
 
 t_job_sat |> 
     pivot_wider(names_from = ig, values_from = p) |> 

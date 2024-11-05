@@ -1,9 +1,11 @@
-# Stakeholders
+# Stakeholder Survey
 
 
 ```{r}
 #| label: xp-stake-pkg
 #| cache: false
+#| output: false
+#| warning: false
 library(tidyverse)
 library(labelled)
 library(gt)
