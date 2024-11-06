@@ -166,6 +166,7 @@ d |>
 
 d |>
     st_ig_tab(
+        palette = "viridis",
         l = labs,
         var_pattern = "ig_support",
         svy = "staff",
@@ -185,6 +186,7 @@ d |>
 
 d |>
     st_ig_tab(
+        palette = "viridis",
         l = labs,
         var_pattern = "ig_support",
         svy = "staff",
@@ -201,6 +203,7 @@ d |>
 #| tbl-cap: "Staff-rated barriers (% responding 'High Impact')"
 d |>
     st_ig_tab(
+        palette = "viridis",
         l = labs,
         var_pattern = "ig_barriers",
         svy = "staff",
@@ -218,6 +221,7 @@ d |>
 
 d |>
     st_ig_tab(
+        palette = "viridis",
         l = labs,
         var_pattern = "ig_barriers",
         svy = "staff",
@@ -243,6 +247,7 @@ We asked respondents about the importance of various factors in the employment s
 #| tbl-cap: "Staff-rated job factors (% responding 'Absolutely Necessary' or 'Very Important')"
 d |>
     st_ig_tab(
+        palette = "viridis",
         l = labs,
         var_pattern = "ig_success_factors",
         svy = "staff",
@@ -261,6 +266,7 @@ d |>
 
 d |>
     st_ig_tab(
+        palette = "viridis",
         l = labs,
         var_pattern = "ig_success_factors",
         svy = "staff",

@@ -11,6 +11,7 @@ book:
     - index.qmd
     - part: xp-abstract.qmd
       chapters:
+        - xp-themes.qmd
         - xp-client.qmd
         - xp-panel.qmd
         - xp-staff.qmd

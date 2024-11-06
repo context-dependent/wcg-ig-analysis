@@ -1,29 +1,54 @@
 # Themes
 
-- Demographic distributions
-  + High concentration of NEW in our sample
-  + NEW, RAC, FRA overlap
-  + Distinction between SA (ODSP) and DIS
-- Mixed reputation
-  + Among respondents we reached, overall negative NPS
-  + Especially low among IND, SA, and DIS clients
-  + Overall dissatisfaction colocated with gaps in communication and trust
-  + Staff highlighted outreach and service gaps for DIS, IND, and SA (ODSP) 
-- For staff and stakeholders, IGs share many labour market barriers, success factors, and necessary social supports in common, but there are several important distinctions
-  + Barriers (@tbl-xp-stakeholder-barriers, @tbl-xp-staff-barriers)
-    * IG groups share a similar distribution of the barriers about which we inquired with the exception of FRA (who staff and stakeholders seemingly tend to percieve as less barriered than the other groups) 
-    + Discrimination, either in hiring or on-the-job, was flagged as high-impact barrier in a majority of cases across all groups except FRA and SA (OW)
-    + DIS, IND, RAC, and SA (ODSP) experience high rates of discrimination both in hiring and on-the-job
-    + NEW and YTH are more liable to experience discrimination in hiring than on-the-job
-    + Across all groups, staff flagged missing employability skills as a high-impact barrier more frequently flagged missing technical skills
-  + Success Factors (@tbl-xp-stakeholder-job-factors, @tbl-xp-staff-job-factors)
-    * Employer training and skills development opportunities were most frequently flagged as critical across all groups
-    * Flexible hours especially important for IND, DIS, and SA (ODSP)
-    * Having colleagues with whom they can identify is most important for IND and SA (ODSP)
-    * Workplace accommodations are understandably most important for DIS and SA (ODSP)
-  + Support Needs (@tbl-xp-stakeholder-social-supports, @tbl-xp-staff-social-supports)
-    * 
-- Mission-critical functions offer the greatest challenges
-  + Supporting completion
-  + Securing employment
-- 
+:::{.callout-note}
+## Interpretive Guidance
+
+- **What is this?** This page summarizes the key themes that have emerged from our analysis of the survey data collected about the experiences of clients, staff, and stakeholders of Employment Services (ES) in Ontario. It is subject to the same disclaimer as the rest of this exploratory analysis, and should be read as a provisional interpretation of the data. 
+- **Why is this?** This page is intended to support meaningful discussion of the preliminary findings and act as a guide for self-guided navigation of the exploratory tables, charts, and text that make up the rest of the section. 
+- **Inclusion Groups (IGs)**: This analysis centres the experiences and perspectives of seven inclusion groups: Indigenous persons (IND), Francophones (FRA), Racialized persons (RAC), Persons experiencing Disability (DIS), Newcomers (NEW), and Youth with higher support needs (YTH). These groups are not mutually exclusive, and many survey respondents belong to more than one group. Throughout this summary, these groups are referred to by their abbreviations, not to diminish their complexity, but to make the text more readable and navigable.
+- **Generalizability**: The findings presented here are based on non-random samples of clients, staff, stakeholders, and un/underemployed Ontarians. The results described here are therefore not, strictly speaking, generalizable to the broader populations from which those samples were drawn. 
+:::
+
+## Engaging Inclusion Groups
+
+- Among respondents we reached, overall negative NPS, which tells us that word-of-mouth is likely a slight drag on overall engagement, and that meaningful improvements in client satisfaction could have corresponding positive effects on engagement. (@tbl-xp-client-nps, @tbl-xp-panel-es-nps)
+- Across the surveys, there is strong evidence that the reputation is worst among IND clients, and some evidence that YTH, DIS, and NEW clients have more negative perceptions than average.
+- In our sample, negative NPS is colocated with disproportionate experiences of gaps in communication, feelings of being misunderstood, and a lack of trust in the intentions of the caseworker (@tbl-xp-client-holistic-sum, @tbl-xp-panel-es-holistic-sum)
+- While staff reported broad confidence in their readiness to serve a diverse array of clients, they indicated the most doubt about being equipped to serve DIS, IND, and SA (ODSP) clients (@tbl-xp-staff-challenge) 
+- In terms of opportunities for engagement, responses to the panel survey suggest that digital outreach strategies are likely to achieve the highest coverage across all groups, particularly on high traffic platforms like Youtube and Instagram (@tbl-xp-panel-outreach-digital)
+
+## Serving Inclusion Groups
+
+According to the staff and stakeholders we reached, ES clients from across the inclusion group spectrum share many labour market barriers, success factors, and necessary social supports in common. 
+Staff emphasized a similar distribution of key challenges they experience when serving clients from different inclusion groups. There are, however, some key differences that are worth noting. 
+
+### Challenges
+
+@tbl-xp-staff-challenge
+
+- Staff most commonly reported that they find connecting clients with employment opportunities to be the most challenging aspect of their work with all inclusion groups except for IND and SA (OW), for whom the most commonly reported biggest challenge is maintaining client engagement, followed by connecting clients with employment opportunities. 
+- I want to zoom in on the reported difficulty of maintaining engagement with IND clients, as it is colocated with the lowest (most negative) client NPS scores in our sample, and with the highest rates of distrust and misunderstanding. 
+
+### Barriers 
+@tbl-xp-stakeholder-barriers, @tbl-xp-staff-barriers
+
+- According to the staff and stakeholders we reached, IGs share a similar distribution of the barriers about which we inquired with the exception of FRA (who staff and stakeholders seemingly tend to percieve as less barriered than the other groups) 
+- Discrimination, either in hiring or on-the-job, was flagged as high-impact barrier in a majority of cases across all groups except FRA and SA (OW)
+- DIS, IND, RAC, and SA (ODSP) experience high rates of discrimination both in hiring and on-the-job
+- NEW and YTH are more liable to experience discrimination in hiring than on-the-job
+- Across all groups, staff flagged missing employability skills as a high-impact barrier more frequently flagged missing technical skills
+
+### Success Factors 
+@tbl-xp-stakeholder-job-factors, @tbl-xp-staff-job-factors
+
+- Employer training and skills development opportunities were most frequently flagged as critical across all groups
+- Flexible hours especially important for IND, DIS, and SA (ODSP)
+- Having colleagues with whom they can identify is most important for IND and SA (ODSP)
+- Workplace accommodations are understandably most important for DIS and SA (ODSP)
+
+### Critical Supports
+@tbl-xp-stakeholder-social-supports, @tbl-xp-staff-social-supports
+
+- Across inclusion groups and organizations, staff and stakeholders emphasized the value of skills development, flagging the importance of technical skills training, employability skills training, and coaching or mentoring for the achievement of sustainable employment
+- Support for disclosing needs and requesting accommodations was flagged as "absolutely necessary" in a majority of responses for DIS, SA (ODSP), and IND 
+- English language training was highlighted as a critical support for NEW
