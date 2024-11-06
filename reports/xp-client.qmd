@@ -542,9 +542,6 @@ tbl_emp |>
     )
 ```
 
-### Job Satisfaction
-
-
 ### Job Precarity
 
 @tbl-xp-client-job-precarity summarizes the proportion of employed respondents who reported that their primary job was casual, seasonal, or temporary by inclusion group. The most common form of precarity reported is casual employment, making up 45% of primary jobs across the sample. Across each measure of precarity, social assistance recipients reported the highest rates.
@@ -558,7 +555,7 @@ t_job_sat <- d_long |>
     pivot_longer(matches("^job_is_.*_primary"), names_to = "var", values_to = "val") |>
     group_by(ig_short, var) |> 
     summarize(
-        p = mean(val)
+        p = mean(val, na.rm = TRUE)
     )
 
 t_job_sat |> 
