@@ -165,49 +165,34 @@ d |>
 #| tbl-cap: "Staff-rated efficacy and preparedness (net agreement)"
 
 d |>
-    unnest(ig_loop) |>
-    filter(ig_served) |>
-    select(response_id, ig_short, matches("ig_support")) |>
-    pivot_longer(
-        cols = matches("ig_support"),
-        names_to = "var",
-        names_transform = list(
-            var = function(x) {
-                labs$ig_insights[x] |>
-                    stringr::str_extract("(?<=ers - ).*?$") |>
-                    stringr::str_replace("\\[Field-1\\]", "[X]")
-            }
-        ),
-        values_to = "val"
-    ) |>
-    mutate(
-        net = case_when(
-            as.integer(val) < 3 ~ 1,
-            as.integer(val) > 3 ~ -1,
-            TRUE ~ 0
-        )
-    ) |>
-    group_by(
-        ig_short,
-        var
-    ) |>
-    summarize(
-        net_agree = mean(net, na.rm = TRUE)
-    ) |>
-    pivot_wider(names_from = ig_short, values_from = net_agree) |>
-    group_by(var) |>
-    gt() |>
-    gt_theme_538() |>
-    fmt_number(
-        columns = c(-var),
-        scale_by = 100,
-        decimals = 0,
-        force_sign = TRUE
-    ) |>
-    tab_header(
-        title = "Based on your experiences working with [X], how much do you agree with each of the following statements?"
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_support",
+        svy = "staff",
+        title = "Based on your experiences working with [X], how much do you agree with each of the following statements?",
+        subtitle = "net agreement [% agree - % disagree]",
+        val_transform = function(x) {
+            100 * ((as.integer(x) < 3) - (as.integer(x) > 3))
+        }
     )
 ```
+
+@tbl-xp-staff-support-full summarizes the full distribution of responses to the same set of survey questions. 
+
+```{r}
+#| label: tbl-xp-staff-support-full
+#| tbl-cap: "Staff-rated efficacy and preparedness (full distribution)"
+
+d |>
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_support",
+        svy = "staff",
+        title = "Based on your experiences working with [X], how much do you agree with each of the following statements?",
+        subtitle = "full distribution"
+    )
+```
+
 
 @tbl-xp-staff-barriers reports the distribution of responses to questions about the barriers that negatively impact the employment prospects of each inclusion group.
 
@@ -215,43 +200,32 @@ d |>
 #| label: tbl-xp-staff-barriers
 #| tbl-cap: "Staff-rated barriers (% responding 'High Impact')"
 d |>
-    unnest(ig_loop) |>
-    filter(ig_served) |>
-    select(response_id, ig_short, matches("ig_barriers")) |>
-    pivot_longer(
-        cols = matches("ig_barriers"),
-        names_to = "var",
-        names_transform = list(
-            var = function(x) {
-                labs$ig_insights[x] |>
-                    stringr::str_extract("(?<=ers - ).*?$") |>
-                    stringr::str_replace("\\[Field-1\\]", "[X]")
-            }
-        ),
-        values_to = "val"
-    ) |>
-    mutate(
-        high_impact = val == "High Impact"
-    ) |>
-    group_by(
-        ig_short,
-        var
-    ) |>
-    summarize(
-        net_agree = mean(high_impact, na.rm = TRUE)
-    ) |>
-    pivot_wider(names_from = ig_short, values_from = net_agree) |>
-    group_by(var) |>
-    gt() |>
-    gt_theme_538() |>
-    fmt_percent(
-        columns = c(-var),
-        decimals = 0
-    ) |>
-    tab_header(
-        title = "Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects?"
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_barriers",
+        svy = "staff",
+        val_transform = function(x) x == "High Impact",
+        title = "Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects?",
+        subtitle = "% responding 'High Impact'"
     )
 ```
+
+@tbl-xp-staff-barriers-full summarizes the full distribution of responses to the same set of survey questions.
+
+```{r}
+#| label: tbl-xp-staff-barriers-full
+#| tbl-cap: "Staff-rated barriers (full distribution)"
+
+d |>
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_barriers",
+        svy = "staff",
+        title = "Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects?",
+        subtitle = "full distribution"
+    )
+```
+
 
 ## Success Factors
 
@@ -268,43 +242,33 @@ We asked respondents about the importance of various factors in the employment s
 #| label: tbl-xp-staff-job-factors
 #| tbl-cap: "Staff-rated job factors (% responding 'Absolutely Necessary' or 'Very Important')"
 d |>
-    unnest(ig_loop) |>
-    filter(ig_served) |>
-    select(response_id, ig_short, matches("ig_success_factors")) |>
-    pivot_longer(
-        cols = matches("ig_success_factors"),
-        names_to = "var",
-        names_transform = list(
-            var = function(x) {
-                labs$ig_insights[x] |>
-                    stringr::str_extract("(?<=ers - ).*?$") |>
-                    stringr::str_replace("\\[Field-1\\]", "[X]")
-            }
-        ),
-        values_to = "val"
-    ) |>
-    mutate(
-        x = as.integer(val) < 3
-    ) |>
-    group_by(
-        ig_short,
-        var
-    ) |>
-    summarize(
-        x = mean(x, na.rm = TRUE)
-    ) |>
-    pivot_wider(names_from = ig_short, values_from = x) |>
-    group_by(var) |>
-    gt() |>
-    gt_theme_538() |>
-    fmt_percent(
-        columns = c(-var),
-        decimals = 0
-    ) |>
-    tab_header(
-        title = "Based on your experiences working with [X], how important are each of the following job features to their sustainable employment?"
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_success_factors",
+        svy = "staff",
+        val_transform = function(x) as.integer(x) < 3,
+        title = "Based on your experiences working with [X], how important are each of the following job features to their sustainable employment?",
+        subtitle = "% responding 'Absolutely Necessary' or 'Very Important'"
     )
 ```
+
+
+@tbl-xp-staff-job-factors-full summarizes the full distribution of responses to the same set of survey questions. 
+
+```{r}
+#| label: tbl-xp-staff-job-factors-full
+#| tbl-cap: "Staff-rated job factors (full distributdion)"
+
+d |>
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_success_factors",
+        svy = "staff",
+        title = "Based on your experiences working with [X], how important are each of the following job features to their sustainable employment?",
+        subtitle = "full distribution"
+    )
+```
+
 
 Using the same scale, we also asked respondents about the importance of various social supports in the employment success of each inclusion group.
 @tbl-xp-staff-social-supports reports the percentage of respondents who rated each social support as "Absolutely Necessary" or "Very Important".
@@ -314,41 +278,29 @@ Using the same scale, we also asked respondents about the importance of various 
 #| tbl-cap: "Staff-rated social factors (% responding 'Absolutely Necessary' or 'Very Important')"
 
 d |>
-    unnest(ig_loop) |>
-    filter(ig_served) |>
-    select(response_id, ig_short, matches("ig_social_supports")) |>
-    pivot_longer(
-        cols = matches("ig_social_supports"),
-        names_to = "var",
-        names_transform = list(
-            var = function(x) {
-                labs$ig_insights[x] |>
-                    stringr::str_extract("(?<=ers - ).*?$") |>
-                    stringr::str_replace("\\[Field-1\\]", "[X]")
-            }
-        ),
-        values_to = "val"
-    ) |>
-    mutate(
-        x = as.integer(val) < 3
-    ) |>
-    group_by(
-        ig_short,
-        var
-    ) |>
-    summarize(
-        x = mean(x, na.rm = TRUE)
-    ) |>
-    pivot_wider(names_from = ig_short, values_from = x) |>
-    group_by(var) |>
-    gt() |>
-    gt_theme_538() |>
-    fmt_percent(
-        columns = c(-var),
-        decimals = 0
-    ) |>
-    tab_header(
-        title = "Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?"
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_social_supports",
+        svy = "staff",
+        val_transform = function(x) as.integer(x) < 3,
+        title = "Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?",
+        subtitle = "% responding 'Absolutely Necessary' or 'Very Important'"
     )
 ```
 
+@tbl-xp-staff-social-supports-full summarizes the full distribution of responses to the same set of survey questions.
+
+
+```{r}
+# } label: tbl-xp-staff-social-supports-full
+#| tbl-cap: "Staff-rated social factors (full distribution)"
+
+d |>
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_social_supports",
+        svy = "staff",
+        title = "Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?",
+        subtitle = "full distribution"
+    )
+```

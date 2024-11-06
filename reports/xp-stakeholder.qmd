@@ -24,7 +24,7 @@ source(here::here("R/transform.R"))
 #| label: xp-stake-data
 #| cache: true
 
-d0 <- load_qx_surveys() 
+d0 <- load_qx_surveys()
 
 d <- clean_stakeholder(d0)
 labs <- stakeholder_var_labels(d0)
@@ -38,18 +38,18 @@ labs <- stakeholder_var_labels(d0)
 ```{r}
 #| label: tbl-xp-stakeholder-ig
 #| tbl-cap: "N by inclusion group"
-d |> 
-  unnest(ig_loop) |> 
-  filter(ig_served) |> 
-  group_by(ig_label) |> 
-  summarize(
-    n = n(), 
-    n_org = n_distinct(id_org_short)
-  ) |> 
-  arrange(desc(n_org)) |> 
-  gt() |> 
-  gtExtras::gt_theme_538() |> 
-  cols_align(columns = 1, align = "left")
+d |>
+    unnest(ig_loop) |>
+    filter(ig_served) |>
+    group_by(ig_label) |>
+    summarize(
+        n = n(),
+        n_org = n_distinct(id_org_short)
+    ) |>
+    arrange(desc(n_org)) |>
+    gt() |>
+    gtExtras::gt_theme_538() |>
+    cols_align(columns = 1, align = "left")
 ```
 
 @tbl-xp-stakeholder-org reports the number and percentage of respondents by home organization. For each organization, columns [D] to [S-D] indicate whether any of the respondents from that organization served each inclusion group. 
@@ -57,45 +57,45 @@ d |>
 ```{r}
 #| label: tbl-xp-stakeholder-org
 #| tbl-cap: "N by respondent organization"
-d |> 
-  unnest(ig_loop) |> 
-  group_by(ig_short, id_org_clean) |> 
-  summarize(
-    n = n(),
-    ig_served = any(ig_served), 
-    .groups = "drop_last"
-  ) |>
-  mutate(
-    p = n / sum(n)
-  ) |> 
-  pivot_wider(
-    names_from = ig_short, 
-    values_from = ig_served
-  ) |> 
-  arrange(desc(n)) |> 
-  reactable(
-    defaultColDef = colDef(
-      cell = function(v) {
-        if (is.logical(v) && v) {
-          "\u2714\ufe0f" 
-        } else if (is.logical(v)) {
-          "\u274c" 
-        } else {
-          v
-        }
-      }
-    ),
-    columns = list(
-      id_org_clean = colDef(
-        header = "Organization"
-      ),
-      p = colDef(
-        cell = function(v) {
-          scales::percent(v, accuracy = 1)
-        }
-      )
+d |>
+    unnest(ig_loop) |>
+    group_by(ig_short, id_org_clean) |>
+    summarize(
+        n = n(),
+        ig_served = any(ig_served),
+        .groups = "drop_last"
+    ) |>
+    mutate(
+        p = n / sum(n)
+    ) |>
+    pivot_wider(
+        names_from = ig_short,
+        values_from = ig_served
+    ) |>
+    arrange(desc(n)) |>
+    reactable(
+        defaultColDef = colDef(
+            cell = function(v) {
+                if (is.logical(v) && v) {
+                    "\u2714\ufe0f"
+                } else if (is.logical(v)) {
+                    "\u274c"
+                } else {
+                    v
+                }
+            }
+        ),
+        columns = list(
+            id_org_clean = colDef(
+                header = "Organization"
+            ),
+            p = colDef(
+                cell = function(v) {
+                    scales::percent(v, accuracy = 1)
+                }
+            )
+        )
     )
-  )
 ```
 
 @tbl-xp-stakeholder-roles reports the number of respondents who indicated that their organizations serve each inclusion group, by the organization's primary role.
@@ -103,21 +103,21 @@ d |>
 ```{r}
 #| label: tbl-xp-stakeholder-roles
 #| tbl-cap: "N by role"
-d |> 
-  unnest(ig_loop) |> 
-  filter(ig_served) |> 
-  group_by(
-    ig_short, 
-    org_role_primary
-  ) |>
-  summarize(
-    n = n()
-  ) |> 
-  pivot_wider(names_from = ig_short, values_from = n) |> 
-  group_by(org_role_primary) |> 
-  gt() |> 
-  gt_theme_538() |> 
-  fmt_missing()
+d |>
+    unnest(ig_loop) |>
+    filter(ig_served) |>
+    group_by(
+        ig_short,
+        org_role_primary
+    ) |>
+    summarize(
+        n = n()
+    ) |>
+    pivot_wider(names_from = ig_short, values_from = n) |>
+    group_by(org_role_primary) |>
+    gt() |>
+    gt_theme_538() |>
+    fmt_missing()
 ```
 
 ## Serving Inclusion Groups
@@ -126,44 +126,31 @@ d |>
 
 ```{r}
 #| label: tbl-xp-stakeholder-barriers
-#| tbl-cap: "Staff-rated barriers (% responding 'High Impact')"
-d |> 
-  unnest(ig_loop) |> 
-  filter(ig_served) |> 
-  select(response_id, ig_short, matches("ig_barriers")) |> 
-  pivot_longer(
-    cols = matches("ig_barriers"), 
-    names_to = "var",
-    names_transform = list(
-      var = function(x) {
-        labs$ig_insights[x] |> 
-          stringr::str_extract("(?<=ers - ).*?$") |> 
-          stringr::str_replace("\\[Field-1\\]", "[X]")
-      }
-    ),
-    values_to = "val"
-  ) |>
-  mutate(
-    high_impact = val == "High Impact"
-  ) |> 
-  group_by(
-    ig_short, 
-    var
-  ) |> 
-  summarize(
-    net_agree = mean(high_impact, na.rm = TRUE)
-  ) |> 
-  pivot_wider(names_from = ig_short, values_from = net_agree) |> 
-  group_by(var) |> 
-  gt() |> 
-  gt_theme_538() |> 
-  fmt_percent(
-    columns = c(-var), 
-    decimals = 0
-  ) |> 
-  tab_header(
-    title = "Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects?"
-  )
+#| tbl-cap: "Stakeholder-rated barriers (% responding 'High Impact')"
+d |>
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_barriers",
+        val_transform = function(x) x == "High Impact",
+        svy = "stakeholder",
+        title = "Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects? (% responding 'High Impact')"
+    ) |>
+    tab_options(row_group.as_column = TRUE)
+```
+
+@tbl-xp-stakeholder-barriers-full summarizes the full distribution of responses to the same set of survey questions.
+
+```{r}
+#| label: tbl-xp-stakeholder-barriers-full
+#| tbl-cap: "Stakeholder-rated barriers (full distribution)"
+
+d |>
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_barriers",
+        svy = "stakeholder",
+        title = "Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects? (full distribution)"
+    )
 ```
 
 ## Success Factors
@@ -180,43 +167,31 @@ We asked respondents about the importance of various factors in the employment s
 ```{r}
 #| label: tbl-xp-stakeholder-job-factors
 #| tbl-cap: "Staff-rated job factors (% responding 'Absolutely Necessary' or 'Very Important')"
-d |> 
-  unnest(ig_loop) |> 
-  filter(ig_served) |> 
-  select(response_id, ig_short, matches("ig_success_factors")) |> 
-  pivot_longer(
-    cols = matches("ig_success_factors"), 
-    names_to = "var",
-    names_transform = list(
-      var = function(x) {
-        labs$ig_insights[x] |> 
-          stringr::str_extract("(?<=ers - ).*?$") |> 
-          stringr::str_replace("\\[Field-1\\]", "[X]")
-      }
-    ),
-    values_to = "val"
-  ) |>
-  mutate(
-    x = as.integer(val) < 3
-  ) |> 
-  group_by(
-    ig_short, 
-    var
-  ) |> 
-  summarize(
-    x = mean(x, na.rm = TRUE)
-  ) |> 
-  pivot_wider(names_from = ig_short, values_from = x) |> 
-  group_by(var) |> 
-  gt() |> 
-  gt_theme_538() |> 
-  fmt_percent(
-    columns = c(-var), 
-    decimals = 0
-  ) |> 
-  tab_header(
-    title = "Based on your experiences working with [X], how important are each of the following job features to their sustainable employment?"
-  )
+d |>
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_success_factors",
+        val_transform = function(x) x %in% c("Absolutely Necessary", "Very Important"),
+        svy = "stakeholder",
+        title = "Based on your experiences working with [X], how important are each of the following job features to their sustainable employment?",
+        subtitle = "% responding 'Absolutely Necessary' or 'Very Important'"
+    )
+```
+
+@tbl-xp-stakeholder-job-factors-full summarizes the full distribution of responses to the same set of survey questions. 
+
+```{r}
+#| label: tbl-xp-stakeholder-job-factors-full
+#| tbl-cap: "Stakeholder-rated job factors (full distributdion)"
+
+d |>
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_success_factors",
+        svy = "stakeholder",
+        title = "Based on your experiences working with [X], how important are each of the following job features to their sustainable employment?",
+        subtitle = "full distribution"
+    )
 ```
 
 Using the same scale, we also asked respondents about the importance of various social supports in the employment success of each inclusion group.
@@ -226,42 +201,30 @@ Using the same scale, we also asked respondents about the importance of various 
 #| label: tbl-xp-stakeholder-social-supports
 #| tbl-cap: "Stakeholder-rated social factors (% responding 'Absolutely Necessary' or 'Very Important')"
 
-d |> 
-  unnest(ig_loop) |> 
-  filter(ig_served) |> 
-  select(response_id, ig_short, matches("ig_social_supports")) |> 
-  pivot_longer(
-    cols = matches("ig_social_supports"), 
-    names_to = "var",
-    names_transform = list(
-      var = function(x) {
-        labs$ig_insights[x] |> 
-          stringr::str_extract("(?<=ers - ).*?$") |> 
-          stringr::str_replace("\\[Field-1\\]", "[X]")
-      }
-    ),
-    values_to = "val"
-  ) |>
-  mutate(
-    x = as.integer(val) < 3
-  ) |> 
-  group_by(
-    ig_short, 
-    var
-  ) |> 
-  summarize(
-    x = mean(x, na.rm = TRUE)
-  ) |> 
-  pivot_wider(names_from = ig_short, values_from = x) |> 
-  group_by(var) |> 
-  gt() |> 
-  gt_theme_538() |> 
-  fmt_percent(
-    columns = c(-var), 
-    decimals = 0
-  ) |> 
-  tab_header(
-    title = "Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?"
-  )
+d |>
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_social_supports",
+        val_transform = function(x) x %in% c("Absolutely Necessary", "Very Important"),
+        svy = "stakeholder",
+        title = "Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?",
+        subtitle = "% responding 'Absolutely Necessary' or 'Very Important'"
+    )
+```
+
+@tbl-xp-stakeholder-social-supports-full summarizes the full distribution of responses to the same set of survey questions.
+
+```{r}
+#| label: tbl-xp-stakeholder-social-supports-full
+#| tbl-cap: "Stakeholder-rated social factors (full distribution)"
+
+d |>
+    st_ig_tab(
+        l = labs,
+        var_pattern = "ig_social_supports",
+        svy = "stakeholder",
+        title = "Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?",
+        subtitle = "full distribution"
+    )
 ```
 

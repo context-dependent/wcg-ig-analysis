@@ -1,6 +1,29 @@
 # Themes
 
-- Racialized, francophone, newcomers cluster
-- Bad reputation
-  + Especially among Indigenous persons, persons experiencing disability, and individuals recieving social assistance
-  + 
+- Demographic distributions
+  + High concentration of NEW in our sample
+  + NEW, RAC, FRA overlap
+  + Distinction between SA (ODSP) and DIS
+- Mixed reputation
+  + Among respondents we reached, overall negative NPS
+  + Especially low among IND, SA, and DIS clients
+  + Overall dissatisfaction colocated with gaps in communication and trust
+  + Staff highlighted outreach and service gaps for DIS, IND, and SA (ODSP) 
+- For staff and stakeholders, IGs share many labour market barriers, success factors, and necessary social supports in common, but there are several important distinctions
+  + Barriers (@tbl-xp-stakeholder-barriers, @tbl-xp-staff-barriers)
+    * IG groups share a similar distribution of the barriers about which we inquired with the exception of FRA (who staff and stakeholders seemingly tend to percieve as less barriered than the other groups) 
+    + Discrimination, either in hiring or on-the-job, was flagged as high-impact barrier in a majority of cases across all groups except FRA and SA (OW)
+    + DIS, IND, RAC, and SA (ODSP) experience high rates of discrimination both in hiring and on-the-job
+    + NEW and YTH are more liable to experience discrimination in hiring than on-the-job
+    + Across all groups, staff flagged missing employability skills as a high-impact barrier more frequently flagged missing technical skills
+  + Success Factors (@tbl-xp-stakeholder-job-factors, @tbl-xp-staff-job-factors)
+    * Employer training and skills development opportunities were most frequently flagged as critical across all groups
+    * Flexible hours especially important for IND, DIS, and SA (ODSP)
+    * Having colleagues with whom they can identify is most important for IND and SA (ODSP)
+    * Workplace accommodations are understandably most important for DIS and SA (ODSP)
+  + Support Needs (@tbl-xp-stakeholder-social-supports, @tbl-xp-staff-social-supports)
+    * 
+- Mission-critical functions offer the greatest challenges
+  + Supporting completion
+  + Securing employment
+- 
