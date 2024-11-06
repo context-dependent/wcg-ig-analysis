@@ -292,7 +292,7 @@ d |>
 
 
 ```{r}
-# } label: tbl-xp-staff-social-supports-full
+#| label: tbl-xp-staff-social-supports-full
 #| tbl-cap: "Staff-rated social factors (full distribution)"
 
 d |>
