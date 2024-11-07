@@ -13,7 +13,7 @@
 
 - Among respondents we reached, overall negative NPS, which tells us that word-of-mouth is likely a slight drag on overall engagement, and that meaningful improvements in client satisfaction could have corresponding positive effects on engagement. (@tbl-xp-client-nps, @tbl-xp-panel-es-nps)
 - Across the surveys, there is strong evidence that the reputation is worst among IND clients, and some evidence that YTH, DIS, and NEW clients have more negative perceptions than average.
-- In our sample, negative NPS is colocated with disproportionate experiences of gaps in communication, feelings of being misunderstood, and a lack of trust in the intentions of the caseworker (@tbl-xp-client-holistic-sum, @tbl-xp-panel-es-holistic-sum)
+- In our sample, negative NPS is colocated with disproportionate experiences of gaps in communication, feelings of being misunderstood, and a lack of trust in the intentions of the caseworker (@tbl-xp-client-holistic-sum, @tbl-xp-panel-es-ovr)
 - While staff reported broad confidence in their readiness to serve a diverse array of clients, they indicated the most doubt about being equipped to serve DIS, IND, and SA (ODSP) clients (@tbl-xp-staff-challenge) 
 - In terms of opportunities for engagement, responses to the panel survey suggest that digital outreach strategies are likely to achieve the highest coverage across all groups, particularly on high traffic platforms like Youtube and Instagram (@tbl-xp-panel-outreach-digital)
 

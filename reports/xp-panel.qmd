@@ -26,8 +26,8 @@ d_long_raw <- d |>
     ) |>
     dplyr::filter(!is.na(in_ig)) |>
     dplyr::mutate(
-        inclusion_group_label = unlist(labelled::var_label(d)[inclusion_group]) |> 
-            unname(), 
+        inclusion_group_label = unlist(labelled::var_label(d)[inclusion_group]) |>
+            unname(),
         ig = stringr::str_extract(inclusion_group_label, "\\[.*\\]")
     )
 
@@ -60,7 +60,7 @@ tbl_ig_rep |>
 #| label: fig-ig-pairs
 #| fig-cap: "Inclusion group pairs representation"
 dplt_ig_int <- d_long_raw |>
-    filter(inclusion_group != "ig_total") |> 
+    filter(inclusion_group != "ig_total") |>
     select(
         response_id,
         inclusion_group_x = ig,
@@ -78,8 +78,8 @@ dplt_ig_int <- d_long_raw |>
         N = n(),
         n = sum(in_ig_x * in_ig_y),
         p = round(mean(in_ig_x * in_ig_y), 2)
-    ) |> 
-    ungroup() 
+    ) |>
+    ungroup()
 
 dplt_ig_int |>
     ggplot(aes(inclusion_group_x, inclusion_group_y, fill = p)) +
@@ -149,7 +149,7 @@ tbl_educ <- d_long |>
     group_by(
         inclusion_group_label,
         educ_max,
-        educ_max_domestic = fct_rev(educ_max_domestic), 
+        educ_max_domestic = fct_rev(educ_max_domestic),
         .drop = F
     ) |>
     tally() |>
@@ -158,9 +158,9 @@ tbl_educ <- d_long |>
     ) |>
     mutate(
         p = n / sum(n)
-    ) |> 
-    arrange(desc(educ_max)) |> 
-    group_by(inclusion_group_label, educ_max_domestic) |> 
+    ) |>
+    arrange(desc(educ_max)) |>
+    group_by(inclusion_group_label, educ_max_domestic) |>
     mutate(ecdf = cumsum(p))
 
 tbl_educ |>
@@ -202,20 +202,20 @@ tbl_educ |>
 #| label: tbl-xp-panel-lfs
 #| tbl-cap: "Employment and enrollment status by inclusion group"
 
-t_lfs <- d_long |> 
-    group_by(inclusion_group_label) |> 
+t_lfs <- d_long |>
+    group_by(inclusion_group_label) |>
     summarize(
         across(
             c(lfs_employed, lfs_educ_enrolled, lfs_neet),
             ~ mean(.x)
-        ), 
+        ),
         .groups = "drop"
     )
 
-t_lfs |> 
-    gt() |> 
-    gtExtras::gt_theme_538() |> 
-    fmt_percent(columns = c(matches("lfs_")), decimals = 0) 
+t_lfs |>
+    gt() |>
+    gtExtras::gt_theme_538() |>
+    fmt_percent(columns = c(matches("lfs_")), decimals = 0)
 ```
 
 ### Job Satisfaction
@@ -228,27 +228,27 @@ t_lfs |>
 ```{r}
 #| label: tbl-xp-panel-job-sat
 #| tbl-cap: "Primary job satisfaction among employed respondents by inclusion group"
-t_job_sat <- d_long |> 
-    filter(lfs_employed) |> 
+t_job_sat <- d_long |>
+    filter(lfs_employed) |>
     pivot_longer(matches("^job_sat_.*_primary"), names_to = "var", values_to = "val") |>
-    group_by(ig, var) |> 
+    group_by(ig, var) |>
     summarize(
         net_agree = mean(as.integer(val) < 3) - mean(as.integer(val) > 3)
     )
 
-t_job_sat |> 
-    pivot_wider(names_from = ig, values_from = net_agree) |> 
+t_job_sat |>
+    pivot_wider(names_from = ig, values_from = net_agree) |>
     mutate(
         lab = case_when(
-            var |> str_detect("advance") ~ "I have opportunities to advance", 
-            var |> str_detect("overall") ~ "I am satisfied with my job", 
+            var |> str_detect("advance") ~ "I have opportunities to advance",
+            var |> str_detect("overall") ~ "I am satisfied with my job",
             var |> str_detect("precarity") ~ "I worry about losing my job"
         )
-    ) |> 
-    select(-var) |> 
-    select(lab, everything()) |>  
-    gt() |> 
-    gtExtras::gt_theme_538() |> 
+    ) |>
+    select(-var) |>
+    select(lab, everything()) |>
+    gt() |>
+    gtExtras::gt_theme_538() |>
     gtExtras::gt_color_box(
         columns = c(matches("\\[")),
         domain = c(-.7, .7),
@@ -265,28 +265,28 @@ t_job_sat |>
 #| label: tbl-xp-panel-job-precarity
 #| tbl-cap: "Primary job precarity among employed respondents by inclusion group"
 
-t_job_sat <- d_long |> 
-    filter(lfs_employed) |> 
+t_job_sat <- d_long |>
+    filter(lfs_employed) |>
     pivot_longer(matches("^job_is_.*_primary"), names_to = "var", values_to = "val") |>
-    group_by(ig, var) |> 
+    group_by(ig, var) |>
     summarize(
-        p = mean(val), 
+        p = mean(val),
         .groups = "drop"
-    ) 
+    )
 
-t_job_sat |> 
-    pivot_wider(names_from = ig, values_from = p) |> 
+t_job_sat |>
+    pivot_wider(names_from = ig, values_from = p) |>
     mutate(
         lab = case_when(
-            var |> str_detect("casual") ~ "Casual", 
-            var |> str_detect("seasonal") ~ "Seasonal", 
+            var |> str_detect("casual") ~ "Casual",
+            var |> str_detect("seasonal") ~ "Seasonal",
             var |> str_detect("temporary") ~ "Temporary"
         )
-    ) |> 
-    select(-var) |> 
-    select(lab, everything()) |>  
-    gt() |> 
-    gtExtras::gt_theme_538() |> 
+    ) |>
+    select(-var) |>
+    select(lab, everything()) |>
+    gt() |>
+    gtExtras::gt_theme_538() |>
     gtExtras::gt_color_box(
         columns = c(matches("\\[")),
         domain = c(0, .9),
@@ -304,29 +304,29 @@ t_job_sat |>
 #| label: tbl-xp-panel-job-benefits
 #| tbl-cap: "Access to benefits among employed respondents by inclusion group"
 
-t_job_ben <- d_long |> 
+t_job_ben <- d_long |>
     filter(lfs_employed) |>
-    pivot_longer(matches("^job_benefits_.*_any"), names_to = "var", values_to = "val") |> 
-    group_by(ig, var) |> 
-    summarize(p = mean(val)) 
+    pivot_longer(matches("^job_benefits_.*_any"), names_to = "var", values_to = "val") |>
+    group_by(ig, var) |>
+    summarize(p = mean(val))
 
 
-t_job_ben |> 
-    pivot_wider(names_from = ig, values_from = p) |> 
+t_job_ben |>
+    pivot_wider(names_from = ig, values_from = p) |>
     mutate(
-        lab = var |> 
-            str_remove("job_benefits_") |> 
-            str_remove("_any") |> 
-            str_replace_all("_", " ") |> 
-            str_replace("pto", "Paid Time Off") |> 
-            str_replace("pension", "Retirement Savings Plan") |> 
-            str_replace("disability", "Disability or Life Insurance") |> 
-            str_to_title() 
-    ) |> 
-    select(-var) |> 
-    select(lab, everything()) |>  
-    gt() |> 
-    gtExtras::gt_theme_538() |> 
+        lab = var |>
+            str_remove("job_benefits_") |>
+            str_remove("_any") |>
+            str_replace_all("_", " ") |>
+            str_replace("pto", "Paid Time Off") |>
+            str_replace("pension", "Retirement Savings Plan") |>
+            str_replace("disability", "Disability or Life Insurance") |>
+            str_to_title()
+    ) |>
+    select(-var) |>
+    select(lab, everything()) |>
+    gt() |>
+    gtExtras::gt_theme_538() |>
     gtExtras::gt_color_box(
         columns = c(matches("\\[")),
         domain = c(0, .9),
@@ -342,25 +342,25 @@ t_job_ben |>
 #| label: tbl-xp-panel-earnings
 #| tbl-cap: "Job characteristics among employed respondents by inclusion group"
 
-t_job_earnings <- d_long |> 
-    filter(lfs_employed) |> 
-    group_by(ig) |> 
+t_job_earnings <- d_long |>
+    filter(lfs_employed) |>
+    group_by(ig) |>
     summarize(
         p_multiple = mean(lfs_n_jobs > 1),
         median_months_employed = median(job_tenure_months_total),
         median_annualized_earnings = median(job_annualized_earnings_total, na.rm = TRUE),
-        annualized_earnings = list(job_annualized_earnings_total), 
+        annualized_earnings = list(job_annualized_earnings_total),
         median_weekly_hours = median(job_hours_total, na.rm = TRUE),
         median_effective_hourly = median(job_effective_hourly_total, na.rm = TRUE),
         effective_hourly = list(job_effective_hourly_total)
     )
 
-t_job_earnings |> 
+t_job_earnings |>
     reactable(
         defaultColDef = colDef(
             header = function(h) {
-                h |> 
-                    str_replace_all("_", " ") |> 
+                h |>
+                    str_replace_all("_", " ") |>
                     str_to_title()
             }
         ),
@@ -370,21 +370,24 @@ t_job_earnings |>
             median_effective_hourly = colDef(format = colFormat(currency = "USD", digits = 0)),
             annualized_earnings = colDef(
                 cell = function(v) {
-                sparkline(
-                    v, 
-                    type = "box", 
-                    chartRangeMin = 0, 
-                    chartRangeMax = 2.5e5
-                )}), 
+                    sparkline(
+                        v,
+                        type = "box",
+                        chartRangeMin = 0,
+                        chartRangeMax = 2.5e5
+                    )
+                }
+            ),
             effective_hourly = colDef(
                 cell = function(v) {
-                sparkline(
-                    v, 
-                    type = "box", 
-                    chartRangeMin = 0, 
-                    chartRangeMax = 60
-                )})
-
+                    sparkline(
+                        v,
+                        type = "box",
+                        chartRangeMin = 0,
+                        chartRangeMax = 60
+                    )
+                }
+            )
         )
     )
 
@@ -392,7 +395,7 @@ t_job_earnings |>
 
 ## Perspectives on Employment Services
 
-### Overview (CC-ish)
+### Overview
 
 @tbl-xp-panel-es-ovr summarizes respondent awareness of, engagement with, and overall reflection on employment services by inclusion group. 
 Awareness of employment services was lowest among youth respondents (67%) and newcomers (68%), and highest among social assistance recipients (93%) and Indigenous respondents (92%). 
@@ -410,60 +413,113 @@ Considering this from an outreach perspective, these results suggest the followi
 #| label: tbl-xp-panel-es-ovr
 #| tbl-cap: "Relationship to ES by inclusion group"
 
-t_es_ovr <- d_long |> 
+t_es_ovr <- d_long |>
     mutate(
-        es_promoter = es_nps_group %in% "Promoter", 
+        es_promoter = es_nps_group %in% "Promoter",
         es_detractor = es_nps_group %in% "Detractor",
         es_nps_marginal = 100 * (es_promoter - es_detractor),
-    ) |> 
+    ) |>
     select(
-        ig, 
-        es_is_aware, 
-        es_client, 
+        ig,
+        es_is_aware,
+        es_client,
         es_nps_marginal,
         es_promoter,
         es_detractor
-    ) |> 
+    ) |>
     pivot_longer(c(-ig), names_to = "var", values_to = "val") |>
-    group_by(ig, var) |> 
+    group_by(ig, var) |>
     summarize(p = mean(val))
 
 
-t_es_ovr |> 
+t_es_ovr |>
     mutate(
         lab = c(
             "es_is_aware" = "aware",
             "es_client" = "client",
             "es_nps_marginal" = "nps",
-            "es_promoter" = "promoter", 
+            "es_promoter" = "promoter",
             "es_detractor" = "detractor"
-        )[var] 
-    ) |> 
-    select(-var) |> 
-    pivot_wider(names_from = lab, values_from = p) |> 
-    select(ig, aware, client, nps, promoter, detractor) |> 
-    ungroup() |>  
-    gt() |> 
-    gtExtras::gt_theme_538() |> 
+        )[var]
+    ) |>
+    select(-var) |>
+    pivot_wider(names_from = lab, values_from = p) |>
+    select(ig, aware, client, nps, promoter, detractor) |>
+    ungroup() |>
+    gt() |>
+    gtExtras::gt_theme_538() |>
     gtExtras::gt_color_box(
         columns = c(aware, client, promoter, detractor),
         domain = c(0, 1),
         scale = 100,
         suffix = "%",
         palette = c("#0000FF", "#f2f2f2", "#ff4500")
-    ) |> 
+    ) |>
     tab_style(
-        style = cell_fill(color = "gray95"), 
+        style = cell_fill(color = "gray95"),
         locations = cells_body(
             columns = nps
         )
-    ) |> 
-    fmt_number(columns = nps, decimals = 0) |> 
+    ) |>
+    fmt_number(columns = nps, decimals = 0) |>
     tab_footnote(
         "NPS is calculated as the difference between the proportion of respondents who are promoters and the proportion who are detractors. Survey respondents were only shown the NPS question if they reported having used employment services, but the NPS calculation presented here includes all respondents, with those who did not use services coded as 'Passive' for the purposes of the calculation."
     )
 
 
+```
+
+### NPS among Clients
+
+@tbl-xp-panel-es-nps shows the Net Promoter Score (NPS) for employment services among respondents who reported having used them. The NPS is calculated as the difference between the proportion of respondents who are promoters and the proportion who are detractors. Respondents were only shown the NPS question if they reported having used employment services, but the NPS calculation presented here includes all respondents, with those who did not use services coded as 'Passive' for the purposes of the calculation.
+
+```{r}
+#| label: tbl-xp-panel-es-nps
+#| tbl-cap: "Net Promoter Score for employment services by inclusion group among clients"
+d_sat <- d_long |>
+    filter(es_client) |>
+    mutate(
+        es_promoter = es_nps_group %in% "Promoter",
+        es_detractor = es_nps_group %in% "Detractor",
+        es_nps_marginal = 100 * (es_promoter - es_detractor),
+    ) |>
+    arrange(
+        ig
+    ) |>
+    mutate(
+        ig = fct_inorder(ig)
+    )
+
+t_es_nps <- d_sat |>
+    group_by(ig = inclusion_group_label) |>
+    summarize(
+        nps = mean(es_nps_marginal),
+        promoter = mean(es_promoter),
+        detractor = mean(es_detractor),
+    )
+
+
+t_es_nps |>
+    ungroup() |>
+    gt() |>
+    gtExtras::gt_theme_538() |>
+    gtExtras::gt_color_box(
+        columns = c(promoter, detractor),
+        domain = c(0, 1),
+        scale = 100,
+        suffix = "%",
+        palette = c("#0000FF", "#f2f2f2", "#ff4500")
+    ) |>
+    tab_style(
+        style = cell_fill(color = "gray95"),
+        locations = cells_body(
+            columns = nps
+        )
+    ) |>
+    fmt_number(columns = nps, decimals = 0) |>
+    tab_footnote(
+        "NPS is calculated as the difference between the proportion of respondents who are promoters and the proportion who are detractors. Here, we calculate NPS among respondents who reported having used employment services. In this table, non-client respondents were removed from the denominator"
+    )
 ```
 
 ### Client Experience
@@ -476,28 +532,28 @@ t_es_ovr |>
 #| label: tbl-xp-panel-es-client
 #| tbl-cap: "Client experience with ES by inclusion group"
 
-t_es_client <- d_long |> 
-    filter(es_client) |> 
-    select(ig, matches("^es_ux_journey")) |> 
+t_es_client <- d_long |>
+    filter(es_client) |>
+    select(ig, matches("^es_ux_journey")) |>
     pivot_longer(
-        cols = c(-ig), 
-        names_to = "var", 
+        cols = c(-ig),
+        names_to = "var",
         values_to = "val"
-    ) |>  
-    group_by(ig, var) |> 
-    summarize(p = mean(as.integer(val) <= 2)) |> 
-    left_join(dict, by = c("var" = "var_bp")) |> 
+    ) |>
+    group_by(ig, var) |>
+    summarize(p = mean(as.integer(val) <= 2)) |>
+    left_join(dict, by = c("var" = "var_bp")) |>
     mutate(
-        lab = q_text |> 
-            str_remove("^Q38r") |> 
+        lab = q_text |>
+            str_remove("^Q38r") |>
             str_remove(" - Reflecting.*$")
     )
 
-t_es_client |> 
-    select(lab, ig, p) |> 
-    pivot_wider(names_from = ig, values_from = p) |> 
-    group_by(lab) |> 
-    gt() |> 
+t_es_client |>
+    select(lab, ig, p) |>
+    pivot_wider(names_from = ig, values_from = p) |>
+    group_by(lab) |>
+    gt() |>
     gtExtras::gt_theme_538() |>
     gtExtras::gt_color_box(
         columns = c(matches("\\[")),
@@ -516,18 +572,18 @@ t_es_client |>
 #| label: tbl-xp-panel-es-opt-out
 #| tbl-cap: "Reasons for not using ES by inclusion group"
 
-t_es_opt_out <- d_long |> 
-    filter(!is.na(es_decline_reason)) |> 
-    group_by(ig, es_decline_reason) |> 
-    summarize(n = n(), .groups = "drop_last") |> 
+t_es_opt_out <- d_long |>
+    filter(!is.na(es_decline_reason)) |>
+    group_by(ig, es_decline_reason) |>
+    summarize(n = n(), .groups = "drop_last") |>
     mutate(
         p = n / sum(n)
     )
 
-t_es_opt_out |> 
-    select(-n) |> 
+t_es_opt_out |>
+    select(-n) |>
     pivot_wider(names_from = ig, values_from = p, values_fill = 0) |>
-    gt() |> 
+    gt() |>
     gtExtras::gt_theme_538() |>
     gtExtras::gt_color_box(
         columns = c(matches("\\[")),
@@ -550,27 +606,27 @@ t_es_opt_out |>
 #| label: tbl-xp-panel-outreach-physical
 #| tbl-cap: "Physical outreach opportunities by inclusion group"
 
-t_phys <- d_long |> 
-    select(ig, matches("^loc")) |> 
+t_phys <- d_long |>
+    select(ig, matches("^loc")) |>
     pivot_longer(
-        cols = c(-ig), 
-        names_to = "var", 
+        cols = c(-ig),
+        names_to = "var",
         values_to = "val"
     ) |>
-    group_by(ig, var) |> 
-    summarize(p = mean(val)) |> 
+    group_by(ig, var) |>
+    summarize(p = mean(val)) |>
     left_join(dict, by = c("var" = "var_bp")) |>
     mutate(
-        lab = q_text |> 
-            str_remove("^Q\\d\\dr\\d+: ") |> 
+        lab = q_text |>
+            str_remove("^Q\\d\\dr\\d+: ") |>
             str_remove(" - .*$")
-    ) |> 
+    ) |>
     select(lab, ig, p)
 
-t_phys |> 
-    pivot_wider(names_from = ig, values_from = p) |> 
-    arrange(desc(`[Z]`)) |> 
-    gt(rowname_col = "lab") |> 
+t_phys |>
+    pivot_wider(names_from = ig, values_from = p) |>
+    arrange(desc(`[Z]`)) |>
+    gt(rowname_col = "lab") |>
     gtExtras::gt_theme_538() |>
     gtExtras::gt_color_box(
         columns = c(matches("\\[")),
@@ -593,28 +649,28 @@ t_phys |>
 #| label: tbl-xp-panel-outreach-digital
 #| tbl-cap: "Digital outreach opportunities by inclusion group"
 
-t_digi <- d_long |> 
-    select(ig, matches("^digi")) |> 
-    select(-matches("text")) |> 
+t_digi <- d_long |>
+    select(ig, matches("^digi")) |>
+    select(-matches("text")) |>
     pivot_longer(
-        cols = c(-ig), 
-        names_to = "var", 
+        cols = c(-ig),
+        names_to = "var",
         values_to = "val"
     ) |>
-    group_by(ig, var) |> 
-    summarize(p = mean(val)) |> 
+    group_by(ig, var) |>
+    summarize(p = mean(val)) |>
     left_join(dict, by = c("var" = "var_bp")) |>
     mutate(
-        lab = q_text |> 
-            str_remove("^Q\\d+r\\d+: ") |> 
+        lab = q_text |>
+            str_remove("^Q\\d+r\\d+: ") |>
             str_remove(" - .*$")
-    ) |> 
+    ) |>
     select(lab, ig, p)
 
-t_digi |> 
-    pivot_wider(names_from = ig, values_from = p) |> 
-    arrange(desc(`[Z]`)) |> 
-    gt(rowname_col = "lab") |> 
+t_digi |>
+    pivot_wider(names_from = ig, values_from = p) |>
+    arrange(desc(`[Z]`)) |>
+    gt(rowname_col = "lab") |>
     gtExtras::gt_theme_538() |>
     gtExtras::gt_color_box(
         columns = c(matches("\\[")),
