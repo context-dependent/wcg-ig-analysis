@@ -1440,9 +1440,14 @@ tbody tr:last-child {
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">val_transform =</span> <span class="cf">function</span>(x) x <span class="sc">==</span> <span class="st">"High Impact"</span>,</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"stakeholder"</span>,</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects? (% responding 'High Impact')"</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_options</span>(<span class="at">row_group.as_column =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Since gt v0.6.0 the `fmt_missing()` function is deprecated and will soon be
+removed.
+• Use the `sub_missing()` function instead.
+This warning is displayed once every 8 hours.</code></pre>
+</div>
 <div id="tbl-xp-stakeholder-barriers" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-xp-stakeholder-barriers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1901,22 +1906,20 @@ tbody tr:last-child {
 
 <table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <colgroup>
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
 </colgroup>
 <thead>
 <tr class="header gt_heading">
-<th colspan="9" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="font-family: Chivo; font-weight: 700">Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects? (% responding 'High Impact')</th>
+<th colspan="8" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="font-family: Chivo; font-weight: 700">Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects? (% responding 'High Impact')</th>
 </tr>
 <tr class="odd gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
 <th id="[DIS]" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">[DIS]</th>
 <th id="[FRA]" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">[FRA]</th>
 <th id="[IND]" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">[IND]</th>
@@ -1928,97 +1931,113 @@ tbody tr:last-child {
 </tr>
 </thead>
 <tbody class="gt_table_body">
-<tr class="odd gt_row_group_first">
-<td class="gt_row gt_left gt_stub_row_group" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services) stub_1_1 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold">Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services)</td>
-<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services) stub_1_1 [DIS]" style="background-color: #FD9467; color: #000000">71%</td>
-<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services) stub_1_1 [FRA]" style="background-color: #56147D; color: #FFFFFF">29%</td>
-<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services) stub_1_1 [IND]" style="background-color: #FEAD77; color: #000000">75%</td>
-<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services) stub_1_1 [NEW]" style="background-color: #FEAA74; color: #000000">74%</td>
-<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services) stub_1_1 [RAC]" style="background-color: #F1615D; color: #FFFFFF">62%</td>
-<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services) stub_1_1 [S-ODSP]" style="background-color: #B2357B; color: #FFFFFF">47%</td>
-<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services) stub_1_1 [S-OW]" style="background-color: #FED597; color: #000000">82%</td>
-<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services) stub_1_1 [YTH]" style="background-color: #EF5E5E; color: #FFFFFF">61%</td>
+<tr class="odd gt_group_heading_row">
+<td colspan="8" id="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services)" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services)</td>
 </tr>
 <tr class="even gt_row_group_first">
-<td class="gt_row gt_left gt_stub_row_group" headers="Discrimination against [X] in hiring practices stub_1_2 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold">Discrimination against [X] in hiring practices</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices stub_1_2 [DIS]" style="background-color: #FEC78B; color: #000000">79%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices stub_1_2 [FRA]" style="background-color: #301164; color: #FFFFFF">21%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices stub_1_2 [IND]" style="background-color: #FED194; color: #000000">81%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices stub_1_2 [NEW]" style="background-color: #FEB87F; color: #000000">77%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices stub_1_2 [RAC]" style="background-color: #FDE9AA; color: #000000">85%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices stub_1_2 [S-ODSP]" style="background-color: #FEC488; color: #000000">79%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices stub_1_2 [S-OW]" style="background-color: #D6456C; color: #FFFFFF">55%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices stub_1_2 [YTH]" style="background-color: #FE9D6C; color: #000000">72%</td>
+<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services)  [DIS]" style="background-color: #FD9467; color: #000000">71%</td>
+<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services)  [FRA]" style="background-color: #56147D; color: #FFFFFF">29%</td>
+<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services)  [IND]" style="background-color: #FEAD77; color: #000000">75%</td>
+<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services)  [NEW]" style="background-color: #FEAA74; color: #000000">74%</td>
+<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services)  [RAC]" style="background-color: #F1615D; color: #FFFFFF">62%</td>
+<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services)  [S-ODSP]" style="background-color: #B2357B; color: #FFFFFF">47%</td>
+<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services)  [S-OW]" style="background-color: #FED597; color: #000000">82%</td>
+<td class="gt_row gt_right" headers="Difficulty accessing necessary supports (such as child care, mental health treatment, life stabilization services)  [YTH]" style="background-color: #EF5E5E; color: #FFFFFF">61%</td>
 </tr>
-<tr class="odd gt_row_group_first">
-<td class="gt_row gt_left gt_stub_row_group" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards) stub_1_3 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold">Discrimination against [X] on the job (such as harassment, exclusion, double-standards)</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards) stub_1_3 [DIS]" style="background-color: #F7715C; color: #FFFFFF">65%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards) stub_1_3 [FRA]" style="background-color: #110C30; color: #FFFFFF">14%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards) stub_1_3 [IND]" style="background-color: #FCF5B7; color: #000000">88%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards) stub_1_3 [NEW]" style="background-color: #DF4A68; color: #FFFFFF">56%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards) stub_1_3 [RAC]" style="background-color: #FEC78B; color: #000000">79%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards) stub_1_3 [S-ODSP]" style="background-color: #F4685C; color: #FFFFFF">63%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards) stub_1_3 [S-OW]" style="background-color: #A9337D; color: #FFFFFF">45%</td>
-<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards) stub_1_3 [YTH]" style="background-color: #FE9D6C; color: #000000">72%</td>
+<tr class="odd gt_group_heading_row">
+<td colspan="8" id="Discrimination against [X] in hiring practices" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Discrimination against [X] in hiring practices</td>
 </tr>
 <tr class="even gt_row_group_first">
-<td class="gt_row gt_left gt_stub_row_group" headers="Food insecurity stub_1_4 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold">Food insecurity</td>
-<td class="gt_row gt_right" headers="Food insecurity stub_1_4 [DIS]" style="background-color: #CF4070; color: #FFFFFF">53%</td>
-<td class="gt_row gt_right" headers="Food insecurity stub_1_4 [FRA]" style="background-color: #110C30; color: #FFFFFF">14%</td>
-<td class="gt_row gt_right" headers="Food insecurity stub_1_4 [IND]" style="background-color: #FEAD77; color: #000000">75%</td>
-<td class="gt_row gt_right" headers="Food insecurity stub_1_4 [NEW]" style="background-color: #F66D5C; color: #FFFFFF">64%</td>
-<td class="gt_row gt_right" headers="Food insecurity stub_1_4 [RAC]" style="background-color: #F1615D; color: #FFFFFF">62%</td>
-<td class="gt_row gt_right" headers="Food insecurity stub_1_4 [S-ODSP]" style="background-color: #E44F64; color: #FFFFFF">58%</td>
-<td class="gt_row gt_right" headers="Food insecurity stub_1_4 [S-OW]" style="background-color: #FCEEB0; color: #000000">86%</td>
-<td class="gt_row gt_right" headers="Food insecurity stub_1_4 [YTH]" style="background-color: #FE9D6C; color: #000000">72%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices  [DIS]" style="background-color: #FEC78B; color: #000000">79%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices  [FRA]" style="background-color: #301164; color: #FFFFFF">21%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices  [IND]" style="background-color: #FED194; color: #000000">81%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices  [NEW]" style="background-color: #FEB87F; color: #000000">77%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices  [RAC]" style="background-color: #FDE9AA; color: #000000">85%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices  [S-ODSP]" style="background-color: #FEC488; color: #000000">79%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices  [S-OW]" style="background-color: #D6456C; color: #FFFFFF">55%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] in hiring practices  [YTH]" style="background-color: #FE9D6C; color: #000000">72%</td>
 </tr>
-<tr class="odd gt_row_group_first">
-<td class="gt_row gt_left gt_stub_row_group" headers="Homelessness or housing instability stub_1_5 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold">Homelessness or housing instability</td>
-<td class="gt_row gt_right" headers="Homelessness or housing instability stub_1_5 [DIS]" style="background-color: #CF4070; color: #FFFFFF">53%</td>
-<td class="gt_row gt_right" headers="Homelessness or housing instability stub_1_5 [FRA]" style="background-color: #000004; color: #FFFFFF">7%</td>
-<td class="gt_row gt_right" headers="Homelessness or housing instability stub_1_5 [IND]" style="background-color: #FCF5B7; color: #000000">88%</td>
-<td class="gt_row gt_right" headers="Homelessness or housing instability stub_1_5 [NEW]" style="background-color: #FD9B6B; color: #000000">72%</td>
-<td class="gt_row gt_right" headers="Homelessness or housing instability stub_1_5 [RAC]" style="background-color: #E85362; color: #FFFFFF">59%</td>
-<td class="gt_row gt_right" headers="Homelessness or housing instability stub_1_5 [S-ODSP]" style="background-color: #FB8761; color: #000000">68%</td>
-<td class="gt_row gt_right" headers="Homelessness or housing instability stub_1_5 [S-OW]" style="background-color: #FCEEB0; color: #000000">86%</td>
-<td class="gt_row gt_right" headers="Homelessness or housing instability stub_1_5 [YTH]" style="background-color: #FEBE83; color: #000000">78%</td>
+<tr class="odd gt_group_heading_row">
+<td colspan="8" id="Discrimination against [X] on the job (such as harassment, exclusion, double-standards)" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Discrimination against [X] on the job (such as harassment, exclusion, double-standards)</td>
 </tr>
 <tr class="even gt_row_group_first">
-<td class="gt_row gt_left gt_stub_row_group" headers="Lack of appropriate, accessible transit stub_1_6 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold">Lack of appropriate, accessible transit</td>
-<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit stub_1_6 [DIS]" style="background-color: #E85362; color: #FFFFFF">59%</td>
-<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit stub_1_6 [FRA]" style="background-color: #000004; color: #FFFFFF">7%</td>
-<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit stub_1_6 [IND]" style="background-color: #F3655C; color: #FFFFFF">62%</td>
-<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit stub_1_6 [NEW]" style="background-color: #8B2981; color: #FFFFFF">39%</td>
-<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit stub_1_6 [RAC]" style="background-color: #CF4070; color: #FFFFFF">53%</td>
-<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit stub_1_6 [S-ODSP]" style="background-color: #FEC488; color: #000000">79%</td>
-<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit stub_1_6 [S-OW]" style="background-color: #FEA06E; color: #000000">73%</td>
-<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit stub_1_6 [YTH]" style="background-color: #FA7C5E; color: #FFFFFF">67%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards)  [DIS]" style="background-color: #F7715C; color: #FFFFFF">65%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards)  [FRA]" style="background-color: #110C30; color: #FFFFFF">14%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards)  [IND]" style="background-color: #FCF5B7; color: #000000">88%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards)  [NEW]" style="background-color: #DF4A68; color: #FFFFFF">56%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards)  [RAC]" style="background-color: #FEC78B; color: #000000">79%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards)  [S-ODSP]" style="background-color: #F4685C; color: #FFFFFF">63%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards)  [S-OW]" style="background-color: #A9337D; color: #FFFFFF">45%</td>
+<td class="gt_row gt_right" headers="Discrimination against [X] on the job (such as harassment, exclusion, double-standards)  [YTH]" style="background-color: #FE9D6C; color: #000000">72%</td>
 </tr>
-<tr class="odd gt_row_group_first">
-<td class="gt_row gt_left gt_stub_row_group" headers="Missing employability skills (such as resilience, confidence, communication) stub_1_7 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold">Missing employability skills (such as resilience, confidence, communication)</td>
-<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication) stub_1_7 [DIS]" style="background-color: #F7715C; color: #FFFFFF">65%</td>
-<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication) stub_1_7 [FRA]" style="background-color: #301164; color: #FFFFFF">21%</td>
-<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication) stub_1_7 [IND]" style="background-color: #FC8961; color: #000000">69%</td>
-<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication) stub_1_7 [NEW]" style="background-color: #FA7C5E; color: #FFFFFF">67%</td>
-<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication) stub_1_7 [RAC]" style="background-color: #FB825F; color: #000000">68%</td>
-<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication) stub_1_7 [S-ODSP]" style="background-color: #FB8761; color: #000000">68%</td>
-<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication) stub_1_7 [S-OW]" style="background-color: #FB8660; color: #000000">68%</td>
-<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication) stub_1_7 [YTH]" style="background-color: #FCFDBF; color: #000000">89%</td>
+<tr class="odd gt_group_heading_row">
+<td colspan="8" id="Food insecurity" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Food insecurity</td>
 </tr>
 <tr class="even gt_row_group_first">
-<td class="gt_row gt_left gt_stub_row_group" headers="Missing technical skills (such as digital literacy, formal writing) stub_1_8 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold">Missing technical skills (such as digital literacy, formal writing)</td>
-<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing) stub_1_8 [DIS]" style="background-color: #FEA571; color: #000000">74%</td>
-<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing) stub_1_8 [FRA]" style="background-color: #301164; color: #FFFFFF">21%</td>
-<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing) stub_1_8 [IND]" style="background-color: #FEAD77; color: #000000">75%</td>
-<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing) stub_1_8 [NEW]" style="background-color: #FC8B63; color: #000000">69%</td>
-<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing) stub_1_8 [RAC]" style="background-color: #F1615D; color: #FFFFFF">62%</td>
-<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing) stub_1_8 [S-ODSP]" style="background-color: #FE9D6C; color: #000000">72%</td>
-<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing) stub_1_8 [S-OW]" style="background-color: #FB8660; color: #000000">68%</td>
-<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing) stub_1_8 [YTH]" style="background-color: #FCFDBF; color: #000000">89%</td>
+<td class="gt_row gt_right" headers="Food insecurity  [DIS]" style="background-color: #CF4070; color: #FFFFFF">53%</td>
+<td class="gt_row gt_right" headers="Food insecurity  [FRA]" style="background-color: #110C30; color: #FFFFFF">14%</td>
+<td class="gt_row gt_right" headers="Food insecurity  [IND]" style="background-color: #FEAD77; color: #000000">75%</td>
+<td class="gt_row gt_right" headers="Food insecurity  [NEW]" style="background-color: #F66D5C; color: #FFFFFF">64%</td>
+<td class="gt_row gt_right" headers="Food insecurity  [RAC]" style="background-color: #F1615D; color: #FFFFFF">62%</td>
+<td class="gt_row gt_right" headers="Food insecurity  [S-ODSP]" style="background-color: #E44F64; color: #FFFFFF">58%</td>
+<td class="gt_row gt_right" headers="Food insecurity  [S-OW]" style="background-color: #FCEEB0; color: #000000">86%</td>
+<td class="gt_row gt_right" headers="Food insecurity  [YTH]" style="background-color: #FE9D6C; color: #000000">72%</td>
+</tr>
+<tr class="odd gt_group_heading_row">
+<td colspan="8" id="Homelessness or housing instability" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Homelessness or housing instability</td>
+</tr>
+<tr class="even gt_row_group_first">
+<td class="gt_row gt_right" headers="Homelessness or housing instability  [DIS]" style="background-color: #CF4070; color: #FFFFFF">53%</td>
+<td class="gt_row gt_right" headers="Homelessness or housing instability  [FRA]" style="background-color: #000004; color: #FFFFFF">7%</td>
+<td class="gt_row gt_right" headers="Homelessness or housing instability  [IND]" style="background-color: #FCF5B7; color: #000000">88%</td>
+<td class="gt_row gt_right" headers="Homelessness or housing instability  [NEW]" style="background-color: #FD9B6B; color: #000000">72%</td>
+<td class="gt_row gt_right" headers="Homelessness or housing instability  [RAC]" style="background-color: #E85362; color: #FFFFFF">59%</td>
+<td class="gt_row gt_right" headers="Homelessness or housing instability  [S-ODSP]" style="background-color: #FB8761; color: #000000">68%</td>
+<td class="gt_row gt_right" headers="Homelessness or housing instability  [S-OW]" style="background-color: #FCEEB0; color: #000000">86%</td>
+<td class="gt_row gt_right" headers="Homelessness or housing instability  [YTH]" style="background-color: #FEBE83; color: #000000">78%</td>
+</tr>
+<tr class="odd gt_group_heading_row">
+<td colspan="8" id="Lack of appropriate, accessible transit" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Lack of appropriate, accessible transit</td>
+</tr>
+<tr class="even gt_row_group_first">
+<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit  [DIS]" style="background-color: #E85362; color: #FFFFFF">59%</td>
+<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit  [FRA]" style="background-color: #000004; color: #FFFFFF">7%</td>
+<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit  [IND]" style="background-color: #F3655C; color: #FFFFFF">62%</td>
+<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit  [NEW]" style="background-color: #8B2981; color: #FFFFFF">39%</td>
+<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit  [RAC]" style="background-color: #CF4070; color: #FFFFFF">53%</td>
+<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit  [S-ODSP]" style="background-color: #FEC488; color: #000000">79%</td>
+<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit  [S-OW]" style="background-color: #FEA06E; color: #000000">73%</td>
+<td class="gt_row gt_right" headers="Lack of appropriate, accessible transit  [YTH]" style="background-color: #FA7C5E; color: #FFFFFF">67%</td>
+</tr>
+<tr class="odd gt_group_heading_row">
+<td colspan="8" id="Missing employability skills (such as resilience, confidence, communication)" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Missing employability skills (such as resilience, confidence, communication)</td>
+</tr>
+<tr class="even gt_row_group_first">
+<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication)  [DIS]" style="background-color: #F7715C; color: #FFFFFF">65%</td>
+<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication)  [FRA]" style="background-color: #301164; color: #FFFFFF">21%</td>
+<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication)  [IND]" style="background-color: #FC8961; color: #000000">69%</td>
+<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication)  [NEW]" style="background-color: #FA7C5E; color: #FFFFFF">67%</td>
+<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication)  [RAC]" style="background-color: #FB825F; color: #000000">68%</td>
+<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication)  [S-ODSP]" style="background-color: #FB8761; color: #000000">68%</td>
+<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication)  [S-OW]" style="background-color: #FB8660; color: #000000">68%</td>
+<td class="gt_row gt_right" headers="Missing employability skills (such as resilience, confidence, communication)  [YTH]" style="background-color: #FCFDBF; color: #000000">89%</td>
+</tr>
+<tr class="odd gt_group_heading_row">
+<td colspan="8" id="Missing technical skills (such as digital literacy, formal writing)" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Missing technical skills (such as digital literacy, formal writing)</td>
+</tr>
+<tr class="even gt_row_group_first">
+<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing)  [DIS]" style="background-color: #FEA571; color: #000000">74%</td>
+<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing)  [FRA]" style="background-color: #301164; color: #FFFFFF">21%</td>
+<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing)  [IND]" style="background-color: #FEAD77; color: #000000">75%</td>
+<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing)  [NEW]" style="background-color: #FC8B63; color: #000000">69%</td>
+<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing)  [RAC]" style="background-color: #F1615D; color: #FFFFFF">62%</td>
+<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing)  [S-ODSP]" style="background-color: #FE9D6C; color: #000000">72%</td>
+<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing)  [S-OW]" style="background-color: #FB8660; color: #000000">68%</td>
+<td class="gt_row gt_right" headers="Missing technical skills (such as digital literacy, formal writing)  [YTH]" style="background-color: #FCFDBF; color: #000000">89%</td>
 </tr>
 </tbody><tfoot class="gt_sourcenotes">
 <tr class="even">
-<td colspan="9" class="gt_sourcenote"><button class="btn btn-default" onclick="
+<td colspan="8" class="gt_sourcenote"><button class="btn btn-default" onclick="
     async function downloadFile(event) {
       event.preventDefault();
       try {
@@ -2061,13 +2080,13 @@ tbody tr:last-child {
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_ig_tab</span>(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_barriers"</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"stakeholder"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects? (full distribution)"</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_ig_tab</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_barriers"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"stakeholder"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects? (full distribution)"</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-xp-stakeholder-barriers-full" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -3007,15 +3026,15 @@ tbody tr:last-child {
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_ig_tab</span>(</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_success_factors"</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">val_transform =</span> <span class="cf">function</span>(x) x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Absolutely Necessary"</span>, <span class="st">"Very Important"</span>),</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"stakeholder"</span>,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], how important are each of the following job features to their sustainable employment?"</span>,</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"% responding 'Absolutely Necessary' or 'Very Important'"</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_ig_tab</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_success_factors"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">val_transform =</span> <span class="cf">function</span>(x) x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Absolutely Necessary"</span>, <span class="st">"Very Important"</span>),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"stakeholder"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], how important are each of the following job features to their sustainable employment?"</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"% responding 'Absolutely Necessary' or 'Very Important'"</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-xp-stakeholder-job-factors" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -3639,14 +3658,14 @@ tbody tr:last-child {
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_ig_tab</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_success_factors"</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"stakeholder"</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], how important are each of the following job features to their sustainable employment?"</span>,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"full distribution"</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_ig_tab</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_success_factors"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"stakeholder"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], how important are each of the following job features to their sustainable employment?"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"full distribution"</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-xp-stakeholder-job-factors-full" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -4586,15 +4605,15 @@ tbody tr:last-child {
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_ig_tab</span>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_social_supports"</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">val_transform =</span> <span class="cf">function</span>(x) x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Absolutely Necessary"</span>, <span class="st">"Very Important"</span>),</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"stakeholder"</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?"</span>,</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"% responding 'Absolutely Necessary' or 'Very Important'"</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_ig_tab</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_social_supports"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">val_transform =</span> <span class="cf">function</span>(x) x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Absolutely Necessary"</span>, <span class="st">"Very Important"</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"stakeholder"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"% responding 'Absolutely Necessary' or 'Very Important'"</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-xp-stakeholder-social-supports" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -5231,14 +5250,14 @@ tbody tr:last-child {
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_ig_tab</span>(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_social_supports"</span>,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"stakeholder"</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?"</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"full distribution"</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_ig_tab</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_social_supports"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"stakeholder"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?"</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"full distribution"</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-xp-stakeholder-social-supports-full" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">

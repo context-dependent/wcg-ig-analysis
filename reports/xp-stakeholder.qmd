@@ -134,8 +134,7 @@ d |>
         val_transform = function(x) x == "High Impact",
         svy = "stakeholder",
         title = "Based on your experiences working with [X], to what degree do each of the following barriers negatively impact their employment prospects? (% responding 'High Impact')"
-    ) |>
-    tab_options(row_group.as_column = TRUE)
+    )
 ```
 
 @tbl-xp-stakeholder-barriers-full summarizes the full distribution of responses to the same set of survey questions.

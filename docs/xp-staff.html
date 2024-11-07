@@ -1459,9 +1459,9 @@ tbody tr:last-child {
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop_last"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">p =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>n) <span class="sc">|&gt;</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> ig_short, <span class="at">values_from =</span> p) <span class="sc">|&gt;</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(ig_challenges) <span class="sc">|&gt;</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(ig_short) <span class="sc">|&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(ig_short, <span class="fu">desc</span>(p)) <span class="sc">|&gt;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gt</span>(<span class="at">row_group_as_column =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gt_theme_538</span>() <span class="sc">|&gt;</span></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_header</span>(</span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], which aspect of your role do you find the most challenging?"</span></span>
@@ -1937,97 +1937,206 @@ tbody tr:last-child {
 <table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="header gt_heading">
-<th colspan="8" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="font-family: Chivo; font-weight: 700">Based on your experiences working with [X], which aspect of your role do you find the most challenging?</th>
+<th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="font-family: Chivo; font-weight: 700">Based on your experiences working with [X], which aspect of your role do you find the most challenging?</th>
 </tr>
 <tr class="odd gt_col_headings">
-<th id="[DIS]" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">[DIS]</th>
-<th id="[FRA]" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">[FRA]</th>
-<th id="[IND]" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">[IND]</th>
-<th id="[NEW]" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">[NEW]</th>
-<th id="[RAC]" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">[RAC]</th>
-<th id="[S-ODSP]" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">[S-ODSP]</th>
-<th id="[S-OW]" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">[S-OW]</th>
-<th id="[YTH]" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">[YTH]</th>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="ig_challenges" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">ig_challenges</th>
+<th id="p" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; font-family: Chivo; font-size: 14px; vertical-align: bottom; font-weight: 200; text-transform: uppercase" scope="col">p</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
-<tr class="odd gt_group_heading_row">
-<td colspan="8" id="Doing outreach and recruiting clients" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black" scope="colgroup">Doing outreach and recruiting clients</td>
+<tr class="odd gt_row_group_first">
+<td rowspan="6" class="gt_row gt_left gt_stub_row_group" headers="[DIS] stub_1_1 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black">[DIS]</td>
+<td class="gt_row gt_center" headers="[DIS] stub_1_1 ig_challenges">Connecting clients with employment opportunities</td>
+<td class="gt_row gt_right" headers="[DIS] stub_1_1 p">44%</td>
 </tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Doing outreach and recruiting clients  [DIS]">5%</td>
-<td class="gt_row gt_right" headers="Doing outreach and recruiting clients  [FRA]">—</td>
-<td class="gt_row gt_right" headers="Doing outreach and recruiting clients  [IND]">14%</td>
-<td class="gt_row gt_right" headers="Doing outreach and recruiting clients  [NEW]">5%</td>
-<td class="gt_row gt_right" headers="Doing outreach and recruiting clients  [RAC]">2%</td>
-<td class="gt_row gt_right" headers="Doing outreach and recruiting clients  [S-ODSP]">9%</td>
-<td class="gt_row gt_right" headers="Doing outreach and recruiting clients  [S-OW]">2%</td>
-<td class="gt_row gt_right" headers="Doing outreach and recruiting clients  [YTH]">9%</td>
+<tr class="even">
+<td class="gt_row gt_center" headers="[DIS] ig_challenges_2 ig_challenges">Maintaining client engagement to encourage program completion</td>
+<td class="gt_row gt_right" headers="[DIS] ig_challenges_2 p">23%</td>
 </tr>
-<tr class="odd gt_group_heading_row">
-<td colspan="8" id="Assessing needs and developing action plans" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black" scope="colgroup">Assessing needs and developing action plans</td>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[DIS] ig_challenges_3 ig_challenges">Helping clients search for jobs</td>
+<td class="gt_row gt_right" headers="[DIS] ig_challenges_3 p">14%</td>
 </tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Assessing needs and developing action plans  [DIS]">9%</td>
-<td class="gt_row gt_right" headers="Assessing needs and developing action plans  [FRA]">25%</td>
-<td class="gt_row gt_right" headers="Assessing needs and developing action plans  [IND]">11%</td>
-<td class="gt_row gt_right" headers="Assessing needs and developing action plans  [NEW]">5%</td>
-<td class="gt_row gt_right" headers="Assessing needs and developing action plans  [RAC]">10%</td>
-<td class="gt_row gt_right" headers="Assessing needs and developing action plans  [S-ODSP]">12%</td>
-<td class="gt_row gt_right" headers="Assessing needs and developing action plans  [S-OW]">4%</td>
-<td class="gt_row gt_right" headers="Assessing needs and developing action plans  [YTH]">12%</td>
+<tr class="even">
+<td class="gt_row gt_center" headers="[DIS] ig_challenges_4 ig_challenges">Assessing needs and developing action plans</td>
+<td class="gt_row gt_right" headers="[DIS] ig_challenges_4 p">9%</td>
 </tr>
-<tr class="odd gt_group_heading_row">
-<td colspan="8" id="Maintaining client engagement to encourage program completion" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black" scope="colgroup">Maintaining client engagement to encourage program completion</td>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[DIS] ig_challenges_5 ig_challenges">Doing outreach and recruiting clients</td>
+<td class="gt_row gt_right" headers="[DIS] ig_challenges_5 p">5%</td>
 </tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Maintaining client engagement to encourage program completion  [DIS]">23%</td>
-<td class="gt_row gt_right" headers="Maintaining client engagement to encourage program completion  [FRA]">6%</td>
-<td class="gt_row gt_right" headers="Maintaining client engagement to encourage program completion  [IND]">29%</td>
-<td class="gt_row gt_right" headers="Maintaining client engagement to encourage program completion  [NEW]">25%</td>
-<td class="gt_row gt_right" headers="Maintaining client engagement to encourage program completion  [RAC]">29%</td>
-<td class="gt_row gt_right" headers="Maintaining client engagement to encourage program completion  [S-ODSP]">26%</td>
-<td class="gt_row gt_right" headers="Maintaining client engagement to encourage program completion  [S-OW]">43%</td>
-<td class="gt_row gt_right" headers="Maintaining client engagement to encourage program completion  [YTH]">21%</td>
+<tr class="even">
+<td class="gt_row gt_center" headers="[DIS] ig_challenges_6 ig_challenges">Supporting retention for employed clients</td>
+<td class="gt_row gt_right" headers="[DIS] ig_challenges_6 p">5%</td>
 </tr>
-<tr class="odd gt_group_heading_row">
-<td colspan="8" id="Helping clients search for jobs" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black" scope="colgroup">Helping clients search for jobs</td>
+<tr class="odd gt_row_group_first">
+<td rowspan="4" class="gt_row gt_left gt_stub_row_group" headers="[FRA] stub_1_7 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black">[FRA]</td>
+<td class="gt_row gt_center" headers="[FRA] stub_1_7 ig_challenges">Connecting clients with employment opportunities</td>
+<td class="gt_row gt_right" headers="[FRA] stub_1_7 p">38%</td>
 </tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Helping clients search for jobs  [DIS]">14%</td>
-<td class="gt_row gt_right" headers="Helping clients search for jobs  [FRA]">31%</td>
-<td class="gt_row gt_right" headers="Helping clients search for jobs  [IND]">11%</td>
-<td class="gt_row gt_right" headers="Helping clients search for jobs  [NEW]">14%</td>
-<td class="gt_row gt_right" headers="Helping clients search for jobs  [RAC]">10%</td>
-<td class="gt_row gt_right" headers="Helping clients search for jobs  [S-ODSP]">9%</td>
-<td class="gt_row gt_right" headers="Helping clients search for jobs  [S-OW]">13%</td>
-<td class="gt_row gt_right" headers="Helping clients search for jobs  [YTH]">9%</td>
+<tr class="even">
+<td class="gt_row gt_center" headers="[FRA] ig_challenges_8 ig_challenges">Helping clients search for jobs</td>
+<td class="gt_row gt_right" headers="[FRA] ig_challenges_8 p">31%</td>
 </tr>
-<tr class="odd gt_group_heading_row">
-<td colspan="8" id="Connecting clients with employment opportunities" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black" scope="colgroup">Connecting clients with employment opportunities</td>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[FRA] ig_challenges_9 ig_challenges">Assessing needs and developing action plans</td>
+<td class="gt_row gt_right" headers="[FRA] ig_challenges_9 p">25%</td>
 </tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Connecting clients with employment opportunities  [DIS]">44%</td>
-<td class="gt_row gt_right" headers="Connecting clients with employment opportunities  [FRA]">38%</td>
-<td class="gt_row gt_right" headers="Connecting clients with employment opportunities  [IND]">29%</td>
-<td class="gt_row gt_right" headers="Connecting clients with employment opportunities  [NEW]">42%</td>
-<td class="gt_row gt_right" headers="Connecting clients with employment opportunities  [RAC]">38%</td>
-<td class="gt_row gt_right" headers="Connecting clients with employment opportunities  [S-ODSP]">42%</td>
-<td class="gt_row gt_right" headers="Connecting clients with employment opportunities  [S-OW]">28%</td>
-<td class="gt_row gt_right" headers="Connecting clients with employment opportunities  [YTH]">32%</td>
+<tr class="even">
+<td class="gt_row gt_center" headers="[FRA] ig_challenges_10 ig_challenges">Maintaining client engagement to encourage program completion</td>
+<td class="gt_row gt_right" headers="[FRA] ig_challenges_10 p">6%</td>
 </tr>
-<tr class="odd gt_group_heading_row">
-<td colspan="8" id="Supporting retention for employed clients" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black" scope="colgroup">Supporting retention for employed clients</td>
+<tr class="odd gt_row_group_first">
+<td rowspan="6" class="gt_row gt_left gt_stub_row_group" headers="[IND] stub_1_11 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black">[IND]</td>
+<td class="gt_row gt_center" headers="[IND] stub_1_11 ig_challenges">Maintaining client engagement to encourage program completion</td>
+<td class="gt_row gt_right" headers="[IND] stub_1_11 p">29%</td>
 </tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Supporting retention for employed clients  [DIS]">5%</td>
-<td class="gt_row gt_right" headers="Supporting retention for employed clients  [FRA]">—</td>
-<td class="gt_row gt_right" headers="Supporting retention for employed clients  [IND]">7%</td>
-<td class="gt_row gt_right" headers="Supporting retention for employed clients  [NEW]">9%</td>
-<td class="gt_row gt_right" headers="Supporting retention for employed clients  [RAC]">12%</td>
-<td class="gt_row gt_right" headers="Supporting retention for employed clients  [S-ODSP]">2%</td>
-<td class="gt_row gt_right" headers="Supporting retention for employed clients  [S-OW]">11%</td>
-<td class="gt_row gt_right" headers="Supporting retention for employed clients  [YTH]">18%</td>
+<tr class="even">
+<td class="gt_row gt_center" headers="[IND] ig_challenges_12 ig_challenges">Connecting clients with employment opportunities</td>
+<td class="gt_row gt_right" headers="[IND] ig_challenges_12 p">29%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[IND] ig_challenges_13 ig_challenges">Doing outreach and recruiting clients</td>
+<td class="gt_row gt_right" headers="[IND] ig_challenges_13 p">14%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[IND] ig_challenges_14 ig_challenges">Assessing needs and developing action plans</td>
+<td class="gt_row gt_right" headers="[IND] ig_challenges_14 p">11%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[IND] ig_challenges_15 ig_challenges">Helping clients search for jobs</td>
+<td class="gt_row gt_right" headers="[IND] ig_challenges_15 p">11%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[IND] ig_challenges_16 ig_challenges">Supporting retention for employed clients</td>
+<td class="gt_row gt_right" headers="[IND] ig_challenges_16 p">7%</td>
+</tr>
+<tr class="odd gt_row_group_first">
+<td rowspan="6" class="gt_row gt_left gt_stub_row_group" headers="[NEW] stub_1_17 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black">[NEW]</td>
+<td class="gt_row gt_center" headers="[NEW] stub_1_17 ig_challenges">Connecting clients with employment opportunities</td>
+<td class="gt_row gt_right" headers="[NEW] stub_1_17 p">42%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[NEW] ig_challenges_18 ig_challenges">Maintaining client engagement to encourage program completion</td>
+<td class="gt_row gt_right" headers="[NEW] ig_challenges_18 p">25%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[NEW] ig_challenges_19 ig_challenges">Helping clients search for jobs</td>
+<td class="gt_row gt_right" headers="[NEW] ig_challenges_19 p">14%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[NEW] ig_challenges_20 ig_challenges">Supporting retention for employed clients</td>
+<td class="gt_row gt_right" headers="[NEW] ig_challenges_20 p">9%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[NEW] ig_challenges_21 ig_challenges">Doing outreach and recruiting clients</td>
+<td class="gt_row gt_right" headers="[NEW] ig_challenges_21 p">5%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[NEW] ig_challenges_22 ig_challenges">Assessing needs and developing action plans</td>
+<td class="gt_row gt_right" headers="[NEW] ig_challenges_22 p">5%</td>
+</tr>
+<tr class="odd gt_row_group_first">
+<td rowspan="6" class="gt_row gt_left gt_stub_row_group" headers="[RAC] stub_1_23 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black">[RAC]</td>
+<td class="gt_row gt_center" headers="[RAC] stub_1_23 ig_challenges">Connecting clients with employment opportunities</td>
+<td class="gt_row gt_right" headers="[RAC] stub_1_23 p">38%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[RAC] ig_challenges_24 ig_challenges">Maintaining client engagement to encourage program completion</td>
+<td class="gt_row gt_right" headers="[RAC] ig_challenges_24 p">29%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[RAC] ig_challenges_25 ig_challenges">Supporting retention for employed clients</td>
+<td class="gt_row gt_right" headers="[RAC] ig_challenges_25 p">12%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[RAC] ig_challenges_26 ig_challenges">Assessing needs and developing action plans</td>
+<td class="gt_row gt_right" headers="[RAC] ig_challenges_26 p">10%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[RAC] ig_challenges_27 ig_challenges">Helping clients search for jobs</td>
+<td class="gt_row gt_right" headers="[RAC] ig_challenges_27 p">10%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[RAC] ig_challenges_28 ig_challenges">Doing outreach and recruiting clients</td>
+<td class="gt_row gt_right" headers="[RAC] ig_challenges_28 p">2%</td>
+</tr>
+<tr class="odd gt_row_group_first">
+<td rowspan="6" class="gt_row gt_left gt_stub_row_group" headers="[S-ODSP] stub_1_29 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black">[S-ODSP]</td>
+<td class="gt_row gt_center" headers="[S-ODSP] stub_1_29 ig_challenges">Connecting clients with employment opportunities</td>
+<td class="gt_row gt_right" headers="[S-ODSP] stub_1_29 p">42%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[S-ODSP] ig_challenges_30 ig_challenges">Maintaining client engagement to encourage program completion</td>
+<td class="gt_row gt_right" headers="[S-ODSP] ig_challenges_30 p">26%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[S-ODSP] ig_challenges_31 ig_challenges">Assessing needs and developing action plans</td>
+<td class="gt_row gt_right" headers="[S-ODSP] ig_challenges_31 p">12%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[S-ODSP] ig_challenges_32 ig_challenges">Doing outreach and recruiting clients</td>
+<td class="gt_row gt_right" headers="[S-ODSP] ig_challenges_32 p">9%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[S-ODSP] ig_challenges_33 ig_challenges">Helping clients search for jobs</td>
+<td class="gt_row gt_right" headers="[S-ODSP] ig_challenges_33 p">9%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[S-ODSP] ig_challenges_34 ig_challenges">Supporting retention for employed clients</td>
+<td class="gt_row gt_right" headers="[S-ODSP] ig_challenges_34 p">2%</td>
+</tr>
+<tr class="odd gt_row_group_first">
+<td rowspan="6" class="gt_row gt_left gt_stub_row_group" headers="[S-OW] stub_1_35 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black">[S-OW]</td>
+<td class="gt_row gt_center" headers="[S-OW] stub_1_35 ig_challenges">Maintaining client engagement to encourage program completion</td>
+<td class="gt_row gt_right" headers="[S-OW] stub_1_35 p">43%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[S-OW] ig_challenges_36 ig_challenges">Connecting clients with employment opportunities</td>
+<td class="gt_row gt_right" headers="[S-OW] ig_challenges_36 p">28%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[S-OW] ig_challenges_37 ig_challenges">Helping clients search for jobs</td>
+<td class="gt_row gt_right" headers="[S-OW] ig_challenges_37 p">13%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[S-OW] ig_challenges_38 ig_challenges">Supporting retention for employed clients</td>
+<td class="gt_row gt_right" headers="[S-OW] ig_challenges_38 p">11%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[S-OW] ig_challenges_39 ig_challenges">Assessing needs and developing action plans</td>
+<td class="gt_row gt_right" headers="[S-OW] ig_challenges_39 p">4%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[S-OW] ig_challenges_40 ig_challenges">Doing outreach and recruiting clients</td>
+<td class="gt_row gt_right" headers="[S-OW] ig_challenges_40 p">2%</td>
+</tr>
+<tr class="odd gt_row_group_first">
+<td rowspan="6" class="gt_row gt_left gt_stub_row_group" headers="[YTH] stub_1_41 stub_1" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black">[YTH]</td>
+<td class="gt_row gt_center" headers="[YTH] stub_1_41 ig_challenges">Connecting clients with employment opportunities</td>
+<td class="gt_row gt_right" headers="[YTH] stub_1_41 p">32%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[YTH] ig_challenges_42 ig_challenges">Maintaining client engagement to encourage program completion</td>
+<td class="gt_row gt_right" headers="[YTH] ig_challenges_42 p">21%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[YTH] ig_challenges_43 ig_challenges">Supporting retention for employed clients</td>
+<td class="gt_row gt_right" headers="[YTH] ig_challenges_43 p">18%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[YTH] ig_challenges_44 ig_challenges">Assessing needs and developing action plans</td>
+<td class="gt_row gt_right" headers="[YTH] ig_challenges_44 p">12%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="[YTH] ig_challenges_45 ig_challenges">Doing outreach and recruiting clients</td>
+<td class="gt_row gt_right" headers="[YTH] ig_challenges_45 p">9%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="[YTH] ig_challenges_46 ig_challenges">Helping clients search for jobs</td>
+<td class="gt_row gt_right" headers="[YTH] ig_challenges_46 p">9%</td>
 </tr>
 </tbody>
 </table>
@@ -6549,13 +6658,14 @@ tbody tr:last-child {
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_ig_tab</span>(</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_social_supports"</span>,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"staff"</span>,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">val_transform =</span> <span class="cf">function</span>(x) <span class="fu">as.integer</span>(x) <span class="sc">&lt;</span> <span class="dv">3</span>,</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?"</span>,</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"% responding 'Absolutely Necessary' or 'Very Important'"</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette =</span> <span class="st">"viridis"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_social_supports"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"staff"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">val_transform =</span> <span class="cf">function</span>(x) <span class="fu">as.integer</span>(x) <span class="sc">&lt;</span> <span class="dv">3</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?"</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"% responding 'Absolutely Necessary' or 'Very Important'"</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-xp-staff-social-supports" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -7047,105 +7157,105 @@ tbody tr:last-child {
 <td colspan="8" id="Childcare benefits" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Childcare benefits</td>
 </tr>
 <tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Childcare benefits  [DIS]" style="background-color: #B5367A; color: #FFFFFF">69%</td>
-<td class="gt_row gt_right" headers="Childcare benefits  [FRA]" style="background-color: #000004; color: #FFFFFF">44%</td>
-<td class="gt_row gt_right" headers="Childcare benefits  [IND]" style="background-color: #FC9065; color: #000000">83%</td>
-<td class="gt_row gt_right" headers="Childcare benefits  [NEW]" style="background-color: #FB835F; color: #000000">81%</td>
-<td class="gt_row gt_right" headers="Childcare benefits  [RAC]" style="background-color: #F9795D; color: #FFFFFF">80%</td>
-<td class="gt_row gt_right" headers="Childcare benefits  [S-ODSP]" style="background-color: #DF4A68; color: #FFFFFF">74%</td>
-<td class="gt_row gt_right" headers="Childcare benefits  [S-OW]" style="background-color: #FD9B6B; color: #000000">84%</td>
-<td class="gt_row gt_right" headers="Childcare benefits  [YTH]" style="background-color: #040413; color: #FFFFFF">45%</td>
+<td class="gt_row gt_right" headers="Childcare benefits  [DIS]" style="background-color: #21908D; color: #FFFFFF">69%</td>
+<td class="gt_row gt_right" headers="Childcare benefits  [FRA]" style="background-color: #440154; color: #FFFFFF">44%</td>
+<td class="gt_row gt_right" headers="Childcare benefits  [IND]" style="background-color: #67CC5C; color: #000000">83%</td>
+<td class="gt_row gt_right" headers="Childcare benefits  [NEW]" style="background-color: #58C765; color: #000000">81%</td>
+<td class="gt_row gt_right" headers="Childcare benefits  [RAC]" style="background-color: #4EC36B; color: #000000">80%</td>
+<td class="gt_row gt_right" headers="Childcare benefits  [S-ODSP]" style="background-color: #23A983; color: #FFFFFF">74%</td>
+<td class="gt_row gt_right" headers="Childcare benefits  [S-OW]" style="background-color: #74D055; color: #000000">84%</td>
+<td class="gt_row gt_right" headers="Childcare benefits  [YTH]" style="background-color: #470E61; color: #FFFFFF">45%</td>
 </tr>
 <tr class="odd gt_group_heading_row">
 <td colspan="8" id="Coaching or mentoring" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Coaching or mentoring</td>
 </tr>
 <tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Coaching or mentoring  [DIS]" style="background-color: #FE9C6C; color: #000000">84%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring  [FRA]" style="background-color: #B3367A; color: #FFFFFF">69%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring  [IND]" style="background-color: #FED395; color: #000000">90%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring  [NEW]" style="background-color: #FDE2A3; color: #000000">92%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring  [RAC]" style="background-color: #FEB47B; color: #000000">87%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring  [S-ODSP]" style="background-color: #FDD99B; color: #000000">91%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring  [S-OW]" style="background-color: #FCECAE; color: #000000">93%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring  [YTH]" style="background-color: #FEC387; color: #000000">88%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring  [DIS]" style="background-color: #76D153; color: #000000">84%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring  [FRA]" style="background-color: #218F8D; color: #FFFFFF">69%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring  [IND]" style="background-color: #C3DF23; color: #000000">90%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring  [NEW]" style="background-color: #D8E219; color: #000000">92%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring  [RAC]" style="background-color: #95D840; color: #000000">87%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring  [S-ODSP]" style="background-color: #CCE11E; color: #000000">91%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring  [S-OW]" style="background-color: #E7E419; color: #000000">93%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring  [YTH]" style="background-color: #ABDC31; color: #000000">88%</td>
 </tr>
 <tr class="odd gt_group_heading_row">
 <td colspan="8" id="English language training" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">English language training</td>
 </tr>
 <tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="English language training  [DIS]" style="background-color: #2D1161; color: #FFFFFF">52%</td>
-<td class="gt_row gt_right" headers="English language training  [FRA]" style="background-color: #802582; color: #FFFFFF">62%</td>
-<td class="gt_row gt_right" headers="English language training  [IND]" style="background-color: #02020C; color: #FFFFFF">45%</td>
-<td class="gt_row gt_right" headers="English language training  [NEW]" style="background-color: #FDE2A3; color: #000000">92%</td>
-<td class="gt_row gt_right" headers="English language training  [RAC]" style="background-color: #C13B75; color: #FFFFFF">71%</td>
-<td class="gt_row gt_right" headers="English language training  [S-ODSP]" style="background-color: #701F81; color: #FFFFFF">60%</td>
-<td class="gt_row gt_right" headers="English language training  [S-OW]" style="background-color: #E04B67; color: #FFFFFF">75%</td>
-<td class="gt_row gt_right" headers="English language training  [YTH]" style="background-color: #130D33; color: #FFFFFF">48%</td>
+<td class="gt_row gt_right" headers="English language training  [DIS]" style="background-color: #443A83; color: #FFFFFF">52%</td>
+<td class="gt_row gt_right" headers="English language training  [FRA]" style="background-color: #2D718E; color: #FFFFFF">62%</td>
+<td class="gt_row gt_right" headers="English language training  [IND]" style="background-color: #46095C; color: #FFFFFF">45%</td>
+<td class="gt_row gt_right" headers="English language training  [NEW]" style="background-color: #D8E219; color: #000000">92%</td>
+<td class="gt_row gt_right" headers="English language training  [RAC]" style="background-color: #1F978B; color: #FFFFFF">71%</td>
+<td class="gt_row gt_right" headers="English language training  [S-ODSP]" style="background-color: #31678E; color: #FFFFFF">60%</td>
+<td class="gt_row gt_right" headers="English language training  [S-OW]" style="background-color: #24AA83; color: #FFFFFF">75%</td>
+<td class="gt_row gt_right" headers="English language training  [YTH]" style="background-color: #482374; color: #FFFFFF">48%</td>
 </tr>
 <tr class="odd gt_group_heading_row">
 <td colspan="8" id="Essential or employability skills training" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Essential or employability skills training</td>
 </tr>
 <tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Essential or employability skills training  [DIS]" style="background-color: #FE9C6C; color: #000000">84%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training  [FRA]" style="background-color: #FA825F; color: #000000">81%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training  [IND]" style="background-color: #FED395; color: #000000">90%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training  [NEW]" style="background-color: #FCF2B4; color: #000000">93%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training  [RAC]" style="background-color: #FEB47B; color: #000000">87%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training  [S-ODSP]" style="background-color: #FDDB9D; color: #000000">91%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training  [S-OW]" style="background-color: #FCFDBF; color: #000000">95%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training  [YTH]" style="background-color: #FDDEA0; color: #000000">91%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training  [DIS]" style="background-color: #76D153; color: #000000">84%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training  [FRA]" style="background-color: #57C666; color: #000000">81%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training  [IND]" style="background-color: #C3DF23; color: #000000">90%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training  [NEW]" style="background-color: #EFE51C; color: #000000">93%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training  [RAC]" style="background-color: #95D840; color: #000000">87%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training  [S-ODSP]" style="background-color: #CFE11C; color: #000000">91%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training  [S-OW]" style="background-color: #FDE725; color: #000000">95%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training  [YTH]" style="background-color: #D2E21B; color: #000000">91%</td>
 </tr>
 <tr class="odd gt_group_heading_row">
 <td colspan="8" id="Support for disclosing needs and requesting accommodations" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Support for disclosing needs and requesting accommodations</td>
 </tr>
 <tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [DIS]" style="background-color: #FEB27A; color: #000000">86%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [FRA]" style="background-color: #1C1045; color: #FFFFFF">50%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [IND]" style="background-color: #E85362; color: #FFFFFF">76%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [NEW]" style="background-color: #E04C67; color: #FFFFFF">75%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [RAC]" style="background-color: #C13B75; color: #FFFFFF">71%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [S-ODSP]" style="background-color: #FEC78B; color: #000000">89%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [S-OW]" style="background-color: #E04B67; color: #FFFFFF">75%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [YTH]" style="background-color: #A1307E; color: #FFFFFF">67%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [DIS]" style="background-color: #93D741; color: #000000">86%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [FRA]" style="background-color: #472C7A; color: #FFFFFF">50%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [IND]" style="background-color: #29AF7F; color: #FFFFFF">76%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [NEW]" style="background-color: #24AA83; color: #FFFFFF">75%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [RAC]" style="background-color: #1F978B; color: #FFFFFF">71%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [S-ODSP]" style="background-color: #B1DD2E; color: #000000">89%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [S-OW]" style="background-color: #24AA83; color: #FFFFFF">75%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations  [YTH]" style="background-color: #25848E; color: #FFFFFF">67%</td>
 </tr>
 <tr class="odd gt_group_heading_row">
 <td colspan="8" id="Technical skills training (e.g. IT certification, forklift certification)" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Technical skills training (e.g. IT certification, forklift certification)</td>
 </tr>
 <tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [DIS]" style="background-color: #FB8761; color: #000000">82%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [FRA]" style="background-color: #FA825F; color: #000000">81%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [IND]" style="background-color: #FD9568; color: #000000">83%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [NEW]" style="background-color: #FDE3A4; color: #000000">92%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [RAC]" style="background-color: #FEC589; color: #000000">88%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [S-ODSP]" style="background-color: #FEC78B; color: #000000">89%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [S-OW]" style="background-color: #FCEDAF; color: #000000">93%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [YTH]" style="background-color: #FEC387; color: #000000">88%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [DIS]" style="background-color: #5CC863; color: #000000">82%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [FRA]" style="background-color: #57C666; color: #000000">81%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [IND]" style="background-color: #6DCE59; color: #000000">83%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [NEW]" style="background-color: #D9E319; color: #000000">92%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [RAC]" style="background-color: #AEDC30; color: #000000">88%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [S-ODSP]" style="background-color: #B1DD2E; color: #000000">89%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [S-OW]" style="background-color: #E9E51A; color: #000000">93%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification)  [YTH]" style="background-color: #ABDC31; color: #000000">88%</td>
 </tr>
 <tr class="odd gt_group_heading_row">
 <td colspan="8" id="Transportation subsidies" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Transportation subsidies</td>
 </tr>
 <tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Transportation subsidies  [DIS]" style="background-color: #FEB27A; color: #000000">86%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies  [FRA]" style="background-color: #802582; color: #FFFFFF">62%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies  [IND]" style="background-color: #F76F5C; color: #FFFFFF">79%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies  [NEW]" style="background-color: #D7456C; color: #FFFFFF">73%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies  [RAC]" style="background-color: #F9795D; color: #FFFFFF">80%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies  [S-ODSP]" style="background-color: #FEB27A; color: #000000">86%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies  [S-OW]" style="background-color: #FECD90; color: #000000">89%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies  [YTH]" style="background-color: #D8456C; color: #FFFFFF">74%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies  [DIS]" style="background-color: #93D741; color: #000000">86%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies  [FRA]" style="background-color: #2D718E; color: #FFFFFF">62%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies  [IND]" style="background-color: #43BF70; color: #000000">79%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies  [NEW]" style="background-color: #20A486; color: #FFFFFF">73%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies  [RAC]" style="background-color: #4EC36B; color: #000000">80%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies  [S-ODSP]" style="background-color: #93D741; color: #000000">86%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies  [S-OW]" style="background-color: #B9DE28; color: #000000">89%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies  [YTH]" style="background-color: #21A486; color: #FFFFFF">74%</td>
 </tr>
 <tr class="odd gt_group_heading_row">
 <td colspan="8" id="Treatment for mental health and / or addictions" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Treatment for mental health and / or addictions</td>
 </tr>
 <tr class="even gt_row_group_first">
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [DIS]" style="background-color: #FEB27A; color: #000000">86%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [FRA]" style="background-color: #000004; color: #FFFFFF">44%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [IND]" style="background-color: #FECD90; color: #000000">89%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [NEW]" style="background-color: #812581; color: #FFFFFF">63%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [RAC]" style="background-color: #BD3977; color: #FFFFFF">70%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [S-ODSP]" style="background-color: #FEC78B; color: #000000">89%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [S-OW]" style="background-color: #FC8A62; color: #000000">82%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [YTH]" style="background-color: #F7705C; color: #FFFFFF">79%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [DIS]" style="background-color: #93D741; color: #000000">86%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [FRA]" style="background-color: #440154; color: #FFFFFF">44%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [IND]" style="background-color: #B9DE28; color: #000000">89%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [NEW]" style="background-color: #2C718E; color: #FFFFFF">63%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [RAC]" style="background-color: #1F948C; color: #FFFFFF">70%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [S-ODSP]" style="background-color: #B1DD2E; color: #000000">89%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [S-OW]" style="background-color: #5FCA61; color: #000000">82%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions  [YTH]" style="background-color: #44BF70; color: #000000">79%</td>
 </tr>
 </tbody><tfoot class="gt_sourcenotes">
 <tr class="odd">
@@ -7194,19 +7304,14 @@ tbody tr:last-child {
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d <span class="sc">|&gt;</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_ig_tab</span>(</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_social_supports"</span>,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"staff"</span>,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?"</span>,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"full distribution"</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette =</span> <span class="st">"viridis"</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">l =</span> labs,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">var_pattern =</span> <span class="st">"ig_social_supports"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">svy =</span> <span class="st">"staff"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Based on your experiences working with [X], how important do each of the following social supports tend to be for their sustainable employment?"</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="st">"full distribution"</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Since gt v0.6.0 the `fmt_missing()` function is deprecated and will soon be
-removed.
-• Use the `sub_missing()` function instead.
-This warning is displayed once every 8 hours.</code></pre>
-</div>
 <div id="tbl-xp-staff-social-supports-full" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-xp-staff-social-supports-full-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -7692,117 +7797,117 @@ tbody tr:last-child {
 </tr>
 <tr class="even gt_row_group_first">
 <td id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[DIS]</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_1 Absolutely Necessary" style="background-color: #B3367A; color: #FFFFFF">36%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_1 Very Important" style="background-color: #A5317E; color: #FFFFFF">33%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_1 Somewhat Important" style="background-color: #882781; color: #FFFFFF">29%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_1 Not Important" style="background-color: #010107; color: #FFFFFF">2%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_1 Absolutely Necessary" style="background-color: #218F8D; color: #FFFFFF">36%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_1 Very Important" style="background-color: #24868E; color: #FFFFFF">33%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_1 Somewhat Important" style="background-color: #2B758E; color: #FFFFFF">29%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_1 Not Important" style="background-color: #450558; color: #FFFFFF">2%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[FRA]</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_2 Absolutely Necessary" style="background-color: #4F127B; color: #FFFFFF">19%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_2 Very Important" style="background-color: #742081; color: #FFFFFF">25%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_2 Somewhat Important" style="background-color: #FD9B6B; color: #000000">56%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_2 Absolutely Necessary" style="background-color: #3B518B; color: #FFFFFF">19%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_2 Very Important" style="background-color: #30698E; color: #FFFFFF">25%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_2 Somewhat Important" style="background-color: #75D054; color: #000000">56%</td>
 <td class="gt_row gt_right" headers="Childcare benefits stub_1_2 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[IND]</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_3 Absolutely Necessary" style="background-color: #E65163; color: #FFFFFF">45%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_3 Very Important" style="background-color: #C03A76; color: #FFFFFF">38%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_3 Somewhat Important" style="background-color: #461078; color: #FFFFFF">17%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_3 Absolutely Necessary" style="background-color: #28AE80; color: #FFFFFF">45%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_3 Very Important" style="background-color: #1F968B; color: #FFFFFF">38%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_3 Somewhat Important" style="background-color: #3E4B8A; color: #FFFFFF">17%</td>
 <td class="gt_row gt_right" headers="Childcare benefits stub_1_3 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[NEW]</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_4 Absolutely Necessary" style="background-color: #E34E65; color: #FFFFFF">44%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_4 Very Important" style="background-color: #BD3977; color: #FFFFFF">37%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_4 Somewhat Important" style="background-color: #440F76; color: #FFFFFF">17%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_4 Not Important" style="background-color: #000004; color: #FFFFFF">2%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_4 Absolutely Necessary" style="background-color: #25AC82; color: #FFFFFF">44%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_4 Very Important" style="background-color: #1F948C; color: #FFFFFF">37%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_4 Somewhat Important" style="background-color: #3E4989; color: #FFFFFF">17%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_4 Not Important" style="background-color: #440154; color: #FFFFFF">2%</td>
 </tr>
 <tr class="even">
 <td id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[RAC]</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_5 Absolutely Necessary" style="background-color: #DE4968; color: #FFFFFF">43%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_5 Very Important" style="background-color: #BD3977; color: #FFFFFF">37%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_5 Somewhat Important" style="background-color: #55137D; color: #FFFFFF">20%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_5 Absolutely Necessary" style="background-color: #22A884; color: #FFFFFF">43%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_5 Very Important" style="background-color: #1F948C; color: #FFFFFF">37%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_5 Somewhat Important" style="background-color: #3A548C; color: #FFFFFF">20%</td>
 <td class="gt_row gt_right" headers="Childcare benefits stub_1_5 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-ODSP]</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_6 Absolutely Necessary" style="background-color: #D7456C; color: #FFFFFF">42%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_6 Very Important" style="background-color: #A02F7F; color: #FFFFFF">33%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_6 Somewhat Important" style="background-color: #400F74; color: #FFFFFF">16%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_6 Not Important" style="background-color: #180F3D; color: #FFFFFF">9%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_6 Absolutely Necessary" style="background-color: #20A486; color: #FFFFFF">42%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_6 Very Important" style="background-color: #25838E; color: #FFFFFF">33%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_6 Somewhat Important" style="background-color: #3F4788; color: #FFFFFF">16%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_6 Not Important" style="background-color: #482878; color: #FFFFFF">9%</td>
 </tr>
 <tr class="even">
 <td id="stub_1_7" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-OW]</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_7 Absolutely Necessary" style="background-color: #FC8961; color: #000000">54%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_7 Very Important" style="background-color: #932B80; color: #FFFFFF">30%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_7 Somewhat Important" style="background-color: #1F114A; color: #FFFFFF">11%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_7 Not Important" style="background-color: #08071D; color: #FFFFFF">5%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_7 Absolutely Necessary" style="background-color: #5EC962; color: #000000">54%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_7 Very Important" style="background-color: #287C8E; color: #FFFFFF">30%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_7 Somewhat Important" style="background-color: #472E7C; color: #FFFFFF">11%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_7 Not Important" style="background-color: #481568; color: #FFFFFF">5%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_8" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[YTH]</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_8 Absolutely Necessary" style="background-color: #A5317E; color: #FFFFFF">33%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_8 Very Important" style="background-color: #261257; color: #FFFFFF">12%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_8 Somewhat Important" style="background-color: #C93E72; color: #FFFFFF">39%</td>
-<td class="gt_row gt_right" headers="Childcare benefits stub_1_8 Not Important" style="background-color: #390F6E; color: #FFFFFF">15%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_8 Absolutely Necessary" style="background-color: #24868E; color: #FFFFFF">33%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_8 Very Important" style="background-color: #453581; color: #FFFFFF">12%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_8 Somewhat Important" style="background-color: #1E9C89; color: #FFFFFF">39%</td>
+<td class="gt_row gt_right" headers="Childcare benefits stub_1_8 Not Important" style="background-color: #414287; color: #FFFFFF">15%</td>
 </tr>
 <tr class="even gt_group_heading_row">
 <td colspan="5" id="Coaching or mentoring" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Coaching or mentoring</td>
 </tr>
 <tr class="odd gt_row_group_first">
 <td id="stub_1_9" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[DIS]</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_9 Absolutely Necessary" style="background-color: #FC8F65; color: #000000">55%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_9 Very Important" style="background-color: #8E2A81; color: #FFFFFF">30%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_9 Somewhat Important" style="background-color: #3E0F72; color: #FFFFFF">16%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_9 Absolutely Necessary" style="background-color: #66CC5D; color: #000000">55%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_9 Very Important" style="background-color: #29798E; color: #FFFFFF">30%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_9 Somewhat Important" style="background-color: #404688; color: #FFFFFF">16%</td>
 <td class="gt_row gt_right" headers="Coaching or mentoring stub_1_9 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_10" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[FRA]</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_10 Absolutely Necessary" style="background-color: #4F127B; color: #FFFFFF">19%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_10 Very Important" style="background-color: #F7705C; color: #FFFFFF">50%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_10 Somewhat Important" style="background-color: #982D80; color: #FFFFFF">31%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_10 Absolutely Necessary" style="background-color: #3B518B; color: #FFFFFF">19%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_10 Very Important" style="background-color: #44BF70; color: #000000">50%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_10 Somewhat Important" style="background-color: #277F8E; color: #FFFFFF">31%</td>
 <td class="gt_row gt_right" headers="Coaching or mentoring stub_1_10 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_11" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[IND]</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_11 Absolutely Necessary" style="background-color: #FB8761; color: #000000">53%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_11 Very Important" style="background-color: #B93779; color: #FFFFFF">37%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_11 Somewhat Important" style="background-color: #1B1043; color: #FFFFFF">10%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_11 Absolutely Necessary" style="background-color: #5CC863; color: #000000">53%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_11 Very Important" style="background-color: #20928C; color: #FFFFFF">37%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_11 Somewhat Important" style="background-color: #472B7A; color: #FFFFFF">10%</td>
 <td class="gt_row gt_right" headers="Coaching or mentoring stub_1_11 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_12" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[NEW]</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_12 Absolutely Necessary" style="background-color: #EA5661; color: #FFFFFF">46%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_12 Very Important" style="background-color: #EA5661; color: #FFFFFF">46%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_12 Somewhat Important" style="background-color: #140E36; color: #FFFFFF">8%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_12 Absolutely Necessary" style="background-color: #2CB17E; color: #FFFFFF">46%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_12 Very Important" style="background-color: #2CB17E; color: #FFFFFF">46%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_12 Somewhat Important" style="background-color: #482475; color: #FFFFFF">8%</td>
 <td class="gt_row gt_right" headers="Coaching or mentoring stub_1_12 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_13" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[RAC]</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_13 Absolutely Necessary" style="background-color: #FA7D5E; color: #FFFFFF">52%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_13 Very Important" style="background-color: #AD347C; color: #FFFFFF">35%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_13 Somewhat Important" style="background-color: #2E1162; color: #FFFFFF">13%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_13 Absolutely Necessary" style="background-color: #52C569; color: #000000">52%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_13 Very Important" style="background-color: #228B8D; color: #FFFFFF">35%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_13 Somewhat Important" style="background-color: #443B84; color: #FFFFFF">13%</td>
 <td class="gt_row gt_right" headers="Coaching or mentoring stub_1_13 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_14" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-ODSP]</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_14 Absolutely Necessary" style="background-color: #FEB87F; color: #000000">60%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_14 Very Important" style="background-color: #922B80; color: #FFFFFF">30%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_14 Somewhat Important" style="background-color: #180F3D; color: #FFFFFF">9%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_14 Absolutely Necessary" style="background-color: #9CD93B; color: #000000">60%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_14 Very Important" style="background-color: #287C8E; color: #FFFFFF">30%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_14 Somewhat Important" style="background-color: #482878; color: #FFFFFF">9%</td>
 <td class="gt_row gt_right" headers="Coaching or mentoring stub_1_14 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_15" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-OW]</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_15 Absolutely Necessary" style="background-color: #FD9C6B; color: #000000">56%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_15 Very Important" style="background-color: #B73779; color: #FFFFFF">36%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_15 Somewhat Important" style="background-color: #0F0B2C; color: #FFFFFF">7%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_15 Absolutely Necessary" style="background-color: #76D054; color: #000000">56%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_15 Very Important" style="background-color: #21918C; color: #FFFFFF">36%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_15 Somewhat Important" style="background-color: #481E70; color: #FFFFFF">7%</td>
 <td class="gt_row gt_right" headers="Coaching or mentoring stub_1_15 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_16" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[YTH]</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_16 Absolutely Necessary" style="background-color: #FDE9AA; color: #000000">68%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_16 Very Important" style="background-color: #5A167E; color: #FFFFFF">21%</td>
-<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_16 Somewhat Important" style="background-color: #241254; color: #FFFFFF">12%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_16 Absolutely Necessary" style="background-color: #E2E418; color: #000000">68%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_16 Very Important" style="background-color: #38598C; color: #FFFFFF">21%</td>
+<td class="gt_row gt_right" headers="Coaching or mentoring stub_1_16 Somewhat Important" style="background-color: #46337F; color: #FFFFFF">12%</td>
 <td class="gt_row gt_right" headers="Coaching or mentoring stub_1_16 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd gt_group_heading_row">
@@ -7810,117 +7915,117 @@ tbody tr:last-child {
 </tr>
 <tr class="even gt_row_group_first">
 <td id="stub_1_17" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[DIS]</td>
-<td class="gt_row gt_right" headers="English language training stub_1_17 Absolutely Necessary" style="background-color: #B73779; color: #FFFFFF">36%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_17 Very Important" style="background-color: #3E0F72; color: #FFFFFF">16%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_17 Somewhat Important" style="background-color: #D2426F; color: #FFFFFF">41%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_17 Not Important" style="background-color: #0D0A29; color: #FFFFFF">7%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_17 Absolutely Necessary" style="background-color: #21918C; color: #FFFFFF">36%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_17 Very Important" style="background-color: #404688; color: #FFFFFF">16%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_17 Somewhat Important" style="background-color: #1FA188; color: #FFFFFF">41%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_17 Not Important" style="background-color: #481C6E; color: #FFFFFF">7%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_18" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[FRA]</td>
-<td class="gt_row gt_right" headers="English language training stub_1_18 Absolutely Necessary" style="background-color: #BE3A77; color: #FFFFFF">38%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_18 Very Important" style="background-color: #742081; color: #FFFFFF">25%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_18 Somewhat Important" style="background-color: #BE3A77; color: #FFFFFF">38%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_18 Absolutely Necessary" style="background-color: #1F958B; color: #FFFFFF">38%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_18 Very Important" style="background-color: #30698E; color: #FFFFFF">25%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_18 Somewhat Important" style="background-color: #1F958B; color: #FFFFFF">38%</td>
 <td class="gt_row gt_right" headers="English language training stub_1_18 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_19" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[IND]</td>
-<td class="gt_row gt_right" headers="English language training stub_1_19 Absolutely Necessary" style="background-color: #461078; color: #FFFFFF">17%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_19 Very Important" style="background-color: #832681; color: #FFFFFF">28%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_19 Somewhat Important" style="background-color: #972D80; color: #FFFFFF">31%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_19 Not Important" style="background-color: #6E1E81; color: #FFFFFF">24%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_19 Absolutely Necessary" style="background-color: #3E4B8A; color: #FFFFFF">17%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_19 Very Important" style="background-color: #2C728E; color: #FFFFFF">28%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_19 Somewhat Important" style="background-color: #277F8E; color: #FFFFFF">31%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_19 Not Important" style="background-color: #31668E; color: #FFFFFF">24%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_20" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[NEW]</td>
-<td class="gt_row gt_right" headers="English language training stub_1_20 Absolutely Necessary" style="background-color: #FEB179; color: #000000">59%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_20 Very Important" style="background-color: #9E2F7F; color: #FFFFFF">32%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_20 Somewhat Important" style="background-color: #140E36; color: #FFFFFF">8%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_20 Absolutely Necessary" style="background-color: #91D742; color: #000000">59%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_20 Very Important" style="background-color: #26828E; color: #FFFFFF">32%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_20 Somewhat Important" style="background-color: #482475; color: #FFFFFF">8%</td>
 <td class="gt_row gt_right" headers="English language training stub_1_20 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_21" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[RAC]</td>
-<td class="gt_row gt_right" headers="English language training stub_1_21 Absolutely Necessary" style="background-color: #C83E73; color: #FFFFFF">39%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_21 Very Important" style="background-color: #992D80; color: #FFFFFF">31%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_21 Somewhat Important" style="background-color: #762181; color: #FFFFFF">25%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_21 Not Important" style="background-color: #030312; color: #FFFFFF">4%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_21 Absolutely Necessary" style="background-color: #1E9B8A; color: #FFFFFF">39%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_21 Very Important" style="background-color: #27808E; color: #FFFFFF">31%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_21 Somewhat Important" style="background-color: #2F6B8E; color: #FFFFFF">25%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_21 Not Important" style="background-color: #470D60; color: #FFFFFF">4%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_22" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-ODSP]</td>
-<td class="gt_row gt_right" headers="English language training stub_1_22 Absolutely Necessary" style="background-color: #842681; color: #FFFFFF">28%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_22 Very Important" style="background-color: #A02F7F; color: #FFFFFF">33%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_22 Somewhat Important" style="background-color: #A02F7F; color: #FFFFFF">33%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_22 Not Important" style="background-color: #0E0B2A; color: #FFFFFF">7%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_22 Absolutely Necessary" style="background-color: #2C738E; color: #FFFFFF">28%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_22 Very Important" style="background-color: #25838E; color: #FFFFFF">33%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_22 Somewhat Important" style="background-color: #25838E; color: #FFFFFF">33%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_22 Not Important" style="background-color: #481D6F; color: #FFFFFF">7%</td>
 </tr>
 <tr class="even">
 <td id="stub_1_23" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-OW]</td>
-<td class="gt_row gt_right" headers="English language training stub_1_23 Absolutely Necessary" style="background-color: #E04C67; color: #FFFFFF">44%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_23 Very Important" style="background-color: #962C80; color: #FFFFFF">31%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_23 Somewhat Important" style="background-color: #57157E; color: #FFFFFF">20%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_23 Not Important" style="background-color: #08071E; color: #FFFFFF">5%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_23 Absolutely Necessary" style="background-color: #24AA83; color: #FFFFFF">44%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_23 Very Important" style="background-color: #277E8E; color: #FFFFFF">31%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_23 Somewhat Important" style="background-color: #39568C; color: #FFFFFF">20%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_23 Not Important" style="background-color: #481668; color: #FFFFFF">5%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_24" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[YTH]</td>
-<td class="gt_row gt_right" headers="English language training stub_1_24 Absolutely Necessary" style="background-color: #932B80; color: #FFFFFF">30%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_24 Very Important" style="background-color: #4C117A; color: #FFFFFF">18%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_24 Somewhat Important" style="background-color: #E95462; color: #FFFFFF">45%</td>
-<td class="gt_row gt_right" headers="English language training stub_1_24 Not Important" style="background-color: #0A0822; color: #FFFFFF">6%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_24 Absolutely Necessary" style="background-color: #287C8E; color: #FFFFFF">30%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_24 Very Important" style="background-color: #3C4F8A; color: #FFFFFF">18%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_24 Somewhat Important" style="background-color: #2AB07F; color: #FFFFFF">45%</td>
+<td class="gt_row gt_right" headers="English language training stub_1_24 Not Important" style="background-color: #48186A; color: #FFFFFF">6%</td>
 </tr>
 <tr class="even gt_group_heading_row">
 <td colspan="5" id="Essential or employability skills training" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Essential or employability skills training</td>
 </tr>
 <tr class="odd gt_row_group_first">
 <td id="stub_1_25" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[DIS]</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_25 Absolutely Necessary" style="background-color: #FEAF77; color: #000000">59%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_25 Very Important" style="background-color: #742081; color: #FFFFFF">25%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_25 Somewhat Important" style="background-color: #2F1163; color: #FFFFFF">14%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_25 Not Important" style="background-color: #010106; color: #FFFFFF">2%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_25 Absolutely Necessary" style="background-color: #8FD644; color: #000000">59%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_25 Very Important" style="background-color: #30698E; color: #FFFFFF">25%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_25 Somewhat Important" style="background-color: #443B84; color: #FFFFFF">14%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_25 Not Important" style="background-color: #450457; color: #FFFFFF">2%</td>
 </tr>
 <tr class="even">
 <td id="stub_1_26" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[FRA]</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_26 Absolutely Necessary" style="background-color: #E14D66; color: #FFFFFF">44%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_26 Very Important" style="background-color: #BE3A77; color: #FFFFFF">38%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_26 Somewhat Important" style="background-color: #4F127B; color: #FFFFFF">19%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_26 Absolutely Necessary" style="background-color: #25AB82; color: #FFFFFF">44%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_26 Very Important" style="background-color: #1F958B; color: #FFFFFF">38%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_26 Somewhat Important" style="background-color: #3B518B; color: #FFFFFF">19%</td>
 <td class="gt_row gt_right" headers="Essential or employability skills training stub_1_26 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_27" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[IND]</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_27 Absolutely Necessary" style="background-color: #FB8761; color: #000000">53%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_27 Very Important" style="background-color: #B93779; color: #FFFFFF">37%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_27 Somewhat Important" style="background-color: #1B1043; color: #FFFFFF">10%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_27 Absolutely Necessary" style="background-color: #5CC863; color: #000000">53%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_27 Very Important" style="background-color: #20928C; color: #FFFFFF">37%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_27 Somewhat Important" style="background-color: #472B7A; color: #FFFFFF">10%</td>
 <td class="gt_row gt_right" headers="Essential or employability skills training stub_1_27 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_28" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[NEW]</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_28 Absolutely Necessary" style="background-color: #FECC8F; color: #000000">63%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_28 Very Important" style="background-color: #912B81; color: #FFFFFF">30%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_28 Somewhat Important" style="background-color: #0C0927; color: #FFFFFF">7%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_28 Absolutely Necessary" style="background-color: #B8DE29; color: #000000">63%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_28 Very Important" style="background-color: #297B8E; color: #FFFFFF">30%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_28 Somewhat Important" style="background-color: #481B6D; color: #FFFFFF">7%</td>
 <td class="gt_row gt_right" headers="Essential or employability skills training stub_1_28 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_29" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[RAC]</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_29 Absolutely Necessary" style="background-color: #FC8A62; color: #000000">54%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_29 Very Important" style="background-color: #A1307E; color: #FFFFFF">33%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_29 Somewhat Important" style="background-color: #2E1162; color: #FFFFFF">13%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_29 Absolutely Necessary" style="background-color: #60CA60; color: #000000">54%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_29 Very Important" style="background-color: #25848E; color: #FFFFFF">33%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_29 Somewhat Important" style="background-color: #443B84; color: #FFFFFF">13%</td>
 <td class="gt_row gt_right" headers="Essential or employability skills training stub_1_29 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_30" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-ODSP]</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_30 Absolutely Necessary" style="background-color: #FCFCBE; color: #000000">70%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_30 Very Important" style="background-color: #59157E; color: #FFFFFF">20%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_30 Somewhat Important" style="background-color: #170F3C; color: #FFFFFF">9%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_30 Absolutely Necessary" style="background-color: #FCE724; color: #000000">70%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_30 Very Important" style="background-color: #38588C; color: #FFFFFF">20%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_30 Somewhat Important" style="background-color: #482777; color: #FFFFFF">9%</td>
 <td class="gt_row gt_right" headers="Essential or employability skills training stub_1_30 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_31" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-OW]</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_31 Absolutely Necessary" style="background-color: #FCF3B5; color: #000000">69%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_31 Very Important" style="background-color: #762181; color: #FFFFFF">25%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_31 Somewhat Important" style="background-color: #08071E; color: #FFFFFF">5%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_31 Absolutely Necessary" style="background-color: #F0E51C; color: #000000">69%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_31 Very Important" style="background-color: #2F6B8E; color: #FFFFFF">25%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_31 Somewhat Important" style="background-color: #481668; color: #FFFFFF">5%</td>
 <td class="gt_row gt_right" headers="Essential or employability skills training stub_1_31 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_32" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[YTH]</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_32 Absolutely Necessary" style="background-color: #FCFDBF; color: #000000">71%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_32 Very Important" style="background-color: #5A167E; color: #FFFFFF">21%</td>
-<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_32 Somewhat Important" style="background-color: #150E39; color: #FFFFFF">9%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_32 Absolutely Necessary" style="background-color: #FDE725; color: #000000">71%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_32 Very Important" style="background-color: #38598C; color: #FFFFFF">21%</td>
+<td class="gt_row gt_right" headers="Essential or employability skills training stub_1_32 Somewhat Important" style="background-color: #482576; color: #FFFFFF">9%</td>
 <td class="gt_row gt_right" headers="Essential or employability skills training stub_1_32 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd gt_group_heading_row">
@@ -7928,58 +8033,58 @@ tbody tr:last-child {
 </tr>
 <tr class="even gt_row_group_first">
 <td id="stub_1_33" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[DIS]</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_33 Absolutely Necessary" style="background-color: #FCECAE; color: #000000">68%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_33 Very Important" style="background-color: #4C117A; color: #FFFFFF">18%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_33 Somewhat Important" style="background-color: #2F1163; color: #FFFFFF">14%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_33 Absolutely Necessary" style="background-color: #E7E419; color: #000000">68%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_33 Very Important" style="background-color: #3C4F8A; color: #FFFFFF">18%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_33 Somewhat Important" style="background-color: #443B84; color: #FFFFFF">14%</td>
 <td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_33 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_34" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[FRA]</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_34 Absolutely Necessary" style="background-color: #982D80; color: #FFFFFF">31%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_34 Very Important" style="background-color: #4F127B; color: #FFFFFF">19%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_34 Somewhat Important" style="background-color: #E14D66; color: #FFFFFF">44%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_34 Not Important" style="background-color: #0B0924; color: #FFFFFF">6%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_34 Absolutely Necessary" style="background-color: #277F8E; color: #FFFFFF">31%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_34 Very Important" style="background-color: #3B518B; color: #FFFFFF">19%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_34 Somewhat Important" style="background-color: #25AB82; color: #FFFFFF">44%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_34 Not Important" style="background-color: #481A6C; color: #FFFFFF">6%</td>
 </tr>
 <tr class="even">
 <td id="stub_1_35" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[IND]</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_35 Absolutely Necessary" style="background-color: #FD9467; color: #000000">55%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_35 Very Important" style="background-color: #5B167E; color: #FFFFFF">21%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_35 Somewhat Important" style="background-color: #6E1E81; color: #FFFFFF">24%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_35 Absolutely Necessary" style="background-color: #6CCD5A; color: #000000">55%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_35 Very Important" style="background-color: #38598C; color: #FFFFFF">21%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_35 Somewhat Important" style="background-color: #31668E; color: #FFFFFF">24%</td>
 <td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_35 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_36" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[NEW]</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_36 Absolutely Necessary" style="background-color: #D1416F; color: #FFFFFF">41%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_36 Very Important" style="background-color: #A8327D; color: #FFFFFF">34%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_36 Somewhat Important" style="background-color: #6C1D81; color: #FFFFFF">24%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_36 Not Important" style="background-color: #000004; color: #FFFFFF">2%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_36 Absolutely Necessary" style="background-color: #1FA088; color: #FFFFFF">41%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_36 Very Important" style="background-color: #23888E; color: #FFFFFF">34%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_36 Somewhat Important" style="background-color: #32658E; color: #FFFFFF">24%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_36 Not Important" style="background-color: #440154; color: #FFFFFF">2%</td>
 </tr>
 <tr class="even">
 <td id="stub_1_37" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[RAC]</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_37 Absolutely Necessary" style="background-color: #C83E73; color: #FFFFFF">39%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_37 Very Important" style="background-color: #992D80; color: #FFFFFF">31%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_37 Somewhat Important" style="background-color: #762181; color: #FFFFFF">25%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_37 Not Important" style="background-color: #030312; color: #FFFFFF">4%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_37 Absolutely Necessary" style="background-color: #1E9B8A; color: #FFFFFF">39%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_37 Very Important" style="background-color: #27808E; color: #FFFFFF">31%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_37 Somewhat Important" style="background-color: #2F6B8E; color: #FFFFFF">25%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_37 Not Important" style="background-color: #470D60; color: #FFFFFF">4%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_38" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-ODSP]</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_38 Absolutely Necessary" style="background-color: #FDDD9F; color: #000000">66%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_38 Very Important" style="background-color: #671B80; color: #FFFFFF">23%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_38 Somewhat Important" style="background-color: #170F3C; color: #FFFFFF">9%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_38 Not Important" style="background-color: #010106; color: #FFFFFF">2%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_38 Absolutely Necessary" style="background-color: #D1E21B; color: #000000">66%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_38 Very Important" style="background-color: #34618D; color: #FFFFFF">23%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_38 Somewhat Important" style="background-color: #482777; color: #FFFFFF">9%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_38 Not Important" style="background-color: #450457; color: #FFFFFF">2%</td>
 </tr>
 <tr class="even">
 <td id="stub_1_39" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-OW]</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_39 Absolutely Necessary" style="background-color: #F46A5C; color: #FFFFFF">49%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_39 Very Important" style="background-color: #762181; color: #FFFFFF">25%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_39 Somewhat Important" style="background-color: #6B1D81; color: #FFFFFF">24%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_39 Not Important" style="background-color: #000004; color: #FFFFFF">2%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_39 Absolutely Necessary" style="background-color: #3EBC74; color: #000000">49%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_39 Very Important" style="background-color: #2F6B8E; color: #FFFFFF">25%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_39 Somewhat Important" style="background-color: #32648E; color: #FFFFFF">24%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_39 Not Important" style="background-color: #440155; color: #FFFFFF">2%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_40" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[YTH]</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_40 Absolutely Necessary" style="background-color: #F3655C; color: #FFFFFF">48%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_40 Very Important" style="background-color: #4C117A; color: #FFFFFF">18%</td>
-<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_40 Somewhat Important" style="background-color: #A5317E; color: #FFFFFF">33%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_40 Absolutely Necessary" style="background-color: #3ABA76; color: #000000">48%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_40 Very Important" style="background-color: #3C4F8A; color: #FFFFFF">18%</td>
+<td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_40 Somewhat Important" style="background-color: #24868E; color: #FFFFFF">33%</td>
 <td class="gt_row gt_right" headers="Support for disclosing needs and requesting accommodations stub_1_40 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even gt_group_heading_row">
@@ -7987,58 +8092,58 @@ tbody tr:last-child {
 </tr>
 <tr class="odd gt_row_group_first">
 <td id="stub_1_41" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[DIS]</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_41 Absolutely Necessary" style="background-color: #FC8F65; color: #000000">55%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_41 Very Important" style="background-color: #812581; color: #FFFFFF">27%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_41 Somewhat Important" style="background-color: #3E0F72; color: #FFFFFF">16%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_41 Not Important" style="background-color: #010106; color: #FFFFFF">2%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_41 Absolutely Necessary" style="background-color: #66CC5D; color: #000000">55%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_41 Very Important" style="background-color: #2C718E; color: #FFFFFF">27%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_41 Somewhat Important" style="background-color: #404688; color: #FFFFFF">16%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_41 Not Important" style="background-color: #450457; color: #FFFFFF">2%</td>
 </tr>
 <tr class="even">
 <td id="stub_1_42" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[FRA]</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_42 Absolutely Necessary" style="background-color: #E14D66; color: #FFFFFF">44%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_42 Very Important" style="background-color: #BE3A77; color: #FFFFFF">38%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_42 Somewhat Important" style="background-color: #4F127B; color: #FFFFFF">19%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_42 Absolutely Necessary" style="background-color: #25AB82; color: #FFFFFF">44%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_42 Very Important" style="background-color: #1F958B; color: #FFFFFF">38%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_42 Somewhat Important" style="background-color: #3B518B; color: #FFFFFF">19%</td>
 <td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_42 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_43" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[IND]</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_43 Absolutely Necessary" style="background-color: #FE9E6C; color: #000000">57%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_43 Very Important" style="background-color: #7D2382; color: #FFFFFF">27%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_43 Somewhat Important" style="background-color: #430F75; color: #FFFFFF">17%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_43 Absolutely Necessary" style="background-color: #78D152; color: #000000">57%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_43 Very Important" style="background-color: #2E6F8E; color: #FFFFFF">27%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_43 Somewhat Important" style="background-color: #3F4889; color: #FFFFFF">17%</td>
 <td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_43 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_44" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[NEW]</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_44 Absolutely Necessary" style="background-color: #FEB67C; color: #000000">60%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_44 Very Important" style="background-color: #9B2E7F; color: #FFFFFF">32%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_44 Somewhat Important" style="background-color: #140E35; color: #FFFFFF">8%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_44 Absolutely Necessary" style="background-color: #97D83E; color: #000000">60%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_44 Very Important" style="background-color: #26818E; color: #FFFFFF">32%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_44 Somewhat Important" style="background-color: #482475; color: #FFFFFF">8%</td>
 <td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_44 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_45" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[RAC]</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_45 Absolutely Necessary" style="background-color: #FA7D5E; color: #FFFFFF">52%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_45 Very Important" style="background-color: #B83779; color: #FFFFFF">37%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_45 Somewhat Important" style="background-color: #231151; color: #FFFFFF">12%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_45 Absolutely Necessary" style="background-color: #52C569; color: #000000">52%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_45 Very Important" style="background-color: #20928C; color: #FFFFFF">37%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_45 Somewhat Important" style="background-color: #46327E; color: #FFFFFF">12%</td>
 <td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_45 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_46" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-ODSP]</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_46 Absolutely Necessary" style="background-color: #FEBF84; color: #000000">61%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_46 Very Important" style="background-color: #812581; color: #FFFFFF">27%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_46 Somewhat Important" style="background-color: #221150; color: #FFFFFF">11%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_46 Absolutely Necessary" style="background-color: #A5DB36; color: #000000">61%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_46 Very Important" style="background-color: #2C718E; color: #FFFFFF">27%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_46 Somewhat Important" style="background-color: #46327E; color: #FFFFFF">11%</td>
 <td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_46 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_47" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-OW]</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_47 Absolutely Necessary" style="background-color: #FDEBAC; color: #000000">68%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_47 Very Important" style="background-color: #742081; color: #FFFFFF">25%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_47 Somewhat Important" style="background-color: #0E0B2B; color: #FFFFFF">7%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_47 Absolutely Necessary" style="background-color: #E5E419; color: #000000">68%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_47 Very Important" style="background-color: #30698E; color: #FFFFFF">25%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_47 Somewhat Important" style="background-color: #481D6F; color: #FFFFFF">7%</td>
 <td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_47 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_48" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[YTH]</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_48 Absolutely Necessary" style="background-color: #FED597; color: #000000">65%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_48 Very Important" style="background-color: #6B1D81; color: #FFFFFF">24%</td>
-<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_48 Somewhat Important" style="background-color: #241254; color: #FFFFFF">12%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_48 Absolutely Necessary" style="background-color: #C6E021; color: #000000">65%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_48 Very Important" style="background-color: #32648E; color: #FFFFFF">24%</td>
+<td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_48 Somewhat Important" style="background-color: #46337F; color: #FFFFFF">12%</td>
 <td class="gt_row gt_right" headers="Technical skills training (e.g. IT certification, forklift certification) stub_1_48 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd gt_group_heading_row">
@@ -8046,117 +8151,117 @@ tbody tr:last-child {
 </tr>
 <tr class="even gt_row_group_first">
 <td id="stub_1_49" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[DIS]</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_49 Absolutely Necessary" style="background-color: #FA7F5E; color: #000000">52%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_49 Very Important" style="background-color: #AA337D; color: #FFFFFF">34%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_49 Somewhat Important" style="background-color: #221150; color: #FFFFFF">11%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_49 Not Important" style="background-color: #010106; color: #FFFFFF">2%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_49 Absolutely Necessary" style="background-color: #54C568; color: #000000">52%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_49 Very Important" style="background-color: #23898E; color: #FFFFFF">34%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_49 Somewhat Important" style="background-color: #46327E; color: #FFFFFF">11%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_49 Not Important" style="background-color: #450457; color: #FFFFFF">2%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_50" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[FRA]</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_50 Absolutely Necessary" style="background-color: #4F127B; color: #FFFFFF">19%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_50 Very Important" style="background-color: #E14D66; color: #FFFFFF">44%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_50 Somewhat Important" style="background-color: #BE3A77; color: #FFFFFF">38%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_50 Absolutely Necessary" style="background-color: #3B518B; color: #FFFFFF">19%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_50 Very Important" style="background-color: #25AB82; color: #FFFFFF">44%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_50 Somewhat Important" style="background-color: #1F958B; color: #FFFFFF">38%</td>
 <td class="gt_row gt_right" headers="Transportation subsidies stub_1_50 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_51" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[IND]</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_51 Absolutely Necessary" style="background-color: #E65163; color: #FFFFFF">45%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_51 Very Important" style="background-color: #AC337C; color: #FFFFFF">34%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_51 Somewhat Important" style="background-color: #461078; color: #FFFFFF">17%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_51 Not Important" style="background-color: #02020E; color: #FFFFFF">3%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_51 Absolutely Necessary" style="background-color: #28AE80; color: #FFFFFF">45%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_51 Very Important" style="background-color: #238A8D; color: #FFFFFF">34%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_51 Somewhat Important" style="background-color: #3E4B8A; color: #FFFFFF">17%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_51 Not Important" style="background-color: #460A5D; color: #FFFFFF">3%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_52" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[NEW]</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_52 Absolutely Necessary" style="background-color: #B93779; color: #FFFFFF">37%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_52 Very Important" style="background-color: #B93779; color: #FFFFFF">37%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_52 Somewhat Important" style="background-color: #7D2382; color: #FFFFFF">27%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_52 Absolutely Necessary" style="background-color: #20928C; color: #FFFFFF">37%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_52 Very Important" style="background-color: #20928C; color: #FFFFFF">37%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_52 Somewhat Important" style="background-color: #2E6F8E; color: #FFFFFF">27%</td>
 <td class="gt_row gt_right" headers="Transportation subsidies stub_1_52 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_53" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[RAC]</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_53 Absolutely Necessary" style="background-color: #C83E73; color: #FFFFFF">39%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_53 Very Important" style="background-color: #D3436E; color: #FFFFFF">41%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_53 Somewhat Important" style="background-color: #491078; color: #FFFFFF">18%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_53 Not Important" style="background-color: #010005; color: #FFFFFF">2%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_53 Absolutely Necessary" style="background-color: #1E9B8A; color: #FFFFFF">39%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_53 Very Important" style="background-color: #1FA187; color: #FFFFFF">41%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_53 Somewhat Important" style="background-color: #3D4D8A; color: #FFFFFF">18%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_53 Not Important" style="background-color: #440256; color: #FFFFFF">2%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_54" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-ODSP]</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_54 Absolutely Necessary" style="background-color: #F7705C; color: #FFFFFF">50%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_54 Very Important" style="background-color: #B73779; color: #FFFFFF">36%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_54 Somewhat Important" style="background-color: #170F3C; color: #FFFFFF">9%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_54 Not Important" style="background-color: #060517; color: #FFFFFF">5%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_54 Absolutely Necessary" style="background-color: #44BF70; color: #000000">50%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_54 Very Important" style="background-color: #21918C; color: #FFFFFF">36%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_54 Somewhat Important" style="background-color: #482777; color: #FFFFFF">9%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_54 Not Important" style="background-color: #471164; color: #FFFFFF">5%</td>
 </tr>
 <tr class="even">
 <td id="stub_1_55" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-OW]</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_55 Absolutely Necessary" style="background-color: #F97C5D; color: #FFFFFF">52%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_55 Very Important" style="background-color: #BE3A77; color: #FFFFFF">38%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_55 Somewhat Important" style="background-color: #0E0B2B; color: #FFFFFF">7%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_55 Not Important" style="background-color: #03030F; color: #FFFFFF">4%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_55 Absolutely Necessary" style="background-color: #51C46A; color: #000000">52%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_55 Very Important" style="background-color: #1F958B; color: #FFFFFF">38%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_55 Somewhat Important" style="background-color: #481D6F; color: #FFFFFF">7%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_55 Not Important" style="background-color: #460B5E; color: #FFFFFF">4%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_56" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[YTH]</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_56 Absolutely Necessary" style="background-color: #EF5D5E; color: #FFFFFF">47%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_56 Very Important" style="background-color: #7C2382; color: #FFFFFF">26%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_56 Somewhat Important" style="background-color: #6B1D81; color: #FFFFFF">24%</td>
-<td class="gt_row gt_right" headers="Transportation subsidies stub_1_56 Not Important" style="background-color: #02020A; color: #FFFFFF">3%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_56 Absolutely Necessary" style="background-color: #32B67A; color: #FFFFFF">47%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_56 Very Important" style="background-color: #2E6F8E; color: #FFFFFF">26%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_56 Somewhat Important" style="background-color: #32648E; color: #FFFFFF">24%</td>
+<td class="gt_row gt_right" headers="Transportation subsidies stub_1_56 Not Important" style="background-color: #46085B; color: #FFFFFF">3%</td>
 </tr>
 <tr class="even gt_group_heading_row">
 <td colspan="5" id="Treatment for mental health and / or addictions" class="gt_group_heading" data-quarto-table-cell-role="th" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; font-weight: bold" scope="colgroup">Treatment for mental health and / or addictions</td>
 </tr>
 <tr class="odd gt_row_group_first">
 <td id="stub_1_57" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[DIS]</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_57 Absolutely Necessary" style="background-color: #FC8F65; color: #000000">55%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_57 Very Important" style="background-color: #9B2E7F; color: #FFFFFF">32%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_57 Somewhat Important" style="background-color: #221150; color: #FFFFFF">11%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_57 Not Important" style="background-color: #010106; color: #FFFFFF">2%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_57 Absolutely Necessary" style="background-color: #66CC5D; color: #000000">55%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_57 Very Important" style="background-color: #26818E; color: #FFFFFF">32%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_57 Somewhat Important" style="background-color: #46327E; color: #FFFFFF">11%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_57 Not Important" style="background-color: #450457; color: #FFFFFF">2%</td>
 </tr>
 <tr class="even">
 <td id="stub_1_58" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[FRA]</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_58 Absolutely Necessary" style="background-color: #29115A; color: #FFFFFF">12%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_58 Very Important" style="background-color: #982D80; color: #FFFFFF">31%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_58 Somewhat Important" style="background-color: #F7705C; color: #FFFFFF">50%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_58 Not Important" style="background-color: #0B0924; color: #FFFFFF">6%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_58 Absolutely Necessary" style="background-color: #453781; color: #FFFFFF">12%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_58 Very Important" style="background-color: #277F8E; color: #FFFFFF">31%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_58 Somewhat Important" style="background-color: #44BF70; color: #000000">50%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_58 Not Important" style="background-color: #481A6C; color: #FFFFFF">6%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_59" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[IND]</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_59 Absolutely Necessary" style="background-color: #FC8961; color: #000000">54%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_59 Very Important" style="background-color: #B3367A; color: #FFFFFF">36%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_59 Somewhat Important" style="background-color: #1F114A; color: #FFFFFF">11%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_59 Absolutely Necessary" style="background-color: #5EC962; color: #000000">54%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_59 Very Important" style="background-color: #218F8D; color: #FFFFFF">36%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_59 Somewhat Important" style="background-color: #472E7C; color: #FFFFFF">11%</td>
 <td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_59 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="even">
 <td id="stub_1_60" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[NEW]</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_60 Absolutely Necessary" style="background-color: #9E2F7F; color: #FFFFFF">32%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_60 Very Important" style="background-color: #942C80; color: #FFFFFF">31%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_60 Somewhat Important" style="background-color: #A8327D; color: #FFFFFF">34%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_60 Not Important" style="background-color: #02020E; color: #FFFFFF">3%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_60 Absolutely Necessary" style="background-color: #26828E; color: #FFFFFF">32%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_60 Very Important" style="background-color: #287D8E; color: #FFFFFF">31%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_60 Somewhat Important" style="background-color: #23888E; color: #FFFFFF">34%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_60 Not Important" style="background-color: #460A5D; color: #FFFFFF">3%</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_61" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[RAC]</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_61 Absolutely Necessary" style="background-color: #C13A76; color: #FFFFFF">38%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_61 Very Important" style="background-color: #9C2E7F; color: #FFFFFF">32%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_61 Somewhat Important" style="background-color: #792282; color: #FFFFFF">26%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_61 Not Important" style="background-color: #040413; color: #FFFFFF">4%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_61 Absolutely Necessary" style="background-color: #1F968B; color: #FFFFFF">38%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_61 Very Important" style="background-color: #26828E; color: #FFFFFF">32%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_61 Somewhat Important" style="background-color: #2E6D8E; color: #FFFFFF">26%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_61 Not Important" style="background-color: #470E61; color: #FFFFFF">4%</td>
 </tr>
 <tr class="even">
 <td id="stub_1_62" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-ODSP]</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_62 Absolutely Necessary" style="background-color: #FEAF77; color: #000000">59%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_62 Very Important" style="background-color: #8E2A81; color: #FFFFFF">30%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_62 Somewhat Important" style="background-color: #221150; color: #FFFFFF">11%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_62 Absolutely Necessary" style="background-color: #8FD644; color: #000000">59%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_62 Very Important" style="background-color: #29798E; color: #FFFFFF">30%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_62 Somewhat Important" style="background-color: #46327E; color: #FFFFFF">11%</td>
 <td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_62 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 <tr class="odd">
 <td id="stub_1_63" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[S-OW]</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_63 Absolutely Necessary" style="background-color: #FEA16E; color: #000000">57%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_63 Very Important" style="background-color: #742081; color: #FFFFFF">25%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_63 Somewhat Important" style="background-color: #3F0F72; color: #FFFFFF">16%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_63 Not Important" style="background-color: #000004; color: #FFFFFF">2%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_63 Absolutely Necessary" style="background-color: #7DD250; color: #000000">57%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_63 Very Important" style="background-color: #30698E; color: #FFFFFF">25%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_63 Somewhat Important" style="background-color: #404688; color: #FFFFFF">16%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_63 Not Important" style="background-color: #440155; color: #FFFFFF">2%</td>
 </tr>
 <tr class="even">
 <td id="stub_1_64" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">[YTH]</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_64 Absolutely Necessary" style="background-color: #FB8460; color: #000000">53%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_64 Very Important" style="background-color: #7C2382; color: #FFFFFF">26%</td>
-<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_64 Somewhat Important" style="background-color: #5A167E; color: #FFFFFF">21%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_64 Absolutely Necessary" style="background-color: #59C864; color: #000000">53%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_64 Very Important" style="background-color: #2E6F8E; color: #FFFFFF">26%</td>
+<td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_64 Somewhat Important" style="background-color: #38598C; color: #FFFFFF">21%</td>
 <td class="gt_row gt_right" headers="Treatment for mental health and / or addictions stub_1_64 Not Important" style="background-color: #808080; color: #FFFFFF">—</td>
 </tr>
 </tbody><tfoot class="gt_sourcenotes">
