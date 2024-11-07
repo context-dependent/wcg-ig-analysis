@@ -9,13 +9,52 @@
 - **Generalizability**: The findings presented here are based on non-random samples of clients, staff, stakeholders, and un/underemployed Ontarians. The results described here are therefore not, strictly speaking, generalizable to the broader populations from which those samples were drawn. 
 :::
 
+## Notable Demographics
+
+### Newcomer Overlap
+
+- NEW is by far the most represented IG in our client sample (@tbl-xp-client-es-ig-rep). 
+Of the other IGs, NEW is a minority of only two (IND and DIS). 
+Of the FRA or RAC clients we reached, roughly three quarters are also NEW. 
+More than half of FRA clients are both NEW and RAC. 
+- The upshot is that when we are describing the perspectives of FRA (76% NEW), RAC (74% NEW), YTH (61% NEW), and SA (53% NEW) clients, we are largely describing perspectives formed at the intersection of those identities with the newcomer experience (@fig-xp-client-es-intersections).
+- How this affects interpretation is contingent on the extent to which this pattern matches or doesn't match the co-incidence of identities in the broader population of ES clients, a question we can't answer with the data we have. 
+
+### Social Assistance Recipients
+
+- The group of social assistance recipients we reached through both the client and panel surveys reported surprisingly high employment rates and annual incomes (@tbl-xp-client-es-lfs, @tbl-xp-panel-lfs)
+- If these figures are accurate, they suggest that the SA Ontarians and ES clients we reached may not be representative of the broader population of SA recipients in Ontario, who are more likely to be unemployed and to have lower incomes.
+- Our characterizations of the perspectives they shared should be read with this in mind. 
+
+### Education
+
+- Compared to the general population of Ontarians, our sample is highly educated. 
+Whereas roughly a third of Ontario's working age population has a Bachelor's degree, 39% of the clients (@fig-xp-client-es-edu-ecdf) and 54% (!!!) of panel participants (@fig-xp-panel-educ-ecdf) we reached reported having at least a Bachelor's degree. 
+- Of note, however, and fitting with high incidence rates of NEW in both samples many of those credentials were obtained internationally. About half of university educated clients and panel participants reported having obtained their highest degree outside of Canada.
+
+
 ## Engaging Inclusion Groups
+
+Across IGs, our analysis suggests that the highest impact opportunities for increasing engagement lie in building a better reputation for effective service delivery by improving client satisfaction. 
+From here, we observe a split between one set of IGs (IND, DIS, and SA) whose members are virtually all aware of ES, and so aren't likely to be moved to engage by campaigns that simply raise awareness, and a second set (NEW, YTH, and RAC) whose members are less likely to be aware of ES, and so might be more effectively engaged by campaigns that raise awareness.
+
+### A _Mixed_ Reputation
 
 - Among respondents we reached, overall negative NPS, which tells us that word-of-mouth is likely a slight drag on overall engagement, and that meaningful improvements in client satisfaction could have corresponding positive effects on engagement. (@tbl-xp-client-nps, @tbl-xp-panel-es-nps)
 - Across the surveys, there is strong evidence that the reputation is worst among IND clients, and some evidence that YTH, DIS, and NEW clients have more negative perceptions than average.
 - In our sample, negative NPS is colocated with disproportionate experiences of gaps in communication, feelings of being misunderstood, and a lack of trust in the intentions of the caseworker (@tbl-xp-client-holistic-sum, @tbl-xp-panel-es-ovr)
-- While staff reported broad confidence in their readiness to serve a diverse array of clients, they indicated the most doubt about being equipped to serve DIS, IND, and SA (ODSP) clients (@tbl-xp-staff-challenge) 
-- In terms of opportunities for engagement, responses to the panel survey suggest that digital outreach strategies are likely to achieve the highest coverage across all groups, particularly on high traffic platforms like Youtube and Instagram (@tbl-xp-panel-outreach-digital)
+- While staff reported broad confidence in their readiness to serve a diverse array of clients, they indicated the most doubt about being equipped to serve DIS, IND, and SA (ODSP) clients (@tbl-xp-staff-challenge)
+
+### Opportunities to do More
+
+- Our analysis suggests convincing aware but unengaged Ontarians that ES can help them achieve their goals and clearly indicating how to access services would move some to engage with ES. Among panel respondents who reported awareness of but not engagement with ES, the most commonly cited reasons for not engaging were, in descending order of frequency (@tbl-xp-panel-es-opt-out): 
+  1. I don't believe ES will help me achieve my goals (particularly within DIS)
+  2. I am happy with my current employment situation (particularly within SA)
+  3. I don't know how to access ES (particularly within IND and NEW)
+- If we believe that ES has a reputation problem across IGs, it follows that service delivery improvements that increase client clarity, trust, and satisfaction would result in increased engagement across all groups, but particularly among those who are already aware of ES but not engaged.
+- Responses to the panel survey suggest that marketing would reach the most IG members on high-traffic digital platforms like Youtube and Instagram (@tbl-xp-panel-outreach-digital), 
+though some physical locations like doctor's offices and libraries remain potentially useful (@tbl-xp-panel-outreach-physical)
+
 
 ## Serving Inclusion Groups
 
