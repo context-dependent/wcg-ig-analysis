@@ -1,5 +1,5 @@
 z_path <- function(...) {
-  file.path("Z:/WCG Inclusion Group Research", ...)
+  file.path("//192.168.19.100/Encrypted/WCG Inclusion Group Research", ...)
 }
 
 find_cache_file <- function(obj_id, date = "latest", extension = ".rds") {

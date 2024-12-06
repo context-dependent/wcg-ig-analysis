@@ -11,22 +11,35 @@
 
 ## Notable Demographics
 
-### Newcomer Overlap
+### Prevalence of Newcomers
+
+**Newcomers are a key demographic for ES in Toronto.**
+
+Compared to the population of Toronto, Newcomers (NEW) are over-represented among the clients we reached, both in the samples as a whole and across all other IGs save IND and DIS. Totals _and_ IG-specific findings should be read with this in mind, and while our sampling design doesn't allow us to make general claims about the extent of that over-representation in the broader population of ES clients, the directional finding _that_ NEW are over-represented in the population of ES clients is uncontroversial within the WCG team or the SPO staff we have consulted. 
 
 - NEW is by far the most represented IG in our client sample (@tbl-xp-client-es-ig-rep). 
 Of the other IGs, NEW is a minority of only two (IND and DIS). 
 Of the FRA or RAC clients we reached, roughly three quarters are also NEW. 
 More than half of FRA clients are both NEW and RAC. 
+- As of the 2021 Census, roughly half of Toronto's population weren't born in Canada, though only 7% of Toronto's population fit our definition of NEW---much lower than our client sample (62%) and our panel sample (45%).
 - The upshot is that when we are describing the perspectives of FRA (76% NEW), RAC (74% NEW), YTH (61% NEW), and SA (53% NEW) clients, we are largely describing perspectives formed at the intersection of those identities with the newcomer experience (@fig-xp-client-es-intersections).
-- How this affects interpretation is contingent on the extent to which this pattern matches or doesn't match the co-incidence of identities in the broader population of ES clients, a question we can't answer with the data we have. 
+- Anecdotal evidence from the WCG team and SPO staff supports the conclusion that NEW are in fact over-represented among ES clients in Toronto, so we are confident in the direction of this finding, if not in the specific magnitude of their over-representation.
 
 ### Social Assistance Recipients
 
-- The group of social assistance recipients we reached through both the client and panel surveys reported surprisingly high employment rates and annual incomes (@tbl-xp-client-es-lfs, @tbl-xp-panel-lfs)
+**S-OW and S-ODSP ES clients are closer to the labour market than expected**
+
+We observe surprisingly high rates of employment, and surprisingly high annualized earnings among both S-OW, and S-ODSP clients we reached. While this is likely driven at least in part by sample design and data quality issues, it may be the case that ES in Toronto isn't reaching the members of these groups who are most distant from the labour market. 
+
+- The group of social assistance recipients we reached reported surprisingly high employment rates in both the client survey (S-OW: 70%, S-ODSP: 85%) and panel survey (S-OW: 42%, S-ODSP: 40%) and average annualized employment earnings (@tbl-xp-client-es-lfs, @tbl-xp-panel-lfs)
+- Compared to the average employed respondent, employed members of the SA group are much more likely to be employed in casual work, suggesting that while they may be employed, their jobs are relatively precarious(@tbl-xp-client-es-job-precarity, @tbl-xp-panel-job-precarity)
 - If these figures are accurate, they suggest that the SA Ontarians and ES clients we reached may not be representative of the broader population of SA recipients in Ontario, who are more likely to be unemployed and to have lower incomes.
-- Our characterizations of the perspectives they shared should be read with this in mind. 
+- In spite of potential data quality issues, it is plausible that SA recipients who engage with ES may, as a subgroup of SA clients overall, be closer to the labour market than the broader population of SA recipients. If this is the case, it would suggest that ES isn't reaching the SA recipients most distant from the labour market. 
+- This aligns with anecdotal reports from the WCG team, who have highlighted the challenges of engaging with "stream C" clients in general.
 
 ### Education
+
+**The ES clients we reached are highly educated, though many attained their credentials outside of Canada**
 
 - Compared to the general population of Ontarians, our sample is highly educated. 
 Whereas roughly a third of Ontario's working age population has a Bachelor's degree, 39% of the clients (@fig-xp-client-es-edu-ecdf) and 54% (!!!) of panel participants (@fig-xp-panel-educ-ecdf) we reached reported having at least a Bachelor's degree. 
@@ -40,12 +53,14 @@ From here, we observe a split between one set of IGs (IND, DIS, and SA) whose me
 
 ### A _Mixed_ Reputation
 
-- Among respondents we reached, overall negative NPS, which tells us that word-of-mouth is likely a slight drag on overall engagement, and that meaningful improvements in client satisfaction could have corresponding positive effects on engagement. (@tbl-xp-client-nps, @tbl-xp-panel-es-nps)
-- Across the surveys, there is strong evidence that the reputation is worst among IND clients, and some evidence that YTH, DIS, and NEW clients have more negative perceptions than average.
-- In our sample, negative NPS is colocated with disproportionate experiences of gaps in communication, feelings of being misunderstood, and a lack of trust in the intentions of the caseworker (@tbl-xp-client-holistic-sum, @tbl-xp-panel-es-ovr)
-- While staff reported broad confidence in their readiness to serve a diverse array of clients, they indicated the most doubt about being equipped to serve DIS, IND, and SA (ODSP) clients (@tbl-xp-staff-challenge)
+**The reputation of ES in Toronto is likely harming engagement more than it is helping**
+
+- NPS is negative among clients we reached for the panel survey (-14) and client survey (-10), which tells us that word-of-mouth is likely a slight drag on overall engagement, and that meaningful improvements in client satisfaction could have corresponding positive effects on engagement. (@tbl-xp-client-nps, @tbl-xp-panel-es-nps)
+- While staff reported broad confidence in their readiness to serve a diverse array of clients, they indicated the most doubt about being equipped to serve DIS, IND, and S-ODSP clients (@tbl-xp-staff-challenge)
 
 ### Opportunities to do More
+
+**ES can reach more Torontonians by improving service quality and raising awareness among NEW, YTH, and RAC**
 
 - Our analysis suggests convincing aware but unengaged Ontarians that ES can help them achieve their goals and clearly indicating how to access services would move some to engage with ES. Among panel respondents who reported awareness of but not engagement with ES, the most commonly cited reasons for not engaging were, in descending order of frequency (@tbl-xp-panel-es-opt-out): 
   1. I don't believe ES will help me achieve my goals (particularly within DIS)
@@ -61,7 +76,21 @@ though some physical locations like doctor's offices and libraries remain potent
 According to the staff and stakeholders we reached, ES clients from across the inclusion group spectrum share many labour market barriers, success factors, and necessary social supports in common. 
 Staff emphasized a similar distribution of key challenges they experience when serving clients from different inclusion groups. There are, however, some key differences that are worth noting. 
 
+### Communication and Trust
+
+**Communication, trust, and understanding are key challenges for ES clients, particularly for IND clients**
+
+- Both client and panel surveys provide strong evidence that the reputation is worst among IND clients. Among respondents to the panel survey, IND clients have the lowest NPS (-69), with 69% of respondents identified as detractors, and none identified as promoters. 
+- In the panel survey, IND respondents reported disproportionate experiences of gaps in communication, feelings of being misunderstood, and a lack of trust in the intentions of the caseworker. They responded "Always" or "Often" less often than average when asked to recall how often they felt each of the following during their ES journeys (@tbl-xp-panel-es-ovr):
+  + When I ask questions, I get satisfactory answers quickly: 38% vs 56%
+  + I have confidence that my caseworker will support me to get a job: 44% vs 52%
+  + My caseworker is encouraging and motivational: 38% vs 58% 
+- Results of the client and panel survey disagree about the perspective of S-ODSP and S-OW clients, with the client survey suggesting that they are among the least satisfied groups (S-OW: -20, S-ODSP: -38), but the panel survey suggesting that they are among the most satisfied groups (S-OW: 8, S-ODSP: 12). 
+- In the panel survey, S-OW and S-ODSP clients reported understanding, being understood by, and trusting the system more than average, while the inverse is true in the client survey. 
+
 ### Challenges
+
+**Working with S-OW and IND clients, staff find it most challenging to maintain engagement and support completion. For all other groups, connecting clients with employment opportunities is the most challenging aspect of their work.**
 
 @tbl-xp-staff-challenge
 
@@ -69,6 +98,7 @@ Staff emphasized a similar distribution of key challenges they experience when s
 - I want to zoom in on the reported difficulty of maintaining engagement with IND clients, as it is colocated with the lowest (most negative) client NPS scores in our sample, and with the highest rates of distrust and misunderstanding. 
 
 ### Barriers 
+
 @tbl-xp-stakeholder-barriers, @tbl-xp-staff-barriers
 
 - According to the staff and stakeholders we reached, IGs share a similar distribution of the barriers about which we inquired with the exception of FRA (who staff and stakeholders seemingly tend to percieve as less barriered than the other groups) 
@@ -78,6 +108,7 @@ Staff emphasized a similar distribution of key challenges they experience when s
 - Across all groups, staff flagged missing employability skills as a high-impact barrier more frequently flagged missing technical skills
 
 ### Success Factors 
+
 @tbl-xp-stakeholder-job-factors, @tbl-xp-staff-job-factors
 
 - Employer training and skills development opportunities were most frequently flagged as critical across all groups

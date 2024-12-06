@@ -31,6 +31,7 @@ d_long_raw <- d |>
         ig = stringr::str_extract(inclusion_group_label, "\\[.*\\]")
     )
 
+
 d_long <- d_long_raw |>
     filter(in_ig)
 ```
@@ -189,6 +190,23 @@ tbl_educ |>
         labels = scales::percent_format(accuracy = 1),
         limits = c(0, 1),
         expand = c(0, 0)
+    )
+
+tbl_educ |>
+    filter(inclusion_group_label |> str_detect("[Z]")) |> 
+    ggplot(aes(ecdf, educ_max, fill = educ_max_domestic)) +
+    geom_col(position = "stack") +
+    scale_fill_blueprint(discrete = TRUE, type = "bipolar", option = "blue_green") +
+    theme_blueprint(base_size = 12, grid = "Xx") +
+    scale_x_continuous(
+        labels = scales::percent_format(accuracy = 1),
+        limits = c(0, 1),
+        expand = c(0, 0)
+    ) + 
+    labs(
+        x = "% of respondents with at least...",
+        y = "Level of education", 
+        fill = "Provenance" 
     )
 ```
 

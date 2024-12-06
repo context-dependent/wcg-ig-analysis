@@ -1,12 +1,5 @@
 # Client Survey
 
-:::{.callout-note}
-## #TODO
-
-- Add condensed summarise of satisfaction / reflection indicators
-- Experiment with dimensionality reduction techniques to distill variatoin in satisfaction / reflection indicators
-:::
-
 ```{r xp-client-setup}
 #| warn: false
 #| message: false
@@ -703,7 +696,7 @@ t_job_sat |>
 ```{r}
 #| label: tbl-xp-client-pathways
 #| tbl-cap: "Client Progress in Employment Services"
-tbl_pathways <- d_long |>
+d_pathways <- d_long |>
     pivot_longer(
         matches("reached$"),
         names_pattern = "(.*)_reached$",
@@ -722,25 +715,105 @@ tbl_pathways <- d_long |>
     ) |>
     arrange(
         pathway_stage
-    ) |>
-    group_by(inclusion_group, pathway_stage) |>
+    )
+
+tbl_pathways <- d_pathways |>
+    group_by(inclusion_group = ig_short, pathway_stage) |>
     summarize(
-        p = mean(reached, na.rm = TRUE)
-    ) |>
-    mutate(
-        inclusion_group = unlist(labs[inclusion_group])
+        p = mean(reached, na.rm = TRUE), 
+        .groups = "drop"
     )
 
 
 tbl_pathways |>
     pivot_wider(names_from = pathway_stage, values_from = p) |>
-    arrange(inclusion_group) |>
-    reactable(
-        defaultColDef = colDef(
-            format = colFormat(percent = T, digits = 0)
-        )
-    )
+    gt() |> 
+    gtExtras::gt_theme_538() |>
+    fmt_percent(columns = c(-inclusion_group), decimals = 0)
 
+```
+
+
+### Attrition Among Past Clients
+
+@tbl-xp-client-pathways-past shows the proportion of _past_ employment services clients who reached each stage in the employment services pathway.
+
+```{r}
+#| label: tbl-xp-client-pathways-past
+#| tbl-cap: "Past Client Progress in Employment Services"
+
+tbl_pathways_past <- d_pathways |>
+    filter(eng_received_es |> str_detect("I have never", negate = TRUE)) |>
+    mutate(past_present_client = case_when(
+        eng_received_es == "I have received employment services in the past" ~ "Past Client",
+        TRUE ~ "Present Client"
+    )) |> 
+    group_by(past_present_client, inclusion_group = ig_short, pathway_stage) |>
+    summarize(
+        p = mean(reached, na.rm = TRUE), 
+        .groups = "drop"
+    ) |> 
+    group_by(past_present_client)
+
+
+tbl_pathways_past |>
+    pivot_wider(names_from = pathway_stage, values_from = p) |>
+    gt() |> 
+    gtExtras::gt_theme_538() |>
+    fmt_percent(columns = c(-inclusion_group), decimals = 0)
+
+```
+
+@tbl-xp-client-attrition shows the percentage of respondents who reached a given stage in the employment services pathway but did not reach the next stage.
+
+```{r}
+#| label: tbl-xp-client-attrition
+
+tbl_attrit <- d_pathways |> 
+    filter(eng_received_es |> str_detect("I have received")) |> 
+    group_by(inclusion_group = ig_short, pathway_stage) |> 
+    summarize(p = mean(reached, na.rm = TRUE)) |> 
+    mutate(
+        eng_x_conversion = p / first(p), 
+        attrition = 1 - p / lag(p, default = first(p))
+    ) |> 
+    ungroup()
+
+tbl_attrit |> 
+    pivot_wider(
+        names_from = pathway_stage, 
+        values_from = eng_x_conversion, 
+        id_cols = inclusion_group
+    ) |>
+    select(inclusion_group, Conversion = start) |> 
+    mutate(Attrition = 1 - Conversion) |>  
+    gt() |> 
+    gtExtras::gt_theme_538() |>
+    tab_spanner(
+        label = "Engage -> Start", 
+        columns = c("Conversion", "Attrition")
+    ) |> 
+    fmt_percent(columns = c(-inclusion_group), decimals = 0) |> 
+    gt::data_color(
+        columns = c(-inclusion_group),
+        palette = "PRGn",
+        domain = c(.05, .95)
+    )
+    
+tbl_attrit |> 
+    pivot_wider(
+        names_from = pathway_stage, 
+        values_from = attrition, 
+        id_cols = inclusion_group
+    ) |> 
+    gt() |> 
+    gtExtras::gt_theme_538() |>
+    fmt_percent(columns = c(-inclusion_group), decimals = 0) |> 
+    gt::data_color(
+        columns = c(-inclusion_group),
+        palette = "RdBu",
+        domain = range(tbl_attrit$attrition)
+    )
 ```
 
 ### Overall Satisfaction
@@ -862,7 +935,7 @@ tbl_holistic_sum <- d_long |>
         lab
     ) |>
     summarize(
-        p = mean(val %in% c("Always")),
+        p = mean(val %in% c("Always", "Often")),
         .groups = "drop_last"
     )
 
@@ -879,13 +952,11 @@ tbl_holistic_sum |>
         style = gt::cell_text(weight = "bold"),
         locations = gt::cells_row_groups(groups = everything())
     ) |>
-    gtExtras::gt_color_box(
-        columns = c(-lab),
-        domain = c(0, .5),
-        scale = 100,
-        suffix = "%",
-        palette = c("#0000FF", "#f2f2f2", "#ff4500")
-    )
+    gt::data_color(
+        palette = "RdBu",
+        domain = range(tbl_holistic_sum$p)
+    ) |> 
+    gt::fmt_percent(decimals = 0)
 ```
 
 @tbl-xp-client-holistic shows the full distribution of responses to holistic reflection questions within each inclusion group.
@@ -1045,6 +1116,23 @@ tbl_explore |>
 ```
 
 ### Reflections on Making Progress
+
+@tbl-xp-client-progress-sum reports net agreement with a set of statements about the experience of working towards the goals laid out for them by their employment services caseworker. 
+
+```{r}
+#| label: tbl-xp-client-progress-sum
+#| tbl-cap: "Client Reflections on Making Progress (Net Agreement)"
+
+t_prog_sum <- d_long |> 
+    filter(progress_reached) |> 
+    pivot_longer(matches("^progress_reflections_\\d"), names_to = "var", values_to = "val") |>
+    group_by(ig = ig_short, var) |> 
+    summarize(
+        net_agree = mean(as.integer(val) < 3, na.rm = TRUE) - mean(as.integer(val) > 3, na.rm = TRUE)
+    )
+
+t_prog_sum
+```
 
 @tbl-xp-client-progress summarizes the distribution of responses to questions about respondent experiences of codesigning and making progress in their plans for employment. 
 These figures echo the trends observed above: newcomers, youth, and Indigenous clients disproprotionately feel that the employment services system does not communicate with them effectively, nor does it understand the goals and needs they express.

@@ -81,7 +81,8 @@ client_demos <- function(dc) {
         TRUE ~ TRUE
       ),
       ig_indigenous = igs_indigenous == "Yes",
-      ig_social_assistance = demo_benefits_now_ow | demo_benefits_now_odsp
+      ig_sa_ow = demo_benefits_now_ow,
+      ig_sa_odsp = demo_benefits_now_odsp
     ) |>
     dplyr::rowwise() |>
     dplyr::mutate(
@@ -113,7 +114,8 @@ client_demos <- function(dc) {
     ig_francophone = "[FRA] Francophone",
     ig_indigenous = "[IND] Indigenous",
     ig_racialized = "[RAC] Racialized",
-    ig_social_assistance = "[SA] Receiving Social Assistance",
+    ig_sa_ow = "[S-OW] Ontario Works",
+    ig_sa_odsp = "[S-ODSP] ODSP",
     ig_total = "[Z] Total"
   )
 
@@ -306,7 +308,8 @@ panel_demos <- function(d) {
           ~ .x |> stringr::str_detect("^NO TO", negate = TRUE)
       ),
       ig_indigenous = demo_race_indigenous,
-      ig_social_assistance = benefits_ow_now | benefits_odsp_now,
+      ig_sa_ow = benefits_ow_now,
+      ig_sa_odsp = benefits_odsp_now,
       ig_francophone = FALSE,
       ig_total = TRUE
   )
@@ -318,7 +321,8 @@ panel_demos <- function(d) {
       ig_francophone = "[FRA] Francophone",
       ig_indigenous = "[IND] Indigenous",
       ig_racialized = "[RAC] Racialized",
-      ig_social_assistance = "[SA] Receiving Social Assistance",
+      ig_sa_ow = "[S-OW] Ontario Works",
+      ig_sa_odsp = "[S-ODSP] ODSP",
       ig_total = "[Z] Total"
   )
 

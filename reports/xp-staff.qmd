@@ -142,9 +142,9 @@ d |>
     summarize(n = n(), .groups = "drop_last") |>
     mutate(p = n / sum(n)) |>
     select(-n) |>
-    group_by(ig_short) |>
-    arrange(ig_short, desc(p)) |>
+    pivot_wider(names_from = ig_short, values_from = p) |> 
     gt(row_group_as_column = TRUE) |>
+    cols_align(columns = 1, align = "left") |>
     gt_theme_538() |>
     tab_header(
         title = "Based on your experiences working with [X], which aspect of your role do you find the most challenging?"
